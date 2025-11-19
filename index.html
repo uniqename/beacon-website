@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beacon of New Beginnings - Supporting Survivors with Hope and Care v2.0</title>
+    <meta name="description" content="Beacon of New Beginnings provides safety, healing, and empowerment to survivors of abuse and homelessness in Ghana through shelter, counseling, legal support, and livelihood programs.">
+    <meta name="keywords" content="domestic violence, abuse survivors, homeless support, Ghana NGO, women's shelter, legal aid, counseling services">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://beaconnewbeginnings.org">
+    <meta property="og:title" content="Beacon of New Beginnings - Supporting Survivors in Ghana">
+    <meta property="og:description" content="Providing safety, healing, and empowerment to survivors of abuse and homelessness">
+    <meta property="og:image" content="https://beaconnewbeginnings.org/images/logo.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://beaconnewbeginnings.org">
+    <meta property="twitter:title" content="Beacon of New Beginnings - Supporting Survivors in Ghana">
+    <meta property="twitter:description" content="Providing safety, healing, and empowerment to survivors of abuse and homelessness">
+    <meta property="twitter:image" content="https://beaconnewbeginnings.org/images/logo.png">
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏮</text></svg>">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            scroll-behavior: smooth;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #2E8B57, #4169E1);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-img {
+            width: 45px;
+            height: 45px;
+            border-radius: 8px;
+            object-fit: contain;
+            background: white;
+            padding: 5px;
+            opacity: 0.95;
+        }
+        
+        .logo-fallback {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #2E8B57;
+        }
+        
+        .brand-text h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .tagline {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+            cursor: pointer;
+        }
+        
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+        
+        .emergency-button {
+            background: #dc3545;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .emergency-button:hover {
+            background: #c82333;
+        }
+        
+        /* Mobile menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #2E8B57, #4169E1);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .btn-primary {
+            background: white;
+            color: #2E8B57;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        /* Services Section */
+        .services {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #2E8B57;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #4169E1;
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #2E8B57;
+        }
+        
+        .service-card.featured {
+            border: 2px solid #2E8B57;
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+        }
+        
+        .service-features {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+        
+        .feature-tag {
+            background: #2E8B57;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        /* Get Help Section */
+        .get-help {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .help-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .help-card {
+            background: linear-gradient(135deg, #2E8B57, #3CB371);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .help-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .help-card.emergency {
+            background: linear-gradient(135deg, #dc3545, #4169E1);
+        }
+        
+        .help-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .help-card .phone {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+        
+        .help-card a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        /* Contact Form */
+        .contact-form {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #2E8B57;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2E8B57;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .submit-btn {
+            background: #2E8B57;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            background: #1e5f3f;
+        }
+        
+        /* Footer */
+        footer {
+            background: #2E8B57;
+            color: white;
+            padding: 50px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #FFA500;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section ul li a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .footer-section ul li a:hover {
+            opacity: 1;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            opacity: 0.8;
+        }
+        
+        /* Social Media Icons */
+        .social-icons a:hover {
+            color: #FFA500 !important;
+            transform: translateY(-2px);
+        }
+        
+        /* Success Message */
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #2E8B57;
+                padding: 1rem;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .form-container {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo-section">
+                <div class="logo-container">
+                    <img src="images/logo.png" alt="Beacon of New Beginnings Logo" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="logo-fallback" style="display: none;">🏮</div>
+                </div>
+                <div class="brand-text">
+                    <h1>Beacon of New Beginnings</h1>
+                    <div class="tagline">Walking the path from pain to power, hand in hand</div>
+                </div>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" onclick="scrollToSection('home')">Home</a></li>
+                <li><a href="#services" onclick="scrollToSection('services')">Services</a></li>
+                <li><a href="#help" onclick="scrollToSection('help')">Get Help</a></li>
+                <li><a href="#contact" onclick="scrollToSection('contact')">Contact</a></li>
+            </ul>
+            <a href="tel:+233501234567" class="emergency-button">🚨 Crisis Line</a>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Providing Safety, Healing, and Empowerment</h1>
+            <p>Supporting survivors of abuse and homelessness in Ghana through comprehensive care, legal advocacy, and sustainable empowerment programs.</p>
+            <div class="cta-buttons">
+                <a href="#help" class="btn btn-primary" onclick="scrollToSection('help')">
+                    <i class="fas fa-hands-helping"></i>
+                    Get Help Now
+                </a>
+                <a href="#services" class="btn btn-secondary" onclick="scrollToSection('services')">
+                    <i class="fas fa-info-circle"></i>
+                    Learn More
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">BeaconGH Service Divisions</h2>
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <p style="font-size: 1.2rem; color: #666; max-width: 800px; margin: 0 auto;">
+                    🤖 <strong>AI-Powered Resource Matching</strong> - Our smart system prioritizes BeaconGH services first, ensuring you get the best possible support tailored to your specific needs.
+                </p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card featured">
+                    <div class="service-icon">🏠</div>
+                    <h3>BeaconGH Shelter Services</h3>
+                    <p>Launching comprehensive emergency and transitional housing programs with 24/7 support.</p>
+                    <div class="service-features">
+                        <span class="feature-tag">🚀 Coming Soon</span>
+                        <span class="feature-tag">📋 Planning Phase</span>
+                        <span class="feature-tag">🤝 Seeking Partners</span>
+                        <span class="feature-tag">💼 Hiring Soon</span>
+                    </div>
+                </div>
+                <div class="service-card featured">
+                    <div class="service-icon">⚖️</div>
+                    <h3>BeaconGH Legal Assistance</h3>
+                    <p>Building legal advocacy network and partnerships for comprehensive survivor support.</p>
+                    <div class="service-features">
+                        <span class="feature-tag">🚀 Coming Soon</span>
+                        <span class="feature-tag">👥 Building Network</span>
+                        <span class="feature-tag">⚖️ Legal Partnerships</span>
+                        <span class="feature-tag">💼 Hiring Soon</span>
+                    </div>
+                </div>
+                <div class="service-card featured">
+                    <div class="service-icon">💬</div>
+                    <h3>BeaconGH Counseling Services</h3>
+                    <p>Developing trauma-informed therapy programs and mental health support systems.</p>
+                    <div class="service-features">
+                        <span class="feature-tag">🚀 Coming Soon</span>
+                        <span class="feature-tag">🧠 Program Development</span>
+                        <span class="feature-tag">👩‍⚕️ Recruiting Therapists</span>
+                        <span class="feature-tag">💼 Hiring Soon</span>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">👥</div>
+                    <h3>BeaconGH Support Groups</h3>
+                    <p>Creating peer support networks and community healing initiatives.</p>
+                    <div class="service-features">
+                        <span class="feature-tag">🚀 Coming Soon</span>
+                        <span class="feature-tag">🌟 Community Building</span>
+                        <span class="feature-tag">💼 Volunteer Opportunities</span>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🏥</div>
+                    <h3>BeaconGH Healthcare Support</h3>
+                    <p>Establishing medical care coordination and health advocacy programs.</p>
+                    <div class="service-features">
+                        <span class="feature-tag">🚀 Coming Soon</span>
+                        <span class="feature-tag">🏥 Healthcare Partnerships</span>
+                        <span class="feature-tag">💼 Healthcare Coordinators</span>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💼</div>
+                    <h3>BeaconGH Job Training</h3>
+                    <p>Launching vocational skills and employment preparation programs.</p>
+                    <div class="service-features">
+                        <span class="feature-tag">🚀 Coming Soon</span>
+                        <span class="feature-tag">📚 Curriculum Development</span>
+                        <span class="feature-tag">💼 Training Coordinators</span>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎓</div>
+                    <h3>BeaconGH Education Assistance</h3>
+                    <p>Developing educational support and literacy programs for survivors and families.</p>
+                    <div class="service-features">
+                        <span class="feature-tag">🚀 Coming Soon</span>
+                        <span class="feature-tag">📖 Program Planning</span>
+                        <span class="feature-tag">💼 Education Coordinators</span>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💰</div>
+                    <h3>BeaconGH Financial Options</h3>
+                    <p>Creating financial literacy programs and emergency assistance funds.</p>
+                    <div class="service-features">
+                        <span class="feature-tag">🚀 Coming Soon</span>
+                        <span class="feature-tag">💡 Financial Planning</span>
+                        <span class="feature-tag">💼 Financial Advisors</span>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🍽️</div>
+                    <h3>BeaconGH Basic Needs</h3>
+                    <p>Establishing emergency food, clothing, and essential supplies distribution.</p>
+                    <div class="service-features">
+                        <span class="feature-tag">🚀 Coming Soon</span>
+                        <span class="feature-tag">📦 Supply Network</span>
+                        <span class="feature-tag">💼 Distribution Team</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- New Features Section -->
+            <div style="margin-top: 4rem; text-align: center;">
+                <div style="background: linear-gradient(135deg, #f8f9fa, #e9ecef); padding: 2rem; border-radius: 15px; margin-bottom: 2rem;">
+                    <h3 style="color: #2E8B57; margin-bottom: 1rem;">🚀 New App Features</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; max-width: 1000px; margin: 0 auto;">
+                        <div style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔐</div>
+                            <h4>Enhanced Login System</h4>
+                            <p>Multiple access options including anonymous and emergency access for complete privacy and safety.</p>
+                        </div>
+                        <div style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">💼</div>
+                            <h4>Job Opportunities Hub</h4>
+                            <p>Find volunteer and employment opportunities across all BeaconGH divisions with AI-powered matching.</p>
+                        </div>
+                        <div style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">💝</div>
+                            <h4>Targeted Donations</h4>
+                            <p>Support specific programs with secure, flexible donation options for maximum impact.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, #2E8B57, #4169E1); color: white; padding: 2rem; border-radius: 15px;">
+                    <h3 style="margin-bottom: 1rem;">📱 Download Our Updated App</h3>
+                    <p style="margin-bottom: 1.5rem;">Experience our new AI-powered features and comprehensive service divisions</p>
+                    <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                        <a href="#" style="background: white; color: #2E8B57; padding: 0.75rem 1.5rem; border-radius: 25px; text-decoration: none; font-weight: bold; display: inline-flex; align-items: center; gap: 0.5rem;">
+                            📱 Google Play Store
+                        </a>
+                        <a href="#" style="background: white; color: #2E8B57; padding: 0.75rem 1.5rem; border-radius: 25px; text-decoration: none; font-weight: bold; display: inline-flex; align-items: center; gap: 0.5rem;">
+                            🍎 App Store
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Get Help Section -->
+    <section id="help" class="get-help">
+        <div class="container">
+            <h2 class="section-title">Get Help Today</h2>
+            <p style="text-align: center; font-size: 1.2rem; color: #666; max-width: 600px; margin: 0 auto;">You are not alone. Help is available 24/7</p>
+            
+            <div class="help-grid">
+                <div class="help-card emergency">
+                    <h3>🚨 Emergency Situation</h3>
+                    <p>If you are in immediate danger:</p>
+                    <div class="phone">191</div>
+                    <p><a href="tel:191">Call Police Now</a></p>
+                </div>
+                <div class="help-card">
+                    <h3>📞 Crisis Hotline</h3>
+                    <p>24/7 crisis support and counseling</p>
+                    <div class="phone">+233 50 123 4567</div>
+                    <p><a href="tel:+233501234567">Call Now</a></p>
+                </div>
+                <div class="help-card">
+                    <h3>💬 Anonymous Support</h3>
+                    <p>Get help while protecting your privacy</p>
+                    <br>
+                    <a href="#contact" class="btn btn-primary" onclick="scrollToSection('contact')" style="background: white; color: #2E8B57; padding: 10px 20px; border-radius: 8px;">Submit Request</a>
+                </div>
+                <div class="help-card">
+                    <h3>🏠 Safe Shelter</h3>
+                    <p>Immediate safe accommodation available</p>
+                    <br>
+                    <p><strong>Call for immediate placement</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section id="contact" class="contact-form">
+        <div class="container">
+            <h2 class="section-title">Anonymous Support Request</h2>
+            <div class="form-container">
+                <div class="success-message" id="successMessage">
+                    <strong>Your request has been submitted successfully.</strong> We will respond as soon as possible while respecting your privacy.
+                </div>
+                
+                <form id="supportForm" onsubmit="submitForm(event)">
+                    <div class="form-group">
+                        <label for="helpType">Type of help needed:</label>
+                        <select id="helpType" name="helpType" required>
+                            <option value="">Select...</option>
+                            <option value="emergency">Emergency Assistance</option>
+                            <option value="shelter">Shelter & Accommodation</option>
+                            <option value="legal">Legal Support</option>
+                            <option value="counseling">Counseling & Therapy</option>
+                            <option value="job-training">Job Training & Education</option>
+                            <option value="healthcare">Healthcare Access</option>
+                            <option value="other">Other Support</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description">Describe your situation (optional):</label>
+                        <textarea id="description" name="description" placeholder="Share what you're comfortable sharing..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="location">General location (optional):</label>
+                        <input type="text" id="location" name="location" placeholder="e.g., Accra, Kumasi">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="urgency">Urgency level:</label>
+                        <select id="urgency" name="urgency" required>
+                            <option value="low">Low - Can wait a few days</option>
+                            <option value="medium" selected>Medium - Within a few days</option>
+                            <option value="high">High - As soon as possible</option>
+                            <option value="critical">Critical - Emergency</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contactMethod">How can we follow up? (optional):</label>
+                        <select id="contactMethod" name="contactMethod" onchange="toggleContactInfo()">
+                            <option value="">No contact needed</option>
+                            <option value="phone">Phone call</option>
+                            <option value="sms">Text message</option>
+                            <option value="email">Email</option>
+                            <option value="in-person">In-person meeting</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" id="contactInfoGroup" style="display: none;">
+                        <label for="contactInfo">Contact information:</label>
+                        <input type="text" id="contactInfo" name="contactInfo" placeholder="Phone number or email">
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Submit Anonymous Request</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Beacon of New Beginnings</h3>
+                    <p>Providing safety, healing, and empowerment to survivors of abuse and homelessness in Ghana.</p>
+                    <br>
+                    <p><strong>Office Hours:</strong><br>
+                    Monday - Friday: 8:00 AM - 6:00 PM<br>
+                    Crisis Line: 24/7</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#services" onclick="scrollToSection('services')">Our Services</a></li>
+                        <li><a href="#help" onclick="scrollToSection('help')">Get Help</a></li>
+                        <li><a href="#contact" onclick="scrollToSection('contact')">Contact Us</a></li>
+                        <li><a href="tel:+233501234567">Crisis Hotline</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="https://dovvsu.police.gov.gh" target="_blank">DOVVSU Ghana</a></li>
+                        <li><a href="https://wildafghana.org" target="_blank">WiLDAF Ghana</a></li>
+                        <li><a href="https://moh.gov.gh" target="_blank">Ministry of Health</a></li>
+                        <li><a href="tel:191">Emergency: 191</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact Information</h3>
+                    <ul>
+                        <li><strong>📍 Main Office:</strong><br>123 Hope Street, East Legon, Accra</li>
+                        <li><strong>📞 Crisis Line:</strong> <a href="tel:+233501234567">+233 50 123 4567</a></li>
+                        <li><strong>📧 Email:</strong> <a href="mailto:info@beaconnewbeginnings.org">info@beaconnewbeginnings.org</a></li>
+                    </ul>
+                    <div style="margin-top: 1.5rem;">
+                        <h4 style="color: #FFA500; margin-bottom: 0.5rem;">Follow Us</h4>
+                        <div class="social-icons" style="display: flex; gap: 1rem;">
+                            <a href="https://instagram.com/beaconghana" target="_blank" style="color: white; font-size: 1.5rem; transition: color 0.3s;" title="Follow us on Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://linkedin.com/company/beacon-of-new-beginnings-ghana" target="_blank" style="color: white; font-size: 1.5rem; transition: color 0.3s;" title="Connect on LinkedIn">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="https://twitter.com/beaconghana" target="_blank" style="color: white; font-size: 1.5rem; transition: color 0.3s;" title="Follow us on Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="https://facebook.com/beaconghana" target="_blank" style="color: white; font-size: 1.5rem; transition: color 0.3s;" title="Like us on Facebook">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Beacon of New Beginnings. All rights reserved.</p>
+                <p><strong>If you are in immediate danger, call 191 (Police) or 193 (Ambulance)</strong></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling function
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                const headerHeight = document.querySelector('header').offsetHeight;
+                const elementPosition = element.offsetTop - headerHeight;
+                
+                window.scrollTo({
+                    top: elementPosition,
+                    behavior: 'smooth'
+                });
+            }
+            
+            // Close mobile menu if open
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.remove('active');
+        }
+        
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+        
+        // Contact info toggle
+        function toggleContactInfo() {
+            const contactMethod = document.getElementById('contactMethod').value;
+            const contactInfoGroup = document.getElementById('contactInfoGroup');
+            
+            if (contactMethod && contactMethod !== '') {
+                contactInfoGroup.style.display = 'block';
+                document.getElementById('contactInfo').placeholder = 
+                    contactMethod === 'email' ? 'Your email address' : 
+                    contactMethod === 'phone' || contactMethod === 'sms' ? 'Your phone number' : 
+                    'Your preferred contact information';
+            } else {
+                contactInfoGroup.style.display = 'none';
+            }
+        }
+        
+        // Form submission
+        function submitForm(event) {
+            event.preventDefault();
+            
+            // Show success message
+            const successMessage = document.getElementById('successMessage');
+            successMessage.style.display = 'block';
+            
+            // Reset form
+            document.getElementById('supportForm').reset();
+            document.getElementById('contactInfoGroup').style.display = 'none';
+            
+            // Scroll to success message
+            successMessage.scrollIntoView({ behavior: 'smooth' });
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 5000);
+        }
+        
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(46, 139, 87, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, #2E8B57, #3CB371)';
+                header.style.backdropFilter = 'none';
+            }
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const navLinks = document.getElementById('navLinks');
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (!navLinks.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+        
+        // Keyboard accessibility - ESC key to close mobile menu
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const navLinks = document.getElementById('navLinks');
+                navLinks.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beacon of New Beginnings - Supporting Survivors with Hope and Care</title>
+    <meta name="description" content="Safe support for survivors of domestic violence, abuse, and homelessness in Ghana. Access emergency services, resources, and community support.">
+    <meta name="keywords" content="domestic violence support, Ghana NGO, survivor assistance, emergency services, safe shelter, legal aid">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://beaconnewbeginnings.org/">
+    <meta property="og:title" content="Beacon of New Beginnings - Walking the path from pain to power, hand in hand">
+    <meta property="og:description" content="Safe support for survivors of domestic violence, abuse, and homelessness in Ghana.">
+    <meta property="og:image" content="https://beaconnewbeginnings.org/assets/beacon-social.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://beaconnewbeginnings.org/">
+    <meta property="twitter:title" content="Beacon of New Beginnings - Supporting Survivors with Hope and Care">
+    <meta property="twitter:description" content="Safe support for survivors of domestic violence, abuse, and homelessness in Ghana.">
+    <meta property="twitter:image" content="https://beaconnewbeginnings.org/assets/beacon-social.png">
+    
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="apple-touch-icon" href="assets/beacon-icon-180.png">
+    
+    <style>
+        :root {
+            --primary-color: #10b981;
+            --primary-dark: #065f46;
+            --primary-light: #34d399;
+            --accent-color: #3b82f6;
+            --accent-light: #93c5fd;
+            --emergency-color: #D32F2F;
+            --success-color: #10b981;
+            --background-color: #f8fffe;
+            --surface-color: #FFFFFF;
+            --text-color: #2d3748;
+            --text-light: #6b7280;
+            --safe-blue: #3b82f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .brand-text h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        .tagline {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .emergency-button {
+            background: var(--emergency-color);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(211, 47, 47, 0.3);
+        }
+
+        .emergency-button:hover {
+            background: #B71C1C;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(211, 47, 47, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--safe-blue));
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 60px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        /* App Download Section */
+        .app-download {
+            background: var(--background-color);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .app-preview {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            margin-top: 50px;
+        }
+
+        .app-info {
+            flex: 1;
+            text-align: left;
+        }
+
+        .app-info h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .app-info p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: var(--text-light);
+        }
+
+        .download-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .download-btn {
+            background: var(--text-color);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .phone-mockup {
+            flex: 1;
+            max-width: 300px;
+            background: var(--text-color);
+            border-radius: 25px;
+            padding: 20px;
+            color: white;
+            text-align: center;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Safety Section */
+        .safety {
+            background: linear-gradient(135deg, var(--emergency-color), #E57373);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .safety h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        .emergency-contacts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .emergency-card {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .emergency-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .emergency-card .phone {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: white;
+            padding: 50px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            color: var(--accent-light);
+        }
+
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            opacity: 1;
+            color: var(--accent-light);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 30px;
+            text-align: center;
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .app-preview {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .app-info {
+                text-align: center;
+            }
+        }
+
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Focus styles for keyboard navigation */
+        .btn:focus,
+        .emergency-button:focus,
+        .download-btn:focus {
+            outline: 2px solid var(--accent-color);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <img src="assets/logo.png" alt="Beacon of New Beginnings Logo" class="logo-img" style="height: 60px; width: auto;">
+                    <div class="brand-text">
+                        <h1>Beacon of New Beginnings</h1>
+                        <div class="tagline">Walking the path from pain to power, hand in hand</div>
+                    </div>
+                </div>
+                <a href="tel:0800800800" class="emergency-button" aria-label="Call emergency hotline">
+                    🚨 Emergency: 0800-800-800
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2>Safe Support When You Need It Most</h2>
+            <p>A secure mobile app providing emergency services, resources, and community support for survivors of domestic violence, abuse, and homelessness in Ghana.</p>
+            <div class="cta-buttons">
+                <a href="#download" class="btn btn-primary">Download App</a>
+                <a href="#features" class="btn btn-outline">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">How We Help</h2>
+            <p class="section-subtitle">Comprehensive support designed with survivors' safety and dignity in mind</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🚨</div>
+                    <h3>Emergency Services</h3>
+                    <p>Instant access to emergency hotlines, location sharing with trusted contacts, and anonymous crisis support available 24/7.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🏠</div>
+                    <h3>Resource Directory</h3>
+                    <p>Find nearby shelters, legal aid, medical services, counseling, and employment assistance with real-time availability.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Community Support</h3>
+                    <p>Connect with moderated support groups, access educational resources, and share in healing journeys - all anonymously.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Privacy Protection</h3>
+                    <p>Use all features anonymously with encrypted data, quick exit options, and trauma-informed design for your safety.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📍</div>
+                    <h3>Location-Based Help</h3>
+                    <p>Find the closest resources, calculate distances, and get directions to safe spaces near you in Ghana.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💪</div>
+                    <h3>Empowerment Tools</h3>
+                    <p>Safety planning resources, financial independence guides, and success stories to inspire your journey.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="download" class="app-download">
+        <div class="container">
+            <h2 class="section-title">Get the App</h2>
+            <p class="section-subtitle">Available for iOS and Android - Download securely and start your journey to safety</p>
+            
+            <div class="app-preview">
+                <div class="app-info">
+                    <h3>Download Beacon of New Beginnings</h3>
+                    <p>The app is designed to be safe, private, and easy to use even in stressful situations. All features work anonymously, and your data is protected with industry-standard encryption.</p>
+                    <p><strong>Key Features:</strong></p>
+                    <ul style="margin: 20px 0; text-align: left;">
+                        <li>Anonymous access to all features</li>
+                        <li>Offline functionality for resources</li>
+                        <li>Quick exit and privacy modes</li>
+                        <li>Multi-language support</li>
+                        <li>Trauma-informed design</li>
+                    </ul>
+                    <div class="download-buttons">
+                        <a href="#" class="download-btn">📱 App Store</a>
+                        <a href="#" class="download-btn">🤖 Google Play</a>
+                        <a href="#beta" class="download-btn">🧪 Beta Test</a>
+                    </div>
+                </div>
+                <div class="phone-mockup">
+                    <h4>Beacon App Preview</h4>
+                    <div style="margin: 20px 0;">
+                        <div style="background: var(--primary-color); padding: 15px; border-radius: 8px; margin: 10px 0;">
+                            🚨 Emergency Services
+                        </div>
+                        <div style="background: var(--accent-color); padding: 15px; border-radius: 8px; margin: 10px 0;">
+                            🏠 Find Resources
+                        </div>
+                        <div style="background: var(--safe-blue); padding: 15px; border-radius: 8px; margin: 10px 0;">
+                            🤝 Community Support
+                        </div>
+                        <div style="background: var(--success-color); padding: 15px; border-radius: 8px; margin: 10px 0;">
+                            👤 Anonymous Mode
+                        </div>
+                    </div>
+                    <p style="font-size: 0.9rem; opacity: 0.8;">Safe • Secure • Private</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="safety">
+        <div class="container">
+            <h2>Emergency Contacts</h2>
+            <p>If you're in immediate danger, contact these services right away</p>
+            
+            <div class="emergency-contacts">
+                <div class="emergency-card">
+                    <h3>Ghana Emergency Services</h3>
+                    <div class="phone">999</div>
+                    <p>Police, Fire, Medical Emergency</p>
+                </div>
+                
+                <div class="emergency-card">
+                    <h3>Domestic Violence Hotline</h3>
+                    <div class="phone">0800-800-800</div>
+                    <p>24/7 Crisis Support</p>
+                </div>
+                
+                <div class="emergency-card">
+                    <h3>Beacon Support Line</h3>
+                    <div class="phone">+233-123-456-789</div>
+                    <p>Monday-Friday 8AM-6PM</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Beacon</h3>
+                    <p>Beacon of New Beginnings is a Ghanaian NGO dedicated to supporting survivors of domestic violence, abuse, and homelessness through comprehensive digital and community services.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <a href="#safety-planning">Safety Planning</a>
+                    <a href="#legal-aid">Legal Aid Directory</a>
+                    <a href="#shelter-network">Shelter Network</a>
+                    <a href="#counseling">Counseling Services</a>
+                    <a href="#job-training">Job Training Programs</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <a href="#contact">Contact Us</a>
+                    <a href="#privacy">Privacy Policy</a>
+                    <a href="#terms">Terms of Service</a>
+                    <a href="#feedback">Feedback</a>
+                    <a href="#volunteer">Volunteer</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <a href="mailto:support@beaconnewbeginnings.org">support@beaconnewbeginnings.org</a>
+                    <a href="tel:+233123456789">+233-123-456-789</a>
+                    <p>Accra, Ghana</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Beacon of New Beginnings. All rights reserved. | Your safety matters. Your story matters. You matter.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple privacy-focused analytics (no tracking)
+        document.addEventListener('DOMContentLoaded', function() {
+            // Log page view (local only)
+            const pageView = {
+                timestamp: new Date().toISOString(),
+                page: 'home',
+                userAgent: navigator.userAgent.substring(0, 50) // Limited for privacy
+            };
+            
+            // Store locally for basic metrics (no external sending)
+            if (localStorage.getItem('beacon_visits')) {
+                const visits = JSON.parse(localStorage.getItem('beacon_visits'));
+                visits.push(pageView);
+                if (visits.length > 10) visits.shift(); // Keep only last 10
+                localStorage.setItem('beacon_visits', JSON.stringify(visits));
+            } else {
+                localStorage.setItem('beacon_visits', JSON.stringify([pageView]));
+            }
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+            
+            // Emergency button tracking (local only for safety metrics)
+            document.querySelector('.emergency-button').addEventListener('click', function() {
+                const emergencyClick = {
+                    timestamp: new Date().toISOString(),
+                    action: 'emergency_clicked'
+                };
+                
+                const emergencyCalls = JSON.parse(localStorage.getItem('beacon_emergency_clicks') || '[]');
+                emergencyCalls.push(emergencyClick);
+                if (emergencyCalls.length > 5) emergencyCalls.shift();
+                localStorage.setItem('beacon_emergency_clicks', JSON.stringify(emergencyCalls));
+            });
+        });
+        
+        // Keyboard accessibility
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                // Quick exit functionality - navigate away for safety
+                window.location.href = 'https://www.google.com/search?q=weather';
+            }
+        });
+    </script>
+</body>
+</html><!-- Deployment trigger Mon Jul 28 15:04:05 EDT 2025 -->
+<!-- Cache bust 1753730193 -->
+/*CACHE_BUST_1753731744*/
