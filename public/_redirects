@@ -1,0 +1,6 @@
+# Static HTML pages should be served directly
+/privacy-policy.html    /privacy-policy.html    200
+/delete-account.html    /delete-account.html    200
+
+# SPA fallback for all other routes
+/*    /index.html   200
