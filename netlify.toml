@@ -5,6 +5,18 @@
 [build.environment]
   NODE_VERSION = "18"
 
+# Serve static HTML pages directly (don't redirect to SPA)
+[[redirects]]
+  from = "/privacy-policy.html"
+  to = "/privacy-policy.html"
+  status = 200
+
+[[redirects]]
+  from = "/delete-account.html"
+  to = "/delete-account.html"
+  status = 200
+
+# Catch-all redirect for SPA routing
 [[redirects]]
   from = "/*"
   to = "/index.html"
