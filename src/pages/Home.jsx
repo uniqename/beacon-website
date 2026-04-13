@@ -56,6 +56,26 @@ const Home = () => {
                     </div>
                 </section>
 
+                {/* Impact stat strip */}
+                <section className="bg-orange-600 py-6">
+                    <div className="max-w-4xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-16 text-white text-center">
+                        <div>
+                            <p className="text-2xl font-bold">Greater Accra</p>
+                            <p className="text-sm opacity-80 uppercase tracking-widest">Service Area</p>
+                        </div>
+                        <div className="hidden sm:block w-px h-10 bg-white/30" />
+                        <div>
+                            <p className="text-2xl font-bold">2025</p>
+                            <p className="text-sm opacity-80 uppercase tracking-widest">Founded</p>
+                        </div>
+                        <div className="hidden sm:block w-px h-10 bg-white/30" />
+                        <div>
+                            <p className="text-2xl font-bold">4 Programs</p>
+                            <p className="text-sm opacity-80 uppercase tracking-widest">Housing · Counseling · Legal · Livelihood</p>
+                        </div>
+                    </div>
+                </section>
+
                 {/* section 2 */}
                 <section className=" md:py-24">
                     <div className="grid md:grid-cols-2 gap-12 items-center">

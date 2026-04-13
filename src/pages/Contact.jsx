@@ -178,7 +178,7 @@ const Contact = () => {
                 <path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67a24 24 0 0 1-35.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z" />
               </svg>
               <h3 className="text-lg font-semibold text-gray-800 mb-1">Address</h3>
-              <p className="text-gray-700">123 Hope Street, East Legon, Accra</p>
+              <p className="text-gray-700">Accra, Ghana</p>
             </div>
 
             <div className="flex flex-col items-center">
