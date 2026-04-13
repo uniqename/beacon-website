@@ -87,6 +87,11 @@ const Footer = () => {
                                     </Link>
                                 </li>
                                 <li>
+                                    <Link to="/about#board-of-directors" className="hover:text-orange-600 transition-colors">
+                                        Board Members
+                                    </Link>
+                                </li>
+                                <li>
                                     <a href="#" className="hover:text-orange-600 transition-colors">
                                         Donate
                                     </a>
@@ -131,13 +136,6 @@ const Footer = () => {
                             <h3 className="text-lg font-semibold text-gray-800 mb-5">Connect</h3>
                             <ul className="space-y-3 text-gray-700">
                                 <li>
-                                    <a
-                                        href="#"
-                                        className="flex items-center lg:justify-center sm:justify-start hover:text-orange-600 transition-colors"
-                                    >
-                                        <FaFacebookF className="w-5 h-5 mr-3" />
-                                        Facebook
-                                    </a>
                                 </li>
                                 <li>
                                     <a
@@ -149,13 +147,6 @@ const Footer = () => {
                                     </a>
                                 </li>
                                 <li>
-                                    <a
-                                        href="#"
-                                        className="flex items-center lg:justify-center sm:justify-start hover:text-orange-600 transition-colors"
-                                    >
-                                        <FaXTwitter className="w-5 h-5 mr-3" />
-                                        X
-                                    </a>
                                 </li>
                                 <li>
                                     <a
@@ -167,13 +158,6 @@ const Footer = () => {
                                     </a>
                                 </li>
                                 <li>
-                                    <a
-                                        href="#"
-                                        className="flex items-center lg:justify-center sm:justify-start hover:text-orange-600 transition-colors"
-                                    >
-                                        <FaYoutube className="w-5 h-5 mr-3" />
-                                        YouTube
-                                    </a>
                                 </li>
                             </ul>
                         </div>

@@ -31,12 +31,16 @@ const Home = () => {
 
                         {/* Action Buttons */}
                         <div className="flex justify-center space-x-4 mb-16">
-                            <button className="bg-orange-600 cursor-pointer text-white font-semibold py-3 px-8 rounded-full hover:bg-orange-700 transition-colors duration-300 text-lg">
+                             <Link
+                                 to={URLS.CONTACT}
+                             className="bg-orange-600 cursor-pointer text-white font-semibold py-3 px-8 rounded-full hover:bg-orange-700 transition-colors duration-300 text-lg">
                                 Donate
-                            </button>
-                            <button className="bg-gray-100 cursor-pointer text-gray-800 font-semibold py-3 px-8 rounded-full hover:bg-gray-200 transition-colors duration-300 text-lg">
+                            </Link>
+                            <Link
+                                to={URLS.CONTACT}
+                             className="bg-gray-100 cursor-pointer text-gray-800 font-semibold py-3 px-8 rounded-full hover:bg-gray-200 transition-colors duration-300 text-lg">
                                 Volunteer
-                            </button>
+                            </Link>
                         </div>
 
                         {/* Hero Image */}
@@ -375,13 +379,17 @@ const Home = () => {
                         </p>
 
                         {/* Action Buttons */}
-                        <div className="flex justify-center space-x-4 mb-16">
-                            <button className="bg-orange-600 cursor-pointer text-white font-semibold py-3 px-8 rounded-full hover:bg-orange-700 transition-colors duration-300 text-lg">
+                         <div className="flex justify-center space-x-4 mb-16">
+                             <Link
+                                 to={URLS.CONTACT}
+                             className="bg-orange-600 cursor-pointer text-white font-semibold py-3 px-8 rounded-full hover:bg-orange-700 transition-colors duration-300 text-lg">
                                 Donate
-                            </button>
-                            <button className="bg-gray-100 cursor-pointer text-gray-800 font-semibold py-3 px-8 rounded-full hover:bg-gray-200 transition-colors duration-300 text-lg">
+                            </Link>
+                            <Link
+                                to={URLS.CONTACT}
+                             className="bg-gray-100 cursor-pointer text-gray-800 font-semibold py-3 px-8 rounded-full hover:bg-gray-200 transition-colors duration-300 text-lg">
                                 Volunteer
-                            </button>
+                            </Link>
                         </div>
 
                         {/* Hero Image */}

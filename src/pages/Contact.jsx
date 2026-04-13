@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import emailjs from '@emailjs/browser';
 import Footer2 from '../main/Footer2';
-
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -25,37 +25,42 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
+    const serviceId = 'service_xgshcq8';
+    const templateId = 'template_4xjekll';
+    const autoReplyTemplateId = 'template_lk1hc2b';
+    const publicKey = 'm7Cu3uppLbR3PvVBd';
+
     try {
-      // Simulate API call - replace with actual form submission logic
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Show success message
-      toast.success('Message sent successfully! We will get back to you soon.', {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        phone: formData.phone || 'Not provided',
+        message: formData.message,
+        to_email: 'contactbrndroid@gmail.com'
+      };
 
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        message: ''
-      });
+      const result = await emailjs.send(serviceId, templateId, templateParams, publicKey);
 
+      if (result.status === 200) {
+        toast.success('Message sent successfully! We will get back to you soon.', {
+          position: "top-center",
+          autoClose: 4000,
+        });
+
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          message: ''
+        });
+      } else {
+        throw new Error('EmailJS did not return success status.');
+      }
     } catch (error) {
-      // Show error message
+      console.error('EmailJS Error:', error);
       toast.error('Failed to send message. Please try again later.', {
         position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
+        autoClose: 4000,
       });
     } finally {
       setIsSubmitting(false);
@@ -64,7 +69,7 @@ const Contact = () => {
 
   return (
     <>
-      <div className='max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 '>
+      <div className='max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8'>
         <div className="text-center py-24">
           <h2 className="text-4xl sm:text-5xl font-serif text-gray-900 leading-tight mb-6">
             Join Our Mission
@@ -77,27 +82,23 @@ const Contact = () => {
 
       <section className="bg-gray-100 py-16 md:py-24">
         <div className="container mx-auto px-6 max-w-3xl">
-          {/* Section Heading and Description */}
           <div className="text-center mb-12">
             <h2 className="text-4xl sm:text-5xl font-serif text-gray-900 leading-tight mb-6">
               Why Reach Out to Us?
             </h2>
             <p className="text-base md:text-lg text-gray-700 max-w-2xl mx-auto leading-relaxed">
               At Beacon of New Beginnings, we are committed to providing
-              responsive and compassionate support to everyone we serve. Whether
-              you are a survivor seeking help, a donor wishing to contribute, a
-              volunteer looking to get involved, or a partner exploring
-              collaboration, our team is here to offer guidance and assistance
-              every step of the way.
+              responsive and compassionate support to everyone we serve.
+              Whether you are a survivor seeking help, a donor wishing to
+              contribute, a volunteer looking to get involved, or a partner
+              exploring collaboration, our team is here to offer guidance and
+              assistance every step of the way.
             </p>
           </div>
 
-          {/* Contact Form */}
-           <div className="max-w-xl mx-auto">
+          <div className="max-w-xl mx-auto">
             <form onSubmit={handleSubmit}>
               <div className="space-y-6">
-
-                {/* Name Field */}
                 <div>
                   <input
                     id="name"
@@ -111,7 +112,6 @@ const Contact = () => {
                   />
                 </div>
 
-                {/* Email Field */}
                 <div>
                   <input
                     id="email"
@@ -125,7 +125,6 @@ const Contact = () => {
                   />
                 </div>
 
-                {/* Phone Field (Optional) */}
                 <div>
                   <input
                     id="phone"
@@ -138,7 +137,6 @@ const Contact = () => {
                   />
                 </div>
 
-                {/* Message Field */}
                 <div>
                   <textarea
                     id="message"
@@ -152,7 +150,6 @@ const Contact = () => {
                   ></textarea>
                 </div>
 
-                {/* Submit Button */}
                 <div>
                   <button
                     type="submit"
@@ -168,10 +165,9 @@ const Contact = () => {
         </div>
       </section>
 
-      <section className="bg-white py-20 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 ">
+      <section className="bg-white py-20 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            {/* Address Icon */}
             <div className="flex flex-col items-center">
               <svg
                 className="w-8 h-8 text-orange-600 mb-4"
@@ -185,7 +181,6 @@ const Contact = () => {
               <p className="text-gray-700">123 Hope Street, East Legon, Accra</p>
             </div>
 
-            {/* Phone Icon */}
             <div className="flex flex-col items-center">
               <svg
                 className="w-8 h-8 text-orange-600 mb-4"
@@ -199,7 +194,6 @@ const Contact = () => {
               <p className="text-gray-700">(+233) 50 123 4567</p>
             </div>
 
-            {/* Email Icon */}
             <div className="flex flex-col items-center">
               <svg
                 className="w-8 h-8 text-orange-600 mb-4"
@@ -217,12 +211,9 @@ const Contact = () => {
       </section>
 
       <Footer2 />
-      
-      {/* Toast Container */}
       <ToastContainer />
     </>
-  )
-}
+  );
+};
 
 export default Contact;
-
