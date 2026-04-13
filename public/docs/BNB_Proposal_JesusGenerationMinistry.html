@@ -5,32 +5,113 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Proposal — Jesus Generation Ministry</title>
 <style>
-  * { box-sizing: border-box; }
-  body { font-family: Arial, sans-serif; max-width: 860px; margin: 0 auto; padding: 20px; color: #111; line-height: 1.7; }
-  h1,h2,h3,h4 { font-family: Georgia, serif; margin-top: 1.4em; }
-  p { margin: 0.6em 0; }
-  table { border-collapse: collapse; width: 100%; margin: 16px 0; }
-  td, th { border: 1px solid #ccc; padding: 8px 12px; vertical-align: top; }
-  th { background: #f5f5f5; font-weight: bold; }
-  ul, ol { margin: 0.6em 0; padding-left: 1.6em; }
-  img { max-width: 100%; }
-  .toolbar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; padding: 16px; background: #f8f8f8; border-radius: 10px; border: 1px solid #e0e0e0; }
-  .toolbar button { padding: 10px 20px; border: none; border-radius: 24px; cursor: pointer; font-size: 14px; font-weight: 600; }
-  .btn-print { background: #ea580c; color: #fff; }
-  .btn-print:hover { background: #c2410c; }
-  .btn-select { background: #374151; color: #fff; }
-  .btn-select:hover { background: #1f2937; }
-  .doc-body { outline: none; min-height: 500px; padding: 8px 0; }
-  @media print { .toolbar { display: none !important; } }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Georgia', serif; background: #fafafa; color: #111; line-height: 1.75; }
+
+  /* ── Toolbar ── */
+  .toolbar {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+    padding: 12px 24px; background: #fff; border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
+  .toolbar button {
+    padding: 8px 20px; border: none; border-radius: 50px;
+    cursor: pointer; font-size: 13px; font-weight: 700; transition: background .15s;
+  }
+  .btn-print  { background: #ea580c; color: #fff; }
+  .btn-print:hover  { background: #c2410c; }
+  .btn-select { background: #1e293b; color: #fff; }
+  .btn-select:hover { background: #0f172a; }
+  .toolbar-note { margin-left: auto; font-size: 12px; color: #9ca3af; font-family: Arial, sans-serif; }
+
+  /* ── Page wrapper ── */
+  .page { max-width: 860px; margin: 32px auto 64px; background: #fff;
+           border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden;
+           box-shadow: 0 4px 24px rgba(0,0,0,.06); }
+
+  /* ── Letterhead header ── */
+  .letterhead {
+    display: flex; align-items: center; gap: 20px;
+    padding: 28px 40px; background: #fff3ed;
+    border-bottom: 4px solid #ea580c;
+  }
+  .letterhead img { width: 64px; height: 64px; object-fit: contain; flex-shrink: 0; }
+  .letterhead-text .org-name {
+    font-family: Georgia, serif; font-size: 20px; font-weight: 700;
+    color: #ea580c; letter-spacing: -0.3px;
+  }
+  .letterhead-text .tagline {
+    font-family: Arial, sans-serif; font-size: 12px; color: #6b7280; margin-top: 2px;
+  }
+  .letterhead-contact {
+    margin-left: auto; text-align: right;
+    font-family: Arial, sans-serif; font-size: 11px; color: #6b7280; line-height: 1.6;
+  }
+
+  /* ── Document body ── */
+  .doc-body {
+    outline: none; padding: 40px;
+    min-height: 600px;
+  }
+  .doc-body p  { margin: 0.55em 0; }
+  .doc-body h1 { font-size: 1.6rem; margin-top: 1.4em; margin-bottom: .4em; color: #1e293b; }
+  .doc-body h2 { font-size: 1.2rem; margin-top: 1.3em; margin-bottom: .35em; color: #1e293b; }
+  .doc-body h3 { font-size: 1rem; margin-top: 1.1em; margin-bottom: .3em; color: #1e293b; }
+  .doc-body ul, .doc-body ol { margin: .55em 0; padding-left: 1.6em; }
+  .doc-body table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: .93rem; }
+  .doc-body td, .doc-body th {
+    border: 1px solid #d1d5db; padding: 9px 14px; vertical-align: top;
+  }
+  .doc-body th { background: #fff3ed; font-weight: 700; }
+  .doc-body img { max-width: 100%; }
+  strong { font-weight: 700; }
+
+  /* ── Footer ── */
+  .letterfoot {
+    padding: 18px 40px; background: #fff3ed; border-top: 1px solid #fcd5b8;
+    font-family: Arial, sans-serif; font-size: 11px; color: #9ca3af;
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  }
+
+  @media print {
+    .toolbar { display: none !important; }
+    .page { margin: 0; border: none; border-radius: 0; box-shadow: none; }
+    body { background: #fff; }
+  }
 </style>
 </head>
 <body>
+
 <div class="toolbar">
   <button class="btn-print" onclick="window.print()">🖨️ Print / Save PDF</button>
   <button class="btn-select" onclick="document.execCommand('selectAll')">Select All</button>
+  <span class="toolbar-note">Edit directly in browser · Print or Save as PDF when ready</span>
 </div>
-<div class="doc-body" contenteditable="true">
+
+<div class="page">
+  <div class="letterhead">
+    <img src="../images/logo.png" alt="Beacon of New Beginnings logo" />
+    <div class="letterhead-text">
+      <div class="org-name">Beacon of New Beginnings</div>
+      <div class="tagline">Empowering Vulnerable Individuals &amp; Communities in Ghana</div>
+    </div>
+    <div class="letterhead-contact">
+      beaconnewbeginnings.org<br>
+      Enam@beaconnewbeginnings.org<br>
+      +233 55 171 0100
+    </div>
+  </div>
+
+  <div class="doc-body" contenteditable="true">
 <table><tr><td><p><strong>BEACON OF NEW BEGINNINGS</strong></p><p><em>Empowering Vulnerable Individuals &amp; Communities in Ghana</em></p></td></tr></table><p>Date: <em>March 18, 2025</em></p><p><strong>To:</strong></p><p>Harry Bright Osei-Wusu</p><p>Jesus Generation Ministry</p><p>Nungua, Accra, Ghana</p><p><strong>Re: Proposal for Community Partnership — Beacon of New Beginnings</strong></p><p>Dear Harry Bright Osei-Wusu,</p><p>On behalf of Beacon of New Beginnings (BNB), I am pleased to present this proposal for a partnership with Jesus Generation Ministry. We believe that the shared values of service, compassion, and community that guide your congregation align closely with the work we do every day — and together, we can make a meaningful difference in the lives of vulnerable individuals in our community.</p><p><strong>1. ABOUT BEACON OF NEW BEGINNINGS</strong></p><p>Beacon of New Beginnings is a Ghana-based nonprofit organization dedicated to empowering vulnerable individuals and communities through education, skills development, social support, and sustainable livelihood initiatives. We provide pathways for young people, women, and disadvantaged populations to gain practical skills, improve economic independence, and build resilient futures.</p><p><strong>Our Mission: </strong>To provide safety, healing, and empowerment to survivors of abuse and homelessness through trauma-informed counseling, legal advocacy, sustainable livelihood programs, and community support that restores dignity and independence.</p><p><strong>2. OUR SERVICES</strong></p><p>BNB provides the following services to those in need:</p><ul><li>Counseling referrals for abuse and trauma survivors</li><li>Case management and resource navigation</li><li>Skills training and employment support</li><li>Housing stability assistance</li><li>Legal advocacy and rights education</li><li>Mobile app platform for accessing services and support</li></ul><p><strong>3. WHY WE ARE APPROACHING YOUR CHURCH</strong></p><p>Churches are among the most trusted and influential institutions in our communities. Jesus Generation Ministry is well-positioned to help us reach individuals and families who may not yet know that help is available. We are approaching you because we believe your congregation's commitment to service and community welfare makes you an ideal partner.</p><p><strong>4. PROPOSED PARTNERSHIP ACTIVITIES</strong></p><p>We are proposing a working partnership that may include any or all of the following:</p><ul><li>Awareness talks at Men's and Women's fellowship meetings on topics including domestic violence prevention, legal rights, and available community support services</li><li>Collaboration with your welfare or outreach ministry to provide counseling referrals and resource support for congregation members in need</li><li>Volunteer recruitment from your youth ministry for community service opportunities with BNB</li><li>Promotion of the BNB mobile app to congregation members for easy access to our services</li><li>Referral partnership — a simple, informal arrangement where your leaders can refer individuals in need directly to BNB</li></ul><p><strong>5. WHAT THIS PARTNERSHIP DOES NOT INVOLVE</strong></p><p>We want to be clear: this is not a request for financial support or donations. We are not asking Jesus Generation Ministry for money. What we are asking for is your platform, your community relationships, and your willingness to walk alongside us in serving those who need it most.</p><p><strong>6. MUTUAL BENEFITS</strong></p><table><tr><td><p><strong>For Jesus Generation Ministry</strong></p><p>Access to professional counseling referrals and social support resources, volunteer opportunities for your youth, and the ability to extend your ministry's reach into the community.</p></td><td><p><strong>For Beacon of New Beginnings</strong></p><p>A trusted platform to raise awareness of our services, opportunities to recruit committed volunteers, and referral partnerships that help us reach more people in need.</p></td></tr></table><p><strong>7. PROPOSED NEXT STEPS</strong></p><p>We would welcome the opportunity to meet with you at your convenience to discuss this proposal further and answer any questions you may have. We are flexible and happy to accommodate your schedule.</p><p>Please feel free to reach out to me directly using the contact details below. We look forward to the possibility of working together.</p><p>Yours sincerely,</p><p><strong>Enam Egyir</strong></p><p>Director, Beacon of New Beginnings</p><p>011233551710100</p><p>Ename@beaconnewbeginnings.org</p><p>www.beaconnewbeginnings.org</p><table><tr><td><p>011233551710100  |  Ename@beaconnewbeginnings.org  |  www.beaconnewbeginnings.org</p></td></tr></table>
+  </div>
+
+  <div class="letterfoot">
+    <span>Beacon of New Beginnings &nbsp;·&nbsp; beaconnewbeginnings.org</span>
+    <span>Confidential — Internal Use</span>
+  </div>
 </div>
+
 </body>
 </html>

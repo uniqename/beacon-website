@@ -5,32 +5,113 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Proposal — Clubhouse Ghana</title>
 <style>
-  * { box-sizing: border-box; }
-  body { font-family: Arial, sans-serif; max-width: 860px; margin: 0 auto; padding: 20px; color: #111; line-height: 1.7; }
-  h1,h2,h3,h4 { font-family: Georgia, serif; margin-top: 1.4em; }
-  p { margin: 0.6em 0; }
-  table { border-collapse: collapse; width: 100%; margin: 16px 0; }
-  td, th { border: 1px solid #ccc; padding: 8px 12px; vertical-align: top; }
-  th { background: #f5f5f5; font-weight: bold; }
-  ul, ol { margin: 0.6em 0; padding-left: 1.6em; }
-  img { max-width: 100%; }
-  .toolbar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; padding: 16px; background: #f8f8f8; border-radius: 10px; border: 1px solid #e0e0e0; }
-  .toolbar button { padding: 10px 20px; border: none; border-radius: 24px; cursor: pointer; font-size: 14px; font-weight: 600; }
-  .btn-print { background: #ea580c; color: #fff; }
-  .btn-print:hover { background: #c2410c; }
-  .btn-select { background: #374151; color: #fff; }
-  .btn-select:hover { background: #1f2937; }
-  .doc-body { outline: none; min-height: 500px; padding: 8px 0; }
-  @media print { .toolbar { display: none !important; } }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Georgia', serif; background: #fafafa; color: #111; line-height: 1.75; }
+
+  /* ── Toolbar ── */
+  .toolbar {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+    padding: 12px 24px; background: #fff; border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
+  .toolbar button {
+    padding: 8px 20px; border: none; border-radius: 50px;
+    cursor: pointer; font-size: 13px; font-weight: 700; transition: background .15s;
+  }
+  .btn-print  { background: #ea580c; color: #fff; }
+  .btn-print:hover  { background: #c2410c; }
+  .btn-select { background: #1e293b; color: #fff; }
+  .btn-select:hover { background: #0f172a; }
+  .toolbar-note { margin-left: auto; font-size: 12px; color: #9ca3af; font-family: Arial, sans-serif; }
+
+  /* ── Page wrapper ── */
+  .page { max-width: 860px; margin: 32px auto 64px; background: #fff;
+           border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden;
+           box-shadow: 0 4px 24px rgba(0,0,0,.06); }
+
+  /* ── Letterhead header ── */
+  .letterhead {
+    display: flex; align-items: center; gap: 20px;
+    padding: 28px 40px; background: #fff3ed;
+    border-bottom: 4px solid #ea580c;
+  }
+  .letterhead img { width: 64px; height: 64px; object-fit: contain; flex-shrink: 0; }
+  .letterhead-text .org-name {
+    font-family: Georgia, serif; font-size: 20px; font-weight: 700;
+    color: #ea580c; letter-spacing: -0.3px;
+  }
+  .letterhead-text .tagline {
+    font-family: Arial, sans-serif; font-size: 12px; color: #6b7280; margin-top: 2px;
+  }
+  .letterhead-contact {
+    margin-left: auto; text-align: right;
+    font-family: Arial, sans-serif; font-size: 11px; color: #6b7280; line-height: 1.6;
+  }
+
+  /* ── Document body ── */
+  .doc-body {
+    outline: none; padding: 40px;
+    min-height: 600px;
+  }
+  .doc-body p  { margin: 0.55em 0; }
+  .doc-body h1 { font-size: 1.6rem; margin-top: 1.4em; margin-bottom: .4em; color: #1e293b; }
+  .doc-body h2 { font-size: 1.2rem; margin-top: 1.3em; margin-bottom: .35em; color: #1e293b; }
+  .doc-body h3 { font-size: 1rem; margin-top: 1.1em; margin-bottom: .3em; color: #1e293b; }
+  .doc-body ul, .doc-body ol { margin: .55em 0; padding-left: 1.6em; }
+  .doc-body table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: .93rem; }
+  .doc-body td, .doc-body th {
+    border: 1px solid #d1d5db; padding: 9px 14px; vertical-align: top;
+  }
+  .doc-body th { background: #fff3ed; font-weight: 700; }
+  .doc-body img { max-width: 100%; }
+  strong { font-weight: 700; }
+
+  /* ── Footer ── */
+  .letterfoot {
+    padding: 18px 40px; background: #fff3ed; border-top: 1px solid #fcd5b8;
+    font-family: Arial, sans-serif; font-size: 11px; color: #9ca3af;
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  }
+
+  @media print {
+    .toolbar { display: none !important; }
+    .page { margin: 0; border: none; border-radius: 0; box-shadow: none; }
+    body { background: #fff; }
+  }
 </style>
 </head>
 <body>
+
 <div class="toolbar">
   <button class="btn-print" onclick="window.print()">🖨️ Print / Save PDF</button>
   <button class="btn-select" onclick="document.execCommand('selectAll')">Select All</button>
+  <span class="toolbar-note">Edit directly in browser · Print or Save as PDF when ready</span>
 </div>
-<div class="doc-body" contenteditable="true">
+
+<div class="page">
+  <div class="letterhead">
+    <img src="../images/logo.png" alt="Beacon of New Beginnings logo" />
+    <div class="letterhead-text">
+      <div class="org-name">Beacon of New Beginnings</div>
+      <div class="tagline">Empowering Vulnerable Individuals &amp; Communities in Ghana</div>
+    </div>
+    <div class="letterhead-contact">
+      beaconnewbeginnings.org<br>
+      Enam@beaconnewbeginnings.org<br>
+      +233 55 171 0100
+    </div>
+  </div>
+
+  <div class="doc-body" contenteditable="true">
 <p><strong>BEACON OF NEW BEGINNINGS</strong></p><p><em>Empowering Communities. Restoring Dignity. Building Futures.</em></p><p>ename@beaconnewbeginnings.org  |  011233551710100</p><p>April 2025</p><p><strong>Edem (Administrator)</strong></p><p>Clubhouse Ghana</p><p>Accra, Ghana</p><p>cc: monalisabrook@gmail.com  |  Samuelboateng42@gmail.com</p><p><strong>Partnership Proposal: NGO-to-NGO Community Support Collaboration</strong></p><p>Dear Edem,</p><p>We are delighted to formally present this partnership proposal from Beacon of New Beginnings (BNB) to Clubhouse Ghana. Following our team's initial conversation with your office, we are genuinely encouraged by your openness and your supportive spirit. We believe that the missions of our two organizations are deeply complementary, and we look forward to exploring the possibilities of a meaningful, structured collaboration.</p><p><strong>About Beacon of New Beginnings</strong></p><p>BNB is a Ghana-based nonprofit organization committed to empowering vulnerable individuals through a holistic suite of support services:</p><ul><li>Case Management — individualized support plans and follow-through</li><li>Counselling Referrals — connecting clients to licensed mental health professionals</li><li>Skills Training — practical vocational and life skills development</li><li>Housing Stability — navigation of safe and stable housing options</li><li>Legal Resource Navigation — guiding clients through legal systems and resources</li><li>Community Reintegration — rebuilding confidence, belonging, and social connection</li></ul><p><strong>About Clubhouse Ghana</strong></p><p>We recognize Clubhouse Ghana as a respected international NGO model — registered in the United States and operationalized here in Ghana — dedicated to supporting individuals with mental illness through meaningful community, employment, and social participation. The Clubhouse model's emphasis on dignity, inclusion, and peer support aligns powerfully with BNB's own values and approach.</p><p><strong>The Case for Partnership</strong></p><p>BNB and Clubhouse Ghana serve overlapping populations: individuals navigating vulnerability, mental health challenges, and barriers to community participation. A formal partnership between our organizations would allow us to offer a far more comprehensive and coordinated continuum of support than either organization can provide independently.</p><p>This collaboration would create pathways for:</p><ul><li>BNB to refer clients who would benefit from Clubhouse Ghana's community-based mental health programming and peer support</li><li>Clubhouse Ghana to refer members who need BNB's case management, skills training, housing support, or legal navigation services</li><li>Joint coordination of wraparound care for shared clients, with appropriate consent and privacy protocols</li><li>Potential co-programming or joint community initiatives leveraging both organizations' strengths</li></ul><p><strong>Proposed Partnership Framework</strong></p><p><strong>1. Formal Referral Pathway</strong></p><ul><li>A structured, documented referral process with clear intake criteria and communication protocols</li><li>Designated liaison contacts at each organization for timely coordination</li><li>Shared progress updates for mutual clients, subject to individual consent</li></ul><p><strong>2. NGO-to-NGO Collaboration Terms</strong></p><p>As fellow nonprofits operating in Ghana with shared commitments to community wellbeing, we are open to exploring a range of collaborative models:</p><ul><li>Co-referral arrangements with no financial exchange, grounded in aligned mission</li><li>Joint grant applications to funders who support integrated social service delivery</li><li>Shared training or capacity-building opportunities between our teams</li><li>Co-hosting community outreach or awareness events</li></ul><p><strong>3. Memorandum of Understanding (MOU)</strong></p><p>We propose formalizing this partnership through a written MOU covering referral protocols, data privacy, communication standards, roles and responsibilities, and periodic review mechanisms. We are happy to share a draft for your team's review, input, and negotiation.</p><p><strong>Next Steps</strong></p><p>We understand that your team would like to review our proposal and have further discussions before moving forward. We welcome any questions, suggestions, or proposed amendments. We suggest:</p><ul><li>Reviewing this proposal at your team's convenience and sharing any feedback</li><li>Scheduling a follow-up meeting or call to discuss terms and the MOU</li><li>Identifying a liaison contact on each side to facilitate coordination</li></ul><p>Beacon of New Beginnings is honored by the prospect of partnering with Clubhouse Ghana. We believe that together, we can extend our reach, deepen our impact, and offer individuals in our communities a richer, more complete network of support. We look forward to the conversation ahead.</p><p>Warm regards,</p><p><strong>Enam Egyir</strong></p><p>Director, Beacon of New Beginnings</p><p>ename@beaconnewbeginnings.org  |  011233551710100</p>
+  </div>
+
+  <div class="letterfoot">
+    <span>Beacon of New Beginnings &nbsp;·&nbsp; beaconnewbeginnings.org</span>
+    <span>Confidential — Internal Use</span>
+  </div>
 </div>
+
 </body>
 </html>

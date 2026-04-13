@@ -5,32 +5,113 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>MOU — Brain & Sleep (BPG)</title>
 <style>
-  * { box-sizing: border-box; }
-  body { font-family: Arial, sans-serif; max-width: 860px; margin: 0 auto; padding: 20px; color: #111; line-height: 1.7; }
-  h1,h2,h3,h4 { font-family: Georgia, serif; margin-top: 1.4em; }
-  p { margin: 0.6em 0; }
-  table { border-collapse: collapse; width: 100%; margin: 16px 0; }
-  td, th { border: 1px solid #ccc; padding: 8px 12px; vertical-align: top; }
-  th { background: #f5f5f5; font-weight: bold; }
-  ul, ol { margin: 0.6em 0; padding-left: 1.6em; }
-  img { max-width: 100%; }
-  .toolbar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; padding: 16px; background: #f8f8f8; border-radius: 10px; border: 1px solid #e0e0e0; }
-  .toolbar button { padding: 10px 20px; border: none; border-radius: 24px; cursor: pointer; font-size: 14px; font-weight: 600; }
-  .btn-print { background: #ea580c; color: #fff; }
-  .btn-print:hover { background: #c2410c; }
-  .btn-select { background: #374151; color: #fff; }
-  .btn-select:hover { background: #1f2937; }
-  .doc-body { outline: none; min-height: 500px; padding: 8px 0; }
-  @media print { .toolbar { display: none !important; } }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Georgia', serif; background: #fafafa; color: #111; line-height: 1.75; }
+
+  /* ── Toolbar ── */
+  .toolbar {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+    padding: 12px 24px; background: #fff; border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
+  .toolbar button {
+    padding: 8px 20px; border: none; border-radius: 50px;
+    cursor: pointer; font-size: 13px; font-weight: 700; transition: background .15s;
+  }
+  .btn-print  { background: #ea580c; color: #fff; }
+  .btn-print:hover  { background: #c2410c; }
+  .btn-select { background: #1e293b; color: #fff; }
+  .btn-select:hover { background: #0f172a; }
+  .toolbar-note { margin-left: auto; font-size: 12px; color: #9ca3af; font-family: Arial, sans-serif; }
+
+  /* ── Page wrapper ── */
+  .page { max-width: 860px; margin: 32px auto 64px; background: #fff;
+           border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden;
+           box-shadow: 0 4px 24px rgba(0,0,0,.06); }
+
+  /* ── Letterhead header ── */
+  .letterhead {
+    display: flex; align-items: center; gap: 20px;
+    padding: 28px 40px; background: #fff3ed;
+    border-bottom: 4px solid #ea580c;
+  }
+  .letterhead img { width: 64px; height: 64px; object-fit: contain; flex-shrink: 0; }
+  .letterhead-text .org-name {
+    font-family: Georgia, serif; font-size: 20px; font-weight: 700;
+    color: #ea580c; letter-spacing: -0.3px;
+  }
+  .letterhead-text .tagline {
+    font-family: Arial, sans-serif; font-size: 12px; color: #6b7280; margin-top: 2px;
+  }
+  .letterhead-contact {
+    margin-left: auto; text-align: right;
+    font-family: Arial, sans-serif; font-size: 11px; color: #6b7280; line-height: 1.6;
+  }
+
+  /* ── Document body ── */
+  .doc-body {
+    outline: none; padding: 40px;
+    min-height: 600px;
+  }
+  .doc-body p  { margin: 0.55em 0; }
+  .doc-body h1 { font-size: 1.6rem; margin-top: 1.4em; margin-bottom: .4em; color: #1e293b; }
+  .doc-body h2 { font-size: 1.2rem; margin-top: 1.3em; margin-bottom: .35em; color: #1e293b; }
+  .doc-body h3 { font-size: 1rem; margin-top: 1.1em; margin-bottom: .3em; color: #1e293b; }
+  .doc-body ul, .doc-body ol { margin: .55em 0; padding-left: 1.6em; }
+  .doc-body table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: .93rem; }
+  .doc-body td, .doc-body th {
+    border: 1px solid #d1d5db; padding: 9px 14px; vertical-align: top;
+  }
+  .doc-body th { background: #fff3ed; font-weight: 700; }
+  .doc-body img { max-width: 100%; }
+  strong { font-weight: 700; }
+
+  /* ── Footer ── */
+  .letterfoot {
+    padding: 18px 40px; background: #fff3ed; border-top: 1px solid #fcd5b8;
+    font-family: Arial, sans-serif; font-size: 11px; color: #9ca3af;
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  }
+
+  @media print {
+    .toolbar { display: none !important; }
+    .page { margin: 0; border: none; border-radius: 0; box-shadow: none; }
+    body { background: #fff; }
+  }
 </style>
 </head>
 <body>
+
 <div class="toolbar">
   <button class="btn-print" onclick="window.print()">🖨️ Print / Save PDF</button>
   <button class="btn-select" onclick="document.execCommand('selectAll')">Select All</button>
+  <span class="toolbar-note">Edit directly in browser · Print or Save as PDF when ready</span>
 </div>
-<div class="doc-body" contenteditable="true">
+
+<div class="page">
+  <div class="letterhead">
+    <img src="../images/logo.png" alt="Beacon of New Beginnings logo" />
+    <div class="letterhead-text">
+      <div class="org-name">Beacon of New Beginnings</div>
+      <div class="tagline">Empowering Vulnerable Individuals &amp; Communities in Ghana</div>
+    </div>
+    <div class="letterhead-contact">
+      beaconnewbeginnings.org<br>
+      Enam@beaconnewbeginnings.org<br>
+      +233 55 171 0100
+    </div>
+  </div>
+
+  <div class="doc-body" contenteditable="true">
 <p><strong>THE BEACONPATH GHANA</strong></p><p><em>Empowering Communities. Restoring Dignity. Building Futures.</em></p><p>ename@beaconnewbeginnings.org  |  011233551710100</p><p><strong>MEMORANDUM OF UNDERSTANDING</strong></p><p><em>The BeaconPath Ghana &amp; The Brain and Sleep Medical Centre Ltd</em></p><p><em>(Revised — Incorporating Brain and Sleep Response of 9th April, 2026)</em></p><p><strong>PARTIES</strong></p><p>This Memorandum of Understanding (&quot;MOU&quot;) is entered into as of ________________, 2026, by and between:</p><p><strong>The BeaconPath Ghana (&quot;BPG&quot;)</strong></p><p>A nonprofit organization based in Accra, Ghana, providing case management, counselling referrals, skills training, housing stability support, legal resource navigation, and community reintegration services.</p><p>Executive Director: Enam Egyir</p><p>Contact: ename@beaconnewbeginnings.org  |  011233551710100</p><p><strong>AND</strong></p><p><strong>The Brain and Sleep Medical Centre Ltd (&quot;The Centre&quot;)</strong></p><p>A private specialist medical facility providing mental health and sleep medicine services, based in Abokobi, Accra, Ghana. Ghana's leader in Private Mental Health and Sleep Medicine.</p><p>Contact Person: Patience Asamoah, General Manager</p><p>Email: finance@thebraincentregh.com  |  ceo@thebraincentregh.com</p><p>Phone: 050 330 8191  |  033 209 5326  |  033 209 5330</p><p>Website: www.thebraincentregh.com</p><p><strong>PURPOSE</strong></p><p>This MOU establishes a formal framework for a referral and collaboration partnership between BPG and The Brain and Sleep Medical Centre Ltd. Both organizations recognize the value of coordinated care for vulnerable individuals in Ghana, and commit to building a structured, sustainable, and professionally managed partnership grounded in the terms outlined herein.</p><p>This MOU is not a legally binding contract but represents a good-faith commitment by both parties.</p><p><strong>PILOT PHASE</strong></p><p>Both parties agree that this partnership will commence with a 90-day Pilot Phase, as proposed by The Brain and Sleep Medical Centre Ltd in their response of 9th April, 2026. The terms of the Pilot Phase are governed by the Pilot Phase Framework (Annex C), which is attached to and forms part of this MOU.</p><p>A full partnership review will take place at the end of the pilot period. Continuation of the partnership beyond the pilot is subject to satisfactory review outcomes as defined in the Pilot Phase Framework.</p><p><strong>SCOPE OF COLLABORATION</strong></p><ul><li>BPG will refer clients requiring mental health, sleep medicine, or specialist medical services to The Brain and Sleep Medical Centre Ltd</li><li>The Brain and Sleep Medical Centre Ltd will refer patients in need of social stabilization, case management, skills support, or community reintegration to BPG</li><li>Both parties will coordinate care for shared clients in accordance with confidentiality and consent protocols</li><li>Both parties will participate in joint review meetings and contribute to the shared referral tracking log</li></ul><p><strong>CLIENT CATEGORIES AND PAYMENT RESPONSIBILITIES</strong></p><p>All BPG-referred clients will be classified into one of three categories prior to referral. Payment arrangements must be confirmed in writing before service delivery commences.</p><p><strong>Category 1: Fully Paying Clients</strong></p><p>Clients who have the financial capacity to meet the full cost of services at The Brain and Sleep Medical Centre Ltd. BPG will confirm this classification on the referral form. The client or their family is solely responsible for payment.</p><p><strong>Category 2: Partially Supported Clients</strong></p><p>Clients for whom BPG will co-fund a portion of service costs through its donor-funded programs, with the client contributing based on their assessed financial capacity. BPG will issue a written Payment Commitment Letter at the time of referral specifying the BPG contribution amount and payment timeline. The Centre will invoice BPG directly for its agreed portion.</p><p><strong>Category 3: Exceptional Cases</strong></p><p>A limited number of clients presenting with acute need and no financial capacity. These cases require prior written approval from The Brain and Sleep Medical Centre Ltd's designated liaison before the referral is processed. The number of exceptional cases will be agreed during the pilot review and documented in the Fee Schedule (Annex A). BPG will fund the agreed costs for exceptional cases from its donor-funded programs.</p><p>Neither party will be held financially liable for costs that have not been confirmed in writing in advance of service delivery.</p><p><strong>ROLES AND RESPONSIBILITIES</strong></p><p><strong>The BeaconPath Ghana agrees to:</strong></p><ul><li>Identify and assess clients for referral to The Brain and Sleep Medical Centre Ltd</li><li>Classify each referred client into the correct payment category and confirm this on the referral form</li><li>Provide a Payment Commitment Letter for all partially supported referrals</li><li>Submit an Exceptional Case Request and await written approval before processing Category 3 referrals</li><li>Honor all agreed payment commitments within the timelines specified</li><li>Designate a liaison for ongoing coordination</li><li>Maintain client confidentiality at all times</li><li>Participate in pilot milestones, check-ins, and the formal pilot review</li></ul><p><strong>The Brain and Sleep Medical Centre Ltd agrees to:</strong></p><ul><li>Receive and process BPG referrals in accordance with the Referral Pathway Document (Annex B)</li><li>Confirm receipt of referrals within three (3) business days</li><li>Review and respond to Exceptional Case Requests within five (5) business days</li><li>Refer patients in need of BPG services back to BPG where appropriate</li><li>Designate a liaison for ongoing coordination</li><li>Maintain client confidentiality at all times</li><li>Participate in pilot milestones, check-ins, and the formal pilot review</li></ul><p><strong>REFERRAL PROCESS</strong></p><p>Both parties will follow the Referral Pathway Document (Annex B). Key principles:</p><ul><li>All referrals require the BPG Standard Referral Form, fully completed with client category confirmed</li><li>All referrals require written informed consent from the referred individual</li><li>Intake appointments will be confirmed within three (3) business days of referral receipt</li><li>No referral will proceed to service delivery without confirmed payment arrangements</li></ul><p><strong>CONFIDENTIALITY AND DATA PROTECTION</strong></p><ul><li>Both parties will handle all client information with strict confidentiality</li><li>Information will be shared only with client consent and only to the minimum extent necessary</li><li>Neither party will disclose client information to any third party without prior written consent</li><li>Both parties will comply with applicable data protection standards</li></ul><p><strong>DURATION, REVIEW, AND RENEWAL</strong></p><p>This MOU takes effect from the date of signing. The initial 90-day pilot phase will be followed by a formal review. Upon successful review, the MOU will continue for a further twelve (12) months and may be renewed by mutual written agreement. Either party may request amendments with thirty (30) days written notice.</p><p><strong>TERMINATION</strong></p><p>Either party may terminate this MOU by providing thirty (30) days written notice. Active referral cases will be managed to protect client wellbeing. Confidentiality obligations survive termination indefinitely.</p><p><strong>DISPUTE RESOLUTION</strong></p><p>Disputes will first be addressed through good-faith dialogue between liaisons. If unresolved within thirty (30) days, the matter will be escalated to organizational leaders.</p><p><strong>GENERAL PROVISIONS</strong></p><ul><li>This MOU does not create an employment, agency, or joint venture relationship</li><li>Neither party may assign its obligations without prior written consent of the other</li><li>This MOU supersedes all prior discussions on its subject matter</li></ul><p><strong>SIGNATURES</strong></p><p>IN WITNESS WHEREOF, the parties have executed this agreement as of the date first written above.</p><p><strong>THE BEACONPATH GHANA</strong></p><p>Signed: _______________________________</p><p>Name:    Enam Egyir</p><p>Title:      Executive Director</p><p>Date:      ___________________________</p><p><strong>THE BRAIN AND SLEEP MEDICAL CENTRE LTD</strong></p><p>Signed: _______________________________</p><p>Name:    Patience Asamoah</p><p>Title:      General Manager</p><p>Date:      ___________________________</p><p><em>Annex A: Fee Schedule and Exceptional Case Quota  (to be completed at pilot review)</em></p><p><em>Annex B: Referral Pathway Document  (attached)</em></p><p><em>Annex C: Pilot Phase Framework  (attached)</em></p>
+  </div>
+
+  <div class="letterfoot">
+    <span>Beacon of New Beginnings &nbsp;·&nbsp; beaconnewbeginnings.org</span>
+    <span>Confidential — Internal Use</span>
+  </div>
 </div>
+
 </body>
 </html>

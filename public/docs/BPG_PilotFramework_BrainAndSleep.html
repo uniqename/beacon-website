@@ -5,32 +5,113 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Pilot Framework — Brain & Sleep (BPG)</title>
 <style>
-  * { box-sizing: border-box; }
-  body { font-family: Arial, sans-serif; max-width: 860px; margin: 0 auto; padding: 20px; color: #111; line-height: 1.7; }
-  h1,h2,h3,h4 { font-family: Georgia, serif; margin-top: 1.4em; }
-  p { margin: 0.6em 0; }
-  table { border-collapse: collapse; width: 100%; margin: 16px 0; }
-  td, th { border: 1px solid #ccc; padding: 8px 12px; vertical-align: top; }
-  th { background: #f5f5f5; font-weight: bold; }
-  ul, ol { margin: 0.6em 0; padding-left: 1.6em; }
-  img { max-width: 100%; }
-  .toolbar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; padding: 16px; background: #f8f8f8; border-radius: 10px; border: 1px solid #e0e0e0; }
-  .toolbar button { padding: 10px 20px; border: none; border-radius: 24px; cursor: pointer; font-size: 14px; font-weight: 600; }
-  .btn-print { background: #ea580c; color: #fff; }
-  .btn-print:hover { background: #c2410c; }
-  .btn-select { background: #374151; color: #fff; }
-  .btn-select:hover { background: #1f2937; }
-  .doc-body { outline: none; min-height: 500px; padding: 8px 0; }
-  @media print { .toolbar { display: none !important; } }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Georgia', serif; background: #fafafa; color: #111; line-height: 1.75; }
+
+  /* ── Toolbar ── */
+  .toolbar {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+    padding: 12px 24px; background: #fff; border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
+  .toolbar button {
+    padding: 8px 20px; border: none; border-radius: 50px;
+    cursor: pointer; font-size: 13px; font-weight: 700; transition: background .15s;
+  }
+  .btn-print  { background: #ea580c; color: #fff; }
+  .btn-print:hover  { background: #c2410c; }
+  .btn-select { background: #1e293b; color: #fff; }
+  .btn-select:hover { background: #0f172a; }
+  .toolbar-note { margin-left: auto; font-size: 12px; color: #9ca3af; font-family: Arial, sans-serif; }
+
+  /* ── Page wrapper ── */
+  .page { max-width: 860px; margin: 32px auto 64px; background: #fff;
+           border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden;
+           box-shadow: 0 4px 24px rgba(0,0,0,.06); }
+
+  /* ── Letterhead header ── */
+  .letterhead {
+    display: flex; align-items: center; gap: 20px;
+    padding: 28px 40px; background: #fff3ed;
+    border-bottom: 4px solid #ea580c;
+  }
+  .letterhead img { width: 64px; height: 64px; object-fit: contain; flex-shrink: 0; }
+  .letterhead-text .org-name {
+    font-family: Georgia, serif; font-size: 20px; font-weight: 700;
+    color: #ea580c; letter-spacing: -0.3px;
+  }
+  .letterhead-text .tagline {
+    font-family: Arial, sans-serif; font-size: 12px; color: #6b7280; margin-top: 2px;
+  }
+  .letterhead-contact {
+    margin-left: auto; text-align: right;
+    font-family: Arial, sans-serif; font-size: 11px; color: #6b7280; line-height: 1.6;
+  }
+
+  /* ── Document body ── */
+  .doc-body {
+    outline: none; padding: 40px;
+    min-height: 600px;
+  }
+  .doc-body p  { margin: 0.55em 0; }
+  .doc-body h1 { font-size: 1.6rem; margin-top: 1.4em; margin-bottom: .4em; color: #1e293b; }
+  .doc-body h2 { font-size: 1.2rem; margin-top: 1.3em; margin-bottom: .35em; color: #1e293b; }
+  .doc-body h3 { font-size: 1rem; margin-top: 1.1em; margin-bottom: .3em; color: #1e293b; }
+  .doc-body ul, .doc-body ol { margin: .55em 0; padding-left: 1.6em; }
+  .doc-body table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: .93rem; }
+  .doc-body td, .doc-body th {
+    border: 1px solid #d1d5db; padding: 9px 14px; vertical-align: top;
+  }
+  .doc-body th { background: #fff3ed; font-weight: 700; }
+  .doc-body img { max-width: 100%; }
+  strong { font-weight: 700; }
+
+  /* ── Footer ── */
+  .letterfoot {
+    padding: 18px 40px; background: #fff3ed; border-top: 1px solid #fcd5b8;
+    font-family: Arial, sans-serif; font-size: 11px; color: #9ca3af;
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  }
+
+  @media print {
+    .toolbar { display: none !important; }
+    .page { margin: 0; border: none; border-radius: 0; box-shadow: none; }
+    body { background: #fff; }
+  }
 </style>
 </head>
 <body>
+
 <div class="toolbar">
   <button class="btn-print" onclick="window.print()">🖨️ Print / Save PDF</button>
   <button class="btn-select" onclick="document.execCommand('selectAll')">Select All</button>
+  <span class="toolbar-note">Edit directly in browser · Print or Save as PDF when ready</span>
 </div>
-<div class="doc-body" contenteditable="true">
+
+<div class="page">
+  <div class="letterhead">
+    <img src="../images/logo.png" alt="Beacon of New Beginnings logo" />
+    <div class="letterhead-text">
+      <div class="org-name">Beacon of New Beginnings</div>
+      <div class="tagline">Empowering Vulnerable Individuals &amp; Communities in Ghana</div>
+    </div>
+    <div class="letterhead-contact">
+      beaconnewbeginnings.org<br>
+      Enam@beaconnewbeginnings.org<br>
+      +233 55 171 0100
+    </div>
+  </div>
+
+  <div class="doc-body" contenteditable="true">
 <p><strong>THE BEACONPATH GHANA</strong></p><p><em>Empowering Communities. Restoring Dignity. Building Futures.</em></p><p>ename@beaconnewbeginnings.org  |  011233551710100</p><p><strong>PILOT PHASE FRAMEWORK</strong></p><p><em>BPG &amp; The Brain and Sleep Medical Centre Ltd</em></p><p><em>90-Day Pilot Period  |  Start Date: _______________  |  End Date: _______________</em></p><p><strong>PURPOSE</strong></p><p>This Pilot Phase Framework establishes the terms, structure, and success criteria for a 90-day trial partnership between The BeaconPath Ghana (BPG) and The Brain and Sleep Medical Centre Ltd. It responds directly to The Brain and Sleep Medical Centre Ltd's proposal to introduce a pilot phase to assess operational alignment, referral volume, and financial sustainability before committing to a full partnership agreement.</p><p>At the end of the pilot period, both parties will conduct a formal review to determine whether to proceed to a full partnership under the Memorandum of Understanding.</p><p><strong>PILOT OBJECTIVES</strong></p><ol><li>Test the referral pathway and intake process in real operational conditions</li><li>Validate client category definitions and payment arrangements</li><li>Assess communication and coordination between both organizations' liaison teams</li><li>Identify any gaps, friction points, or improvements needed before full partnership launch</li><li>Build confidence and trust between both organizations through shared experience</li></ol><p><strong>PILOT PARAMETERS</strong></p><p><strong>Duration</strong></p><p>90 days from the date of MOU signing. Pilot start date and end date to be recorded above.</p><p><strong>Referral Volume</strong></p><p>During the pilot, BPG commits to referring a maximum of 10 clients to The Brain and Sleep Medical Centre Ltd. Both parties agree this cap allows for meaningful assessment without overwhelming either organization's capacity. The cap may be adjusted upward by mutual agreement if both teams are satisfied with early progress.</p><p><strong>Client Category Distribution</strong></p><p>BPG will aim to include referrals from all three agreed client categories during the pilot:</p><table><tr><td><p><strong>Category</strong></p></td><td><p><strong>Description</strong></p></td><td><p><strong>Target No. (Pilot)</strong></p></td><td><p><strong>Payment Source</strong></p></td></tr><tr><td><p>Fully Paying</p></td><td><p>Client can meet full service cost</p></td><td><p>3–5 clients</p></td><td><p>Client / Family</p></td></tr><tr><td><p>Partially Supported</p></td><td><p>BPG co-funds a portion; client contributes</p></td><td><p>3–4 clients</p></td><td><p>Client + BPG donor funds</p></td></tr><tr><td><p>Exceptional Cases</p></td><td><p>Acute need, no financial capacity</p></td><td><p>1–2 clients max</p></td><td><p>BPG donor funds (pre-approved)</p></td></tr></table><p><strong>PAYMENT PROCESS DURING PILOT</strong></p><ul><li>BPG will confirm the client's payment category on the referral form at the time of submission</li><li>For partially supported clients, BPG will attach a written Payment Commitment Letter specifying the BPG contribution amount and payment timeline</li><li>For exceptional cases, BPG will submit a written Exceptional Case Request to The Brain and Sleep Medical Centre Ltd's liaison for prior approval before the referral is processed</li><li>No referral will proceed to service delivery until payment arrangements are confirmed in writing</li><li>The Brain and Sleep Medical Centre Ltd will invoice BPG directly for any agreed BPG-funded portions</li></ul><p><strong>PILOT MILESTONE SCHEDULE</strong></p><table><tr><td><p><strong>Milestone</strong></p></td><td><p><strong>Activity</strong></p></td><td><p><strong>Responsible</strong></p></td><td><p><strong>Timing</strong></p></td></tr><tr><td><p>Pilot Launch</p></td><td><p>MOU and Pilot Framework signed; liaisons confirmed</p></td><td><p>Both parties</p></td><td><p>Day 1</p></td></tr><tr><td><p>First Referral</p></td><td><p>BPG submits first referral using agreed form and category</p></td><td><p>BPG</p></td><td><p>Within 7 days of signing</p></td></tr><tr><td><p>Mid-Pilot Check-In</p></td><td><p>Liaison call to review progress, flag issues, adjust if needed</p></td><td><p>Both liaisons</p></td><td><p>Day 45</p></td></tr><tr><td><p>Referral Log Review</p></td><td><p>Both teams review shared referral log for accuracy and completeness</p></td><td><p>Both liaisons</p></td><td><p>Day 60</p></td></tr><tr><td><p>Pilot Close Review</p></td><td><p>Formal review meeting; assess outcomes against objectives</p></td><td><p>Both parties</p></td><td><p>Day 90</p></td></tr><tr><td><p>Partnership Decision</p></td><td><p>Both parties confirm full partnership or agree on modifications</p></td><td><p>Both parties</p></td><td><p>Within 14 days of pilot close</p></td></tr></table><p><strong>PILOT REVIEW CRITERIA</strong></p><p>At the 90-day review, both parties will assess the pilot against the following criteria:</p><table><tr><td><p><strong>Criterion</strong></p></td><td><p><strong>Target</strong></p></td><td><p><strong>Assessment Method</strong></p></td></tr><tr><td><p>Referral process adherence</p></td><td><p>100% of referrals follow agreed pathway</p></td><td><p>Referral log audit</p></td></tr><tr><td><p>Intake response time</p></td><td><p>Acknowledged within 3 business days</p></td><td><p>Referral log timestamps</p></td></tr><tr><td><p>Payment compliance</p></td><td><p>All payment arrangements confirmed before service delivery</p></td><td><p>Invoice and payment records</p></td></tr><tr><td><p>Client satisfaction</p></td><td><p>No unresolved complaints from referred clients</p></td><td><p>Feedback from both liaisons</p></td></tr><tr><td><p>Communication quality</p></td><td><p>No missed liaison contacts; issues escalated promptly</p></td><td><p>Meeting notes and email log</p></td></tr><tr><td><p>Exceptional case management</p></td><td><p>All exceptional cases pre-approved; no financial disputes</p></td><td><p>Case files and correspondence</p></td></tr></table><p><strong>PILOT REVIEW MEETING AGENDA</strong></p><p>The 90-day review meeting will follow this structure:</p><ol><li>Referral volume and category breakdown — how many referrals were made, by category</li><li>Process review — what worked, what didn't in the referral and payment pathway</li><li>Financial sustainability check — were payment arrangements honored? Any disputes or delays?</li><li>Client outcome check-in — any known outcomes or feedback from referred individuals</li><li>Liaison relationship review — communication quality, response times, ease of coordination</li><li>Decision: proceed to full MOU, modify terms, or extend pilot</li></ol><p><strong>SIGNATURES</strong></p><p>Both parties agree to the terms of this Pilot Phase Framework and commit to participating in good faith throughout the pilot period.</p><p>IN WITNESS WHEREOF, the parties have executed this agreement as of the date first written above.</p><p><strong>THE BEACONPATH GHANA</strong></p><p>Signed: _______________________________</p><p>Name:    Enam Egyir</p><p>Title:      Executive Director</p><p>Date:      ___________________________</p><p><strong>THE BRAIN AND SLEEP MEDICAL CENTRE LTD</strong></p><p>Signed: _______________________________</p><p>Name:    Patience Asamoah</p><p>Title:      General Manager</p><p>Date:      ___________________________</p>
+  </div>
+
+  <div class="letterfoot">
+    <span>Beacon of New Beginnings &nbsp;·&nbsp; beaconnewbeginnings.org</span>
+    <span>Confidential — Internal Use</span>
+  </div>
 </div>
+
 </body>
 </html>

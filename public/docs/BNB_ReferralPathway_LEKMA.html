@@ -5,32 +5,113 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Referral Pathway — LEKMA (BNB)</title>
 <style>
-  * { box-sizing: border-box; }
-  body { font-family: Arial, sans-serif; max-width: 860px; margin: 0 auto; padding: 20px; color: #111; line-height: 1.7; }
-  h1,h2,h3,h4 { font-family: Georgia, serif; margin-top: 1.4em; }
-  p { margin: 0.6em 0; }
-  table { border-collapse: collapse; width: 100%; margin: 16px 0; }
-  td, th { border: 1px solid #ccc; padding: 8px 12px; vertical-align: top; }
-  th { background: #f5f5f5; font-weight: bold; }
-  ul, ol { margin: 0.6em 0; padding-left: 1.6em; }
-  img { max-width: 100%; }
-  .toolbar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; padding: 16px; background: #f8f8f8; border-radius: 10px; border: 1px solid #e0e0e0; }
-  .toolbar button { padding: 10px 20px; border: none; border-radius: 24px; cursor: pointer; font-size: 14px; font-weight: 600; }
-  .btn-print { background: #ea580c; color: #fff; }
-  .btn-print:hover { background: #c2410c; }
-  .btn-select { background: #374151; color: #fff; }
-  .btn-select:hover { background: #1f2937; }
-  .doc-body { outline: none; min-height: 500px; padding: 8px 0; }
-  @media print { .toolbar { display: none !important; } }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Georgia', serif; background: #fafafa; color: #111; line-height: 1.75; }
+
+  /* ── Toolbar ── */
+  .toolbar {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+    padding: 12px 24px; background: #fff; border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
+  .toolbar button {
+    padding: 8px 20px; border: none; border-radius: 50px;
+    cursor: pointer; font-size: 13px; font-weight: 700; transition: background .15s;
+  }
+  .btn-print  { background: #ea580c; color: #fff; }
+  .btn-print:hover  { background: #c2410c; }
+  .btn-select { background: #1e293b; color: #fff; }
+  .btn-select:hover { background: #0f172a; }
+  .toolbar-note { margin-left: auto; font-size: 12px; color: #9ca3af; font-family: Arial, sans-serif; }
+
+  /* ── Page wrapper ── */
+  .page { max-width: 860px; margin: 32px auto 64px; background: #fff;
+           border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden;
+           box-shadow: 0 4px 24px rgba(0,0,0,.06); }
+
+  /* ── Letterhead header ── */
+  .letterhead {
+    display: flex; align-items: center; gap: 20px;
+    padding: 28px 40px; background: #fff3ed;
+    border-bottom: 4px solid #ea580c;
+  }
+  .letterhead img { width: 64px; height: 64px; object-fit: contain; flex-shrink: 0; }
+  .letterhead-text .org-name {
+    font-family: Georgia, serif; font-size: 20px; font-weight: 700;
+    color: #ea580c; letter-spacing: -0.3px;
+  }
+  .letterhead-text .tagline {
+    font-family: Arial, sans-serif; font-size: 12px; color: #6b7280; margin-top: 2px;
+  }
+  .letterhead-contact {
+    margin-left: auto; text-align: right;
+    font-family: Arial, sans-serif; font-size: 11px; color: #6b7280; line-height: 1.6;
+  }
+
+  /* ── Document body ── */
+  .doc-body {
+    outline: none; padding: 40px;
+    min-height: 600px;
+  }
+  .doc-body p  { margin: 0.55em 0; }
+  .doc-body h1 { font-size: 1.6rem; margin-top: 1.4em; margin-bottom: .4em; color: #1e293b; }
+  .doc-body h2 { font-size: 1.2rem; margin-top: 1.3em; margin-bottom: .35em; color: #1e293b; }
+  .doc-body h3 { font-size: 1rem; margin-top: 1.1em; margin-bottom: .3em; color: #1e293b; }
+  .doc-body ul, .doc-body ol { margin: .55em 0; padding-left: 1.6em; }
+  .doc-body table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: .93rem; }
+  .doc-body td, .doc-body th {
+    border: 1px solid #d1d5db; padding: 9px 14px; vertical-align: top;
+  }
+  .doc-body th { background: #fff3ed; font-weight: 700; }
+  .doc-body img { max-width: 100%; }
+  strong { font-weight: 700; }
+
+  /* ── Footer ── */
+  .letterfoot {
+    padding: 18px 40px; background: #fff3ed; border-top: 1px solid #fcd5b8;
+    font-family: Arial, sans-serif; font-size: 11px; color: #9ca3af;
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  }
+
+  @media print {
+    .toolbar { display: none !important; }
+    .page { margin: 0; border: none; border-radius: 0; box-shadow: none; }
+    body { background: #fff; }
+  }
 </style>
 </head>
 <body>
+
 <div class="toolbar">
   <button class="btn-print" onclick="window.print()">🖨️ Print / Save PDF</button>
   <button class="btn-select" onclick="document.execCommand('selectAll')">Select All</button>
+  <span class="toolbar-note">Edit directly in browser · Print or Save as PDF when ready</span>
 </div>
-<div class="doc-body" contenteditable="true">
+
+<div class="page">
+  <div class="letterhead">
+    <img src="../images/logo.png" alt="Beacon of New Beginnings logo" />
+    <div class="letterhead-text">
+      <div class="org-name">Beacon of New Beginnings</div>
+      <div class="tagline">Empowering Vulnerable Individuals &amp; Communities in Ghana</div>
+    </div>
+    <div class="letterhead-contact">
+      beaconnewbeginnings.org<br>
+      Enam@beaconnewbeginnings.org<br>
+      +233 55 171 0100
+    </div>
+  </div>
+
+  <div class="doc-body" contenteditable="true">
 <p><strong>BEACON OF NEW BEGINNINGS</strong></p><p><em>Empowering Communities. Restoring Dignity. Building Futures.</em></p><p>ename@beaconnewbeginnings.org  |  011233551710100</p><p><strong>REFERRAL PATHWAY DOCUMENT</strong></p><p><em>BNB &amp; LEKMA Polyclinic</em></p><p><strong>PURPOSE</strong></p><p>This document defines the referral procedures between Beacon of New Beginnings (BNB) and LEKMA Polyclinic. It serves as Annex B to the Memorandum of Understanding between both organizations. LEKMA Polyclinic's Patient Support Service is the designated coordination hub for all referral activities under this partnership.</p><p><strong>REFERRAL TYPES</strong></p><p><strong>1. BNB → LEKMA Polyclinic (via Patient Support Service)</strong></p><p>BNB may refer clients to LEKMA Polyclinic when an individual requires primary medical care or health-related services and meets the following criteria:</p><ul><li>The individual has been assessed by a BNB case manager and identified as needing medical support</li><li>The individual has provided informed, written consent to be referred</li><li>The referral is appropriate for LEKMA Polyclinic's level of care</li></ul><p><strong>2. LEKMA Polyclinic → BNB (via Patient Support Service)</strong></p><p>LEKMA Polyclinic's Patient Support Service may refer patients to BNB when they present with one or more of the following:</p><ul><li>Unstable housing or risk of homelessness</li><li>Need for vocational or life skills support</li><li>Legal issues requiring navigation assistance</li><li>Limited social support or risk of community isolation</li><li>Need for structured case management and follow-up after clinical care</li><li>Mental health support needs requiring counselling referral coordination</li></ul><p><strong>STEP-BY-STEP REFERRAL PROCESS</strong></p><table><tr><td><p><strong>Step</strong></p></td><td><p><strong>Action</strong></p></td><td><p><strong>Responsible Party</strong></p></td><td><p><strong>Timeline</strong></p></td></tr><tr><td><p>1</p></td><td><p>Identify individual as a referral candidate through case assessment or patient consultation</p></td><td><p>Referring organization</p></td><td><p>Ongoing</p></td></tr><tr><td><p>2</p></td><td><p>Obtain written informed consent from the individual for referral and information sharing</p></td><td><p>Referring organization</p></td><td><p>Before referral</p></td></tr><tr><td><p>3</p></td><td><p>Complete the BNB Standard Referral Form with all required information</p></td><td><p>Referring organization</p></td><td><p>Within 2 business days</p></td></tr><tr><td><p>4</p></td><td><p>Submit referral form to LEKMA Patient Support Service or BNB liaison (as applicable)</p></td><td><p>Referring organization</p></td><td><p>Same day as Step 3</p></td></tr><tr><td><p>5</p></td><td><p>Acknowledge receipt and confirm next steps (appointment or intake)</p></td><td><p>Receiving organization</p></td><td><p>Within 3 business days</p></td></tr><tr><td><p>6</p></td><td><p>Conduct intake or medical consultation with the referred individual</p></td><td><p>Receiving organization</p></td><td><p>Within 7 business days</p></td></tr><tr><td><p>7</p></td><td><p>Share intake outcome with referring organization (with client consent)</p></td><td><p>Receiving organization</p></td><td><p>Within 14 days of intake</p></td></tr><tr><td><p>8</p></td><td><p>Log referral in shared referral tracking log</p></td><td><p>Both organizations</p></td><td><p>Within 2 days of each step</p></td></tr><tr><td><p>9</p></td><td><p>30-day and 90-day follow-up on client/patient progress</p></td><td><p>Both organizations</p></td><td><p>30 and 90 days post-referral</p></td></tr></table><p><strong>PATIENT SUPPORT SERVICE — SPECIFIC PROCEDURES</strong></p><p>For referrals passing through LEKMA Polyclinic's Patient Support Service:</p><ul><li>The Patient Support Service representative will receive all inbound BNB referral forms and log them immediately</li><li>The Patient Support Service will facilitate the patient's medical appointment and communicate any access or support needs to the relevant clinical team</li><li>For outbound referrals (LEKMA → BNB), the Patient Support Service will complete the referral form and submit directly to BNB's designated liaison</li><li>The Patient Support Service will maintain the physical or digital folder of BNB information materials for distribution to patients</li></ul><p><strong>REFERRAL FORM — MINIMUM REQUIRED INFORMATION</strong></p><ul><li>Client/patient full name and date of birth</li><li>Contact information (phone/address)</li><li>Reason for referral and presenting needs</li><li>Summary of current circumstances and any urgent concerns</li><li>Services currently being received (if any)</li><li>Name and contact of referring case manager or Patient Support Service representative</li><li>Signed client/patient consent form</li></ul><p><strong>DESIGNATED LIAISONS</strong></p><table><tr><td></td><td><p><strong>Beacon of New Beginnings</strong></p></td><td><p><strong>LEKMA Polyclinic</strong></p></td></tr><tr><td><p><strong>Name</strong></p></td><td><p>Enam Egyir</p></td><td><p>Patient Support Service Representative</p></td></tr><tr><td><p><strong>Title</strong></p></td><td><p>Executive Director</p></td><td><p>Patient Support Service</p></td></tr><tr><td><p><strong>Email</strong></p></td><td><p>ename@beaconnewbeginnings.org</p></td><td><p>officiallekmapolyclinic@gmail.com</p></td></tr><tr><td><p><strong>Phone</strong></p></td><td><p>011233551710100</p></td><td><p>To be confirmed</p></td></tr></table><p><strong>TRACKING AND REVIEW</strong></p><p>Both parties will maintain a shared referral log capturing:</p><ul><li>Date of referral and direction</li><li>Client/patient identifier (anonymized as agreed)</li><li>Category and presenting need</li><li>Outcome of intake or consultation</li><li>30-day and 90-day follow-up notes</li></ul><p>The referral log will be reviewed at each partnership meeting (minimum bi-annual).</p><p><strong>AMENDMENTS</strong></p><p>This document may be updated by mutual written agreement of both parties. Any updates must be signed by the designated liaisons of both organizations.</p><p><strong>Agreed and adopted as Annex B to the MOU between BNB and LEKMA Polyclinic:</strong></p><p>BNB Liaison: _______________________________    Date: _______________</p><p>LEKMA Patient Support Service Liaison: _______________________________    Date: _______________</p>
+  </div>
+
+  <div class="letterfoot">
+    <span>Beacon of New Beginnings &nbsp;·&nbsp; beaconnewbeginnings.org</span>
+    <span>Confidential — Internal Use</span>
+  </div>
 </div>
+
 </body>
 </html>
