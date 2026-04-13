@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FaLeaf, FaUser, FaUsers } from 'react-icons/fa';
 import Navbar from '../main/Navbar';
 import Footer from '../main/Footer';
 import Sectionwraper from '../main/Sectionwraper';
 import URLS from '../config/urls.config';
 import { Link } from 'react-router-dom';
+import DonateModal from '../components/DonateModal';
 
 const Home = () => {
+    const [showDonate, setShowDonate] = useState(false);
     const items = [
         { icon: <FaUser className="w-5 h-5 text-gray-700" />, text: 'Individual therapy' },
         { icon: <FaUsers className="w-5 h-5 text-gray-700" />, text: 'Group support sessions' },
@@ -31,11 +33,11 @@ const Home = () => {
 
                         {/* Action Buttons */}
                         <div className="flex justify-center space-x-4 mb-16">
-                             <Link
-                                 to={URLS.CONTACT}
-                             className="bg-orange-600 cursor-pointer text-white font-semibold py-3 px-8 rounded-full hover:bg-orange-700 transition-colors duration-300 text-lg">
+                            <button
+                                onClick={() => setShowDonate(true)}
+                                className="bg-orange-600 cursor-pointer text-white font-semibold py-3 px-8 rounded-full hover:bg-orange-700 transition-colors duration-300 text-lg">
                                 Donate
-                            </Link>
+                            </button>
                             <Link
                                 to={URLS.CONTACT}
                              className="bg-gray-100 cursor-pointer text-gray-800 font-semibold py-3 px-8 rounded-full hover:bg-gray-200 transition-colors duration-300 text-lg">
@@ -552,6 +554,7 @@ const Home = () => {
         
 
             <Footer/>
+            {showDonate && <DonateModal onClose={() => setShowDonate(false)} />}
         </>
     );
 };

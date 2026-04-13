@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import URLS from '../config/urls.config';
 import Sectionwraper from './Sectionwraper';
+import DonateModal from '../components/DonateModal';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showDonate, setShowDonate] = useState(false);
 
   return (
     <div className='border-b-2 border-gray-200 '>
@@ -55,12 +57,12 @@ const Navbar = () => {
           <div className="flex items-center space-x-3">
             {/* Desktop Buttons */}
             <div className="hidden md:flex items-center space-x-3">
-              <Link
-                to={URLS.CONTACT}
-                className=" bg-orange-600 cursor-pointer text-white  font-semibold py-2 px-5 rounded-full hover:bg-gray-200 transition-colors duration-300 inline-block text-center"
+              <button
+                onClick={() => setShowDonate(true)}
+                className=" bg-orange-600 cursor-pointer text-white  font-semibold py-2 px-5 rounded-full hover:bg-orange-700 transition-colors duration-300 inline-block text-center"
               >
                 Donate
-              </Link>
+              </button>
               <Link
                 to={URLS.CONTACT}
                 className="bg-gray-100 cursor-pointer text-gray-800 font-semibold py-2 px-5 rounded-full hover:bg-orange-700 transition-colors duration-300 inline-block text-center"
@@ -138,17 +140,18 @@ const Navbar = () => {
             </Link>
 
             <div className="flex flex-col gap-2 pt-3">
-              <button className="bg-gray-100 text-gray-800 font-semibold py-2 rounded-full hover:bg-gray-200 transition-colors duration-300">
+              <button onClick={() => setShowDonate(true)} className="bg-orange-600 text-white font-semibold py-2 rounded-full hover:bg-orange-700 transition-colors duration-300">
                 Donate
               </button>
-              <button className="bg-orange-600 text-white font-semibold py-2 rounded-full hover:bg-orange-700 transition-colors duration-300">
+              <Link to={URLS.CONTACT} className="text-center bg-gray-100 text-gray-800 font-semibold py-2 rounded-full hover:bg-gray-200 transition-colors duration-300">
                 Volunteer
-              </button>
+              </Link>
             </div>
           </div>
         )}
       </nav>
     </Sectionwraper>
+    {showDonate && <DonateModal onClose={() => setShowDonate(false)} />}
     </div>
   );
 };

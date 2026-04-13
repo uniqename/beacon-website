@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Footer2 from '../main/Footer2'
 import URLS from '../config/urls.config';
 import { Link } from 'react-router-dom';
+import DonateModal from '../components/DonateModal';
 
 const Services = () => {
+  const [showDonate, setShowDonate] = useState(false);
   return (
     <>
 
@@ -52,8 +54,8 @@ const Services = () => {
                       >
                         Contact us
                       </Link>
-                      <a
-                        href="#"
+                      <button
+                        onClick={() => setShowDonate(true)}
                         className="flex items-center text-gray-700 hover:text-orange-600 transition-colors duration-300 font-medium text-md"
                       >
                         Donate
@@ -71,7 +73,7 @@ const Services = () => {
                             d="M9 5l7 7-7 7"
                           ></path>
                         </svg>
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -95,8 +97,8 @@ const Services = () => {
                       >
                         Contact us
                       </Link>
-                      <a
-                        href="#"
+                      <button
+                        onClick={() => setShowDonate(true)}
                         className="flex items-center text-gray-700 hover:text-orange-600 transition-colors duration-300 font-medium text-md"
                       >
                         Donate
@@ -114,7 +116,7 @@ const Services = () => {
                             d="M9 5l7 7-7 7"
                           ></path>
                         </svg>
-                      </a>
+                      </button>
                     </div>
                   </div>
 
@@ -154,8 +156,8 @@ const Services = () => {
                       >
                         Contact us
                       </Link>
-                      <a
-                        href="#"
+                      <button
+                        onClick={() => setShowDonate(true)}
                         className="flex items-center text-gray-700 hover:text-orange-600 transition-colors duration-300 font-medium text-md"
                       >
                         Donate
@@ -173,7 +175,7 @@ const Services = () => {
                             d="M9 5l7 7-7 7"
                           ></path>
                         </svg>
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -196,8 +198,8 @@ const Services = () => {
                       >
                         Contact us
                       </Link>
-                      <a
-                        href="#"
+                      <button
+                        onClick={() => setShowDonate(true)}
                         className="flex items-center text-gray-700 hover:text-orange-600 transition-colors duration-300 font-medium text-md"
                       >
                         Donate
@@ -215,7 +217,7 @@ const Services = () => {
                             d="M9 5l7 7-7 7"
                           ></path>
                         </svg>
-                      </a>
+                      </button>
                     </div>
                   </div>
 
@@ -234,6 +236,7 @@ const Services = () => {
         </section>
       </div>
       <Footer2/>
+      {showDonate && <DonateModal onClose={() => setShowDonate(false)} />}
     </>
   )
 }
