@@ -6,10 +6,14 @@ const PAYMENT_METHODS = [
   { id: 'momo', label: 'Mobile Money', icon: '📱' },
 ];
 
-const AMOUNTS = [10, 25, 50, 100, 250];
+const CURRENCIES = [
+  { code: 'USD', symbol: '$', label: 'USD', amounts: [10, 25, 50, 100, 250] },
+  { code: 'GHS', symbol: '₵', label: 'GHS', amounts: [50, 100, 200, 500, 1000] },
+];
 
 const DonateModal = ({ onClose }) => {
   const [step, setStep] = useState(1);
+  const [currency, setCurrency] = useState(CURRENCIES[0]);
   const [amount, setAmount] = useState('');
   const [customAmount, setCustomAmount] = useState('');
   const [method, setMethod] = useState('');
@@ -17,6 +21,13 @@ const DonateModal = ({ onClose }) => {
   const [submitted, setSubmitted] = useState(false);
 
   const selectedAmount = amount === 'custom' ? customAmount : amount;
+  const displayAmount = selectedAmount ? `${currency.symbol}${selectedAmount}` : '—';
+
+  const handleCurrencyChange = (c) => {
+    setCurrency(c);
+    setAmount('');
+    setCustomAmount('');
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -38,16 +49,28 @@ const DonateModal = ({ onClose }) => {
             <div className="text-center py-8">
               <div className="text-5xl mb-4">🙏</div>
               <h3 className="text-xl font-serif font-bold text-gray-900 mb-2">Thank You!</h3>
-              <p className="text-gray-600 mb-6">Your donation of <strong>${selectedAmount}</strong> will make a real difference for survivors in Ghana.</p>
+              <p className="text-gray-600 mb-6">Your donation of <strong>{displayAmount}</strong> will make a real difference for survivors in Ghana.</p>
               <button onClick={onClose} className="bg-orange-600 text-white font-semibold py-3 px-8 rounded-full hover:bg-orange-700 transition-colors duration-300">
                 Close
               </button>
             </div>
           ) : step === 1 ? (
             <>
+              <h3 className="text-lg font-semibold text-gray-800 mb-3">Select currency</h3>
+              <div className="flex rounded-xl overflow-hidden border border-gray-200 mb-5">
+                {CURRENCIES.map((c) => (
+                  <button
+                    key={c.code}
+                    onClick={() => handleCurrencyChange(c)}
+                    className={`flex-1 py-2 text-sm font-semibold transition-colors ${currency.code === c.code ? 'bg-gray-900 text-white' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
+                  >
+                    {c.symbol} {c.label}
+                  </button>
+                ))}
+              </div>
               <h3 className="text-lg font-semibold text-gray-800 mb-4">Select an amount</h3>
               <div className="grid grid-cols-3 gap-3 mb-4">
-                {AMOUNTS.map((a) => (
+                {currency.amounts.map((a) => (
                   <button
                     key={a}
                     onClick={() => { setAmount(String(a)); setCustomAmount(''); }}
@@ -57,7 +80,7 @@ const DonateModal = ({ onClose }) => {
                         : 'bg-white text-gray-700 border-gray-200 hover:border-orange-400'
                     }`}
                   >
-                    ${a}
+                    {currency.symbol}{a}
                   </button>
                 ))}
                 <button
@@ -74,7 +97,7 @@ const DonateModal = ({ onClose }) => {
               {amount === 'custom' && (
                 <div className="mb-4">
                   <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 font-semibold">$</span>
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 font-semibold">{currency.symbol}</span>
                     <input
                       type="number"
                       placeholder="Enter amount"
@@ -90,7 +113,7 @@ const DonateModal = ({ onClose }) => {
                 disabled={!selectedAmount}
                 className="w-full bg-orange-600 text-white font-semibold py-3 rounded-full hover:bg-orange-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed mt-2"
               >
-                Continue → ${selectedAmount || '—'}
+                Continue → {displayAmount}
               </button>
             </>
           ) : step === 2 ? (
@@ -155,7 +178,7 @@ const DonateModal = ({ onClose }) => {
                   />
                 )}
                 <div className="bg-orange-50 rounded-xl p-4 text-sm text-gray-700">
-                  <div className="flex justify-between"><span>Amount</span><strong>${selectedAmount}</strong></div>
+                  <div className="flex justify-between"><span>Amount</span><strong>{displayAmount} {currency.code}</strong></div>
                   <div className="flex justify-between mt-1"><span>Method</span><strong className="capitalize">{method}</strong></div>
                 </div>
                 <div className="flex gap-3 pt-1">
@@ -163,7 +186,7 @@ const DonateModal = ({ onClose }) => {
                     Back
                   </button>
                   <button type="submit" className="flex-1 bg-orange-600 text-white font-semibold py-3 rounded-full hover:bg-orange-700 transition-colors">
-                    Donate ${selectedAmount}
+                    Donate {displayAmount}
                   </button>
                 </div>
               </form>
