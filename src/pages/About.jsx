@@ -191,13 +191,13 @@ const About = () => {
                             <div className="flex flex-col items-center md:items-start">
                                 <img
                                     src="/images/JAhorlu.jpg"
-                                    alt="Jeremiah Ahorlu"
+                                    alt="Jeremiah Williams"
                                     className="w-64 h-64 object-cover rounded-lg mb-4"
                                 />
                                 <h3 className="text-2xl font-semibold text-orange-600 mb-1">Program Assistant Intern</h3>
-                                <h4 className="text-xl font-semibold text-gray-800 mb-3">Jeremiah Ahorlu</h4>
+                                <h4 className="text-xl font-semibold text-gray-800 mb-3">Jeremiah Williams</h4>
                                 <p className="text-gray-700 leading-relaxed text-center md:text-left">
-                                    Jeremiah Ahorlu is a motivated professional with a strong background in project management and user experience, committed to supporting nonprofit missions. A former student of the University of Ghana, he has a proven track record of coordinating teams, managing logistics, and ensuring tasks are completed efficiently. Jeremiah is particularly passionate about organizations dedicated to social causes and strives to apply his skills to build strong foundations and maximize impact. His dedication is driven by a desire to contribute to lasting change in communities, helping organizations create meaningful programs that support vulnerable populations. As a board member of Beacon of New Beginnings, Jeremiah brings reliability, organization, and a heart for service to advance the mission of hope, healing, and empowerment.
+                                    Jeremiah Williams is a motivated professional with a strong background in project management and user experience, committed to supporting nonprofit missions. A former student of the University of Ghana, he has a proven track record of coordinating teams, managing logistics, and ensuring tasks are completed efficiently. Jeremiah is particularly passionate about organizations dedicated to social causes and strives to apply his skills to build strong foundations and maximize impact. His dedication is driven by a desire to contribute to lasting change in communities, helping organizations create meaningful programs that support vulnerable populations. As a board member of Beacon of New Beginnings, Jeremiah brings reliability, organization, and a heart for service to advance the mission of hope, healing, and empowerment.
                                 </p>
                             </div>
                         </div>
