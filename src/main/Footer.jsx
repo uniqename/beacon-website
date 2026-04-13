@@ -152,7 +152,9 @@ const Footer = () => {
                                 </li>
                                 <li>
                                     <a
-                                        href="#"
+                                        href="https://www.linkedin.com/company/beacon-of-new-beginnings/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         className="flex items-center lg:justify-center sm:justify-start hover:text-orange-600 transition-colors"
                                     >
                                         <FaLinkedinIn className="w-5 h-5 mr-3" />
