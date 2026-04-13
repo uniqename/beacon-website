@@ -498,7 +498,7 @@ const Home = () => {
                                     </svg>
                                 </div>
                                 <div className="lg:text-lg text-sm font-bold text-black">
-                                    +233 50 123 4567
+                                    +233 55 171 0100
                                 </div>
                             </Link>
 
