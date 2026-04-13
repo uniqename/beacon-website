@@ -139,11 +139,13 @@ const Footer = () => {
                                 </li>
                                 <li>
                                     <a
-                                        href="#"
+                                        href="https://www.instagram.com/beaconghana/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         className="flex items-center lg:justify-center sm:justify-start hover:text-orange-600 transition-colors"
                                     >
                                         <FaInstagramSquare className="w-5 h-5 mr-3" />
-                                        Instagram
+                                        @beaconghana
                                     </a>
                                 </li>
                                 <li>
