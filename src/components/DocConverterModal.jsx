@@ -94,6 +94,12 @@ const DocConverterModal = ({ onClose }) => {
   const wordViewRef  = useRef(null);
   const sigCanvasRef = useRef(null);
 
+  // Rich text formatting
+  const execCmd = (cmd, val) => {
+    wordViewRef.current?.focus();
+    document.execCommand(cmd, false, val ?? '');
+  };
+
   // Notification
   const [notif, setNotif] = useState(null);
   const showNotif = (msg, ok = true) => {
@@ -517,12 +523,10 @@ const DocConverterModal = ({ onClose }) => {
                   </button>
                 )}
                 {docType === 'word' && (
-                  <button onClick={() => setEditMode(v => !v)}
-                    className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors ${
-                      editMode ? 'border-yellow-400 bg-yellow-50 text-yellow-700' : 'border-gray-200 text-gray-600 hover:bg-gray-50'
-                    }`}>
-                    ✏ {editMode ? 'Editing…' : 'Edit Text'}
-                  </button>
+                  <span className="text-xs font-semibold px-2 py-1 rounded-full border"
+                    style={{ background: '#fff7ed', color: '#c2410c', borderColor: '#f97316' }}>
+                    ✏ Editing
+                  </span>
                 )}
                 <div className="flex-1" />
                 {totalPages > 1 && (
@@ -548,6 +552,84 @@ const DocConverterModal = ({ onClose }) => {
                   ✉ Send
                 </button>
               </div>
+
+              {/* ── Rich text formatting toolbar (Word docs only) ── */}
+              {docType === 'word' && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '4px', flexWrap: 'wrap', padding: '8px 12px', background: '#f9fafb', borderRadius: '12px', border: '1px solid #f3f4f6' }}>
+                  {/* Bold / Italic / Underline */}
+                  {[
+                    { cmd: 'bold',      label: 'B', title: 'Bold',      extra: { fontWeight: 900 } },
+                    { cmd: 'italic',    label: 'I', title: 'Italic',    extra: { fontStyle: 'italic' } },
+                    { cmd: 'underline', label: 'U', title: 'Underline', extra: { textDecoration: 'underline' } },
+                  ].map(({ cmd, label, title, extra }) => (
+                    <button key={cmd} title={title}
+                      onMouseDown={e => { e.preventDefault(); execCmd(cmd); }}
+                      style={{ width: 28, height: 28, borderRadius: 6, border: '1px solid #e5e7eb', background: '#fff', cursor: 'pointer', fontSize: 13, color: '#374151', ...extra }}>
+                      {label}
+                    </button>
+                  ))}
+                  <span style={{ width: 1, height: 20, background: '#e5e7eb', margin: '0 4px' }} />
+                  {/* Alignment */}
+                  {[
+                    { cmd: 'justifyLeft',   label: '⬛ Left',    title: 'Align left' },
+                    { cmd: 'justifyCenter', label: '⬛ Center',  title: 'Center' },
+                    { cmd: 'justifyRight',  label: '⬛ Right',   title: 'Align right' },
+                    { cmd: 'justifyFull',   label: '⬛ Justify', title: 'Justify' },
+                  ].map(({ cmd, label, title }) => (
+                    <button key={cmd} title={title}
+                      onMouseDown={e => { e.preventDefault(); execCmd(cmd); }}
+                      style={{ height: 28, padding: '0 8px', borderRadius: 6, border: '1px solid #e5e7eb', background: '#fff', cursor: 'pointer', fontSize: 11, color: '#374151', whiteSpace: 'nowrap' }}>
+                      {title}
+                    </button>
+                  ))}
+                  <span style={{ width: 1, height: 20, background: '#e5e7eb', margin: '0 4px' }} />
+                  {/* Font size */}
+                  <select title="Font size"
+                    style={{ height: 28, borderRadius: 6, border: '1px solid #e5e7eb', fontSize: 12, color: '#374151', padding: '0 4px', background: '#fff', cursor: 'pointer' }}
+                    defaultValue=""
+                    onChange={e => { execCmd('fontSize', e.target.value); e.target.value = ''; }}
+                  >
+                    <option value="" disabled>Size</option>
+                    <option value="1">Tiny (8pt)</option>
+                    <option value="2">Small (10pt)</option>
+                    <option value="3">Normal (12pt)</option>
+                    <option value="4">Medium (14pt)</option>
+                    <option value="5">Large (18pt)</option>
+                    <option value="6">XL (24pt)</option>
+                    <option value="7">XXL (36pt)</option>
+                  </select>
+                  {/* Headings */}
+                  <select title="Paragraph style"
+                    style={{ height: 28, borderRadius: 6, border: '1px solid #e5e7eb', fontSize: 12, color: '#374151', padding: '0 4px', background: '#fff', cursor: 'pointer' }}
+                    defaultValue=""
+                    onChange={e => { execCmd('formatBlock', e.target.value); e.target.value = ''; }}
+                  >
+                    <option value="" disabled>Style</option>
+                    <option value="p">Normal</option>
+                    <option value="h1">Heading 1</option>
+                    <option value="h2">Heading 2</option>
+                    <option value="h3">Heading 3</option>
+                  </select>
+                  <span style={{ width: 1, height: 20, background: '#e5e7eb', margin: '0 4px' }} />
+                  {/* Lists */}
+                  {[
+                    { cmd: 'insertUnorderedList', label: '• List', title: 'Bullet list' },
+                    { cmd: 'insertOrderedList',   label: '1. List', title: 'Numbered list' },
+                  ].map(({ cmd, label, title }) => (
+                    <button key={cmd} title={title}
+                      onMouseDown={e => { e.preventDefault(); execCmd(cmd); }}
+                      style={{ height: 28, padding: '0 8px', borderRadius: 6, border: '1px solid #e5e7eb', background: '#fff', cursor: 'pointer', fontSize: 11, color: '#374151' }}>
+                      {label}
+                    </button>
+                  ))}
+                  <span style={{ width: 1, height: 20, background: '#e5e7eb', margin: '0 4px' }} />
+                  <button title="Remove formatting"
+                    onMouseDown={e => { e.preventDefault(); execCmd('removeFormat'); }}
+                    style={{ height: 28, padding: '0 8px', borderRadius: 6, border: '1px solid #e5e7eb', background: '#fff', cursor: 'pointer', fontSize: 11, color: '#9ca3af' }}>
+                    Tx
+                  </button>
+                </div>
+              )}
 
               {/* Placing mode banner */}
               {placingMode && (
@@ -589,10 +671,9 @@ const DocConverterModal = ({ onClose }) => {
                 {docType === 'word' && wordHtml !== null ? (
                   <div
                     ref={wordViewRef}
-                    contentEditable={editMode}
+                    contentEditable
                     suppressContentEditableWarning
                     className="p-10 text-sm leading-relaxed text-gray-900 min-h-64 focus:outline-none"
-                    style={editMode ? { boxShadow: 'inset 0 0 0 2px #fbbf24' } : {}}
                   />
                 ) : docPages[currentPage] ? (
                   <img src={docPages[currentPage].dataUrl} alt="Document page" className="w-full block" />
