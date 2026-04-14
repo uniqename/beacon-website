@@ -16,6 +16,12 @@
   to = "/delete-account.html"
   status = 200
 
+[[redirects]]
+  from = "/tools.html"
+  to = "/tools.html"
+  status = 200
+  force = false
+
 # Catch-all redirect for SPA routing
 [[redirects]]
   from = "/*"
