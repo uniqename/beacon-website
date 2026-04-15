@@ -162,6 +162,16 @@ const DocConverterModal = ({ onClose }) => {
     }
   }, [wordHtml]);
 
+  // Inject CSS so inline sig images don't block clicks in the word editor
+  useEffect(() => {
+    if (docType !== 'word') return;
+    const style = document.createElement('style');
+    style.id = 'dcm-word-sig-style';
+    style.textContent = '[contenteditable] img { pointer-events: none; user-select: none; }';
+    if (!document.getElementById('dcm-word-sig-style')) document.head.appendChild(style);
+    return () => { document.getElementById('dcm-word-sig-style')?.remove(); };
+  }, [docType]);
+
   // Init sig canvas
   useEffect(() => {
     if (showSigPad && sigCanvasRef.current) {
@@ -287,9 +297,33 @@ const DocConverterModal = ({ onClose }) => {
 
   const handleDocClick = (e) => {
     if (!placingMode || !sigDataUrl) return;
+
+    if (docType === 'word') {
+      // Insert inline into the contenteditable so it is part of the saved HTML
+      const imgHtml =
+        `<span contenteditable="false" style="display:inline-block;position:relative;vertical-align:middle;user-select:none;">` +
+        `<img src="${sigDataUrl}" style="height:60px;width:auto;display:block;pointer-events:none;" />` +
+        `</span>`;
+      let range = document.caretRangeFromPoint?.(e.clientX, e.clientY) ?? null;
+      if (!range && document.caretPositionFromPoint) {
+        const p = document.caretPositionFromPoint(e.clientX, e.clientY);
+        if (p) { range = document.createRange(); range.setStart(p.offsetNode, p.offset); }
+      }
+      if (range && wordViewRef.current?.contains(range.startContainer)) {
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        document.execCommand('insertHTML', false, imgHtml);
+      } else {
+        wordViewRef.current?.insertAdjacentHTML('beforeend', imgHtml);
+      }
+      showNotif('Signature placed — click another spot to add more');
+      return; // word sigs live in the contenteditable, not sigList
+    }
+
+    // PDF/image: floating overlay, composited at export with scale correction
     const pos = getViewerPos(e);
     setSigList(prev => [...prev, { id: Date.now(), dataUrl: sigDataUrl, bounds: { x: pos.x - 90, y: pos.y - 30, w: 180, h: 60 } }]);
-    // Stay in placing mode — user can keep placing. Click Done when finished.
   };
 
   const handleSigMouseDown = (e, id) => {
@@ -364,10 +398,26 @@ const DocConverterModal = ({ onClose }) => {
       if (!pageDataUrl) return;
       const composed = await composeCanvas(pageDataUrl, letterhead);
 
-      for (const sig of sigList) {
-        const ctx = composed.getContext('2d');
-        const img = await loadImg(sig.dataUrl);
-        ctx.drawImage(img, sig.bounds.x, sig.bounds.y, sig.bounds.w, sig.bounds.h);
+      if (sigList.length > 0) {
+        // Map viewer display coords → full-resolution canvas coords
+        const viewerEl = docViewerRef.current;
+        const docImgEl = viewerEl?.querySelector('img');
+        const displayW = docImgEl?.offsetWidth  || viewerEl?.offsetWidth  || composed.width;
+        const displayH = docImgEl?.offsetHeight || viewerEl?.offsetHeight || (letterhead ? composed.height - LH_HEADER_H : composed.height);
+        const pageCanvasH = letterhead ? composed.height - LH_HEADER_H : composed.height;
+        const scaleX = composed.width / displayW;
+        const scaleY = pageCanvasH   / displayH;
+        const lhOff  = letterhead ? LH_HEADER_H : 0;
+        for (const sig of sigList) {
+          const ctx = composed.getContext('2d');
+          const img = await loadImg(sig.dataUrl);
+          ctx.drawImage(img,
+            Math.round(sig.bounds.x * scaleX),
+            Math.round(sig.bounds.y * scaleY + lhOff),
+            Math.round(sig.bounds.w * scaleX),
+            Math.round(sig.bounds.h * scaleY)
+          );
+        }
       }
 
       const pdfDoc = await PDFDocument.create();
@@ -408,10 +458,25 @@ const DocConverterModal = ({ onClose }) => {
     const pageDataUrl = docPages[currentPage]?.dataUrl;
     if (!pageDataUrl) return;
     const composed = await composeCanvas(pageDataUrl, letterhead);
-    for (const sig of sigList) {
-      const ctx = composed.getContext('2d');
-      const img = await loadImg(sig.dataUrl);
-      ctx.drawImage(img, sig.bounds.x, sig.bounds.y, sig.bounds.w, sig.bounds.h);
+    if (sigList.length > 0) {
+      const viewerEl = docViewerRef.current;
+      const docImgEl = viewerEl?.querySelector('img');
+      const displayW = docImgEl?.offsetWidth  || viewerEl?.offsetWidth  || composed.width;
+      const displayH = docImgEl?.offsetHeight || viewerEl?.offsetHeight || (letterhead ? composed.height - LH_HEADER_H : composed.height);
+      const pageCanvasH = letterhead ? composed.height - LH_HEADER_H : composed.height;
+      const scaleX = composed.width / displayW;
+      const scaleY = pageCanvasH   / displayH;
+      const lhOff  = letterhead ? LH_HEADER_H : 0;
+      for (const sig of sigList) {
+        const ctx = composed.getContext('2d');
+        const img = await loadImg(sig.dataUrl);
+        ctx.drawImage(img,
+          Math.round(sig.bounds.x * scaleX),
+          Math.round(sig.bounds.y * scaleY + lhOff),
+          Math.round(sig.bounds.w * scaleX),
+          Math.round(sig.bounds.h * scaleY)
+        );
+      }
     }
     const win = window.open('', '_blank');
     win?.document.write(`<!DOCTYPE html><html><head><style>body{margin:0;}img{max-width:100%;}</style></head>
