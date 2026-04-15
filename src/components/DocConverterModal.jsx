@@ -76,9 +76,11 @@ const DocConverterModal = ({ onClose }) => {
   const [letterhead, setLetterhead]   = useState(false);
   const [editMode, setEditMode]       = useState(false);
   const [showSigPad, setShowSigPad]   = useState(false);
+  const [sigTab, setSigTab]           = useState('presets'); // 'presets' | 'draw' | 'upload'
   const [inkColor, setInkColor]       = useState(INK[0].color);
   const [isDrawing, setIsDrawing]     = useState(false);
   const [sigDataUrl, setSigDataUrl]   = useState(null);
+  const [uploadedSigSrc, setUploadedSigSrc] = useState(null);
 
   // Signature placement
   const [sigBounds, setSigBounds]     = useState(null);
@@ -98,6 +100,38 @@ const DocConverterModal = ({ onClose }) => {
   const execCmd = (cmd, val) => {
     wordViewRef.current?.focus();
     document.execCommand(cmd, false, val ?? '');
+  };
+
+  // Signature presets
+  const SIG_PRESETS = [
+    { label: 'Classic',  font: '"Brush Script MT","Segoe Script",cursive', size: 34 },
+    { label: 'Elegant',  font: 'italic "Palatino Linotype",Georgia,serif', size: 28 },
+    { label: 'Script',   font: 'italic 700 "Book Antiqua","Times New Roman",serif', size: 28 },
+    { label: 'Minimal',  font: 'italic 300 Georgia,serif', size: 30 },
+  ];
+  const [presetName, setPresetName] = useState('');
+
+  const applyPreset = (preset) => {
+    const canvas = sigCanvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.font = `${preset.size}px ${preset.font}`;
+    ctx.fillStyle = inkColor;
+    ctx.fillText(presetName || 'Your Name', 20, canvas.height / 2 + preset.size / 3);
+    setSigDataUrl(canvas.toDataURL());
+  };
+
+  const handleSigUpload = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      setUploadedSigSrc(ev.target?.result);
+      setSigDataUrl(ev.target?.result);
+    };
+    reader.readAsDataURL(file);
   };
 
   // Notification
@@ -476,33 +510,99 @@ const DocConverterModal = ({ onClose }) => {
 
                 {showSigPad && (
                   <div className="px-4 py-3 space-y-3">
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">Ink</span>
-                      {INK.map(ink => (
-                        <button key={ink.id} onClick={() => setInkColor(ink.color)}
-                          className={`w-6 h-6 rounded-full border-2 transition-all ${inkColor === ink.color ? 'scale-110' : 'border-gray-200'}`}
-                          style={{ background: ink.color, borderColor: inkColor === ink.color ? '#1e3a5f' : undefined }}
-                          title={ink.label}
-                        />
+                    {/* Tab switcher */}
+                    <div className="flex gap-0.5 bg-gray-100 rounded-lg p-0.5">
+                      {[
+                        { id: 'presets', label: '✦ Presets' },
+                        { id: 'draw',    label: '✏ Draw' },
+                        { id: 'upload',  label: '↑ Upload' },
+                      ].map(t => (
+                        <button key={t.id} onClick={() => setSigTab(t.id)}
+                          className={`flex-1 py-1.5 text-xs font-semibold rounded-md transition-all ${sigTab === t.id ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}>
+                          {t.label}
+                        </button>
                       ))}
-                      <button onClick={clearSig} className="ml-auto text-xs text-gray-400 hover:text-red-400 transition-colors">
-                        🗑 Clear
-                      </button>
                     </div>
 
-                    <canvas
-                      ref={sigCanvasRef}
-                      width={520} height={110}
-                      className="w-full border-2 border-dashed border-gray-200 rounded-xl cursor-crosshair bg-white touch-none"
-                      onMouseDown={startSigDraw}
-                      onMouseMove={drawSig}
-                      onMouseUp={endSigDraw}
-                      onMouseLeave={endSigDraw}
-                      onTouchStart={startSigDraw}
-                      onTouchMove={drawSig}
-                      onTouchEnd={endSigDraw}
-                    />
-                    <p className="text-xs text-gray-400">Draw your signature above, then place it on the document.</p>
+                    {/* Presets panel */}
+                    {sigTab === 'presets' && (
+                      <div className="space-y-2">
+                        <input
+                          type="text"
+                          placeholder="Type your name…"
+                          value={presetName}
+                          onChange={e => setPresetName(e.target.value)}
+                          className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-orange-400"
+                        />
+                        <div className="grid grid-cols-2 gap-2">
+                          {SIG_PRESETS.map((p, i) => (
+                            <button key={i} onClick={() => applyPreset(p)}
+                              className="h-14 border-2 border-gray-100 rounded-xl bg-white hover:border-orange-300 transition-all flex items-center justify-center px-3 overflow-hidden"
+                              style={{ fontFamily: p.font, fontSize: p.size, color: inkColor }}>
+                              {presetName || 'Your Name'}
+                            </button>
+                          ))}
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs text-gray-400">Ink:</span>
+                          {INK.map(ink => (
+                            <button key={ink.id} onClick={() => setInkColor(ink.color)}
+                              className={`w-5 h-5 rounded-full border-2 transition-all ${inkColor === ink.color ? 'scale-110' : 'border-gray-200'}`}
+                              style={{ background: ink.color, borderColor: inkColor === ink.color ? '#1e3a5f' : undefined }}
+                              title={ink.label}
+                            />
+                          ))}
+                          {sigDataUrl && <button onClick={clearSig} className="ml-auto text-xs text-gray-400 hover:text-red-400">🗑 Clear</button>}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Draw panel */}
+                    {sigTab === 'draw' && (
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">Ink</span>
+                          {INK.map(ink => (
+                            <button key={ink.id} onClick={() => setInkColor(ink.color)}
+                              className={`w-6 h-6 rounded-full border-2 transition-all ${inkColor === ink.color ? 'scale-110' : 'border-gray-200'}`}
+                              style={{ background: ink.color, borderColor: inkColor === ink.color ? '#1e3a5f' : undefined }}
+                              title={ink.label}
+                            />
+                          ))}
+                          <button onClick={clearSig} className="ml-auto text-xs text-gray-400 hover:text-red-400 transition-colors">
+                            🗑 Clear
+                          </button>
+                        </div>
+                        <canvas
+                          ref={sigCanvasRef}
+                          width={520} height={110}
+                          className="w-full border-2 border-dashed border-gray-200 rounded-xl cursor-crosshair bg-white touch-none"
+                          onMouseDown={startSigDraw}
+                          onMouseMove={drawSig}
+                          onMouseUp={endSigDraw}
+                          onMouseLeave={endSigDraw}
+                          onTouchStart={startSigDraw}
+                          onTouchMove={drawSig}
+                          onTouchEnd={endSigDraw}
+                        />
+                        <p className="text-xs text-gray-400">Draw your signature above, then place it on the document.</p>
+                      </div>
+                    )}
+
+                    {/* Upload panel */}
+                    {sigTab === 'upload' && (
+                      <div className="space-y-3 text-center">
+                        <label className="block border-2 border-dashed border-gray-200 rounded-xl py-6 px-4 cursor-pointer hover:border-orange-300 transition-colors">
+                          <span className="text-2xl block mb-1">🖼</span>
+                          <span className="text-sm font-semibold text-gray-600">Click to upload signature image</span>
+                          <span className="text-xs text-gray-400 block mt-0.5">PNG, JPG — transparent background works best</span>
+                          <input type="file" accept="image/*" className="hidden" onChange={handleSigUpload} />
+                        </label>
+                        {uploadedSigSrc && (
+                          <img src={uploadedSigSrc} alt="Uploaded signature" className="max-h-16 object-contain mx-auto border border-gray-100 rounded-lg p-2" />
+                        )}
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
