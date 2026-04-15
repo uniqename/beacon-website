@@ -76,17 +76,17 @@ const DocConverterModal = ({ onClose }) => {
   const [letterhead, setLetterhead]   = useState(false);
   const [editMode, setEditMode]       = useState(false);
   const [showSigPad, setShowSigPad]   = useState(false);
-  const [sigTab, setSigTab]           = useState('presets'); // 'presets' | 'draw' | 'upload'
+  const [sigTab, setSigTab]           = useState('saved'); // 'saved' | 'presets' | 'draw' | 'upload'
   const [inkColor, setInkColor]       = useState(INK[0].color);
   const [isDrawing, setIsDrawing]     = useState(false);
   const [sigDataUrl, setSigDataUrl]   = useState(null);
   const [uploadedSigSrc, setUploadedSigSrc] = useState(null);
 
-  // Signature placement
-  const [sigBounds, setSigBounds]     = useState(null);
+  // Signature placement — supports multiple signatures
+  const [sigList, setSigList]         = useState([]); // [{ id, dataUrl, bounds: {x,y,w,h} }]
   const [placingMode, setPlacingMode] = useState(false);
-  const [dragging, setDragging]       = useState(false);
-  const [resizing, setResizing]       = useState(false);
+  const [draggingId, setDraggingId]   = useState(null);
+  const [resizingId, setResizingId]   = useState(null);
   const dragOffset  = useRef({ x: 0, y: 0 });
   const resizeStart = useRef({ x: 0, y: 0, w: 0, h: 0 });
 
@@ -106,21 +106,26 @@ const DocConverterModal = ({ onClose }) => {
   const SIG_PRESETS = [
     { label: 'Classic',  font: '"Brush Script MT","Segoe Script",cursive', size: 34 },
     { label: 'Elegant',  font: 'italic "Palatino Linotype",Georgia,serif', size: 28 },
-    { label: 'Script',   font: 'italic 700 "Book Antiqua","Times New Roman",serif', size: 28 },
-    { label: 'Minimal',  font: 'italic 300 Georgia,serif', size: 30 },
+    { label: 'Script',   font: 'italic "Book Antiqua","Times New Roman",serif', size: 28 },
+    { label: 'Minimal',  font: 'italic Georgia,serif', size: 30 },
   ];
   const [presetName, setPresetName] = useState('');
 
+  // Load saved signature from localStorage on mount
+  const savedSigKey = 'bnb_saved_signature';
+  const [savedSigUrl, setSavedSigUrl] = useState(() => localStorage.getItem(savedSigKey) || null);
+
   const applyPreset = (preset) => {
-    const canvas = sigCanvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+    // Use an offscreen canvas — sigCanvasRef is only in DOM on the 'draw' tab
+    const offscreen = document.createElement('canvas');
+    offscreen.width = 520; offscreen.height = 110;
+    const ctx = offscreen.getContext('2d');
     ctx.fillStyle = '#fff';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillRect(0, 0, offscreen.width, offscreen.height);
     ctx.font = `${preset.size}px ${preset.font}`;
     ctx.fillStyle = inkColor;
-    ctx.fillText(presetName || 'Your Name', 20, canvas.height / 2 + preset.size / 3);
-    setSigDataUrl(canvas.toDataURL());
+    ctx.fillText(presetName || 'Your Name', 20, offscreen.height / 2 + preset.size / 3);
+    setSigDataUrl(offscreen.toDataURL());
   };
 
   const handleSigUpload = (e) => {
@@ -128,10 +133,18 @@ const DocConverterModal = ({ onClose }) => {
     if (!file) return;
     const reader = new FileReader();
     reader.onload = (ev) => {
-      setUploadedSigSrc(ev.target?.result);
-      setSigDataUrl(ev.target?.result);
+      const src = ev.target?.result;
+      setUploadedSigSrc(src);
+      setSigDataUrl(src);
     };
     reader.readAsDataURL(file);
+  };
+
+  const saveSignatureAsDefault = (src) => {
+    if (!src) return;
+    localStorage.setItem(savedSigKey, src);
+    setSavedSigUrl(src);
+    showNotif('Signature saved as default');
   };
 
   // Notification
@@ -170,7 +183,7 @@ const DocConverterModal = ({ onClose }) => {
     const ext = file.name.split('.').pop().toLowerCase();
     setDocFile(file);
     setDocPages([]); setWordHtml(null);
-    setSigBounds(null); setPlacingMode(false); setEditMode(false); setLetterhead(false);
+    setSigList([]); setPlacingMode(false); setEditMode(false); setLetterhead(false);
 
     if (ext === 'pdf') {
       setDocType('pdf'); setDocLoading(true);
@@ -274,36 +287,43 @@ const DocConverterModal = ({ onClose }) => {
   const handleDocClick = (e) => {
     if (!placingMode || !sigDataUrl) return;
     const pos = getViewerPos(e);
-    setSigBounds({ x: pos.x - 90, y: pos.y - 30, w: 180, h: 60 });
+    setSigList(prev => [...prev, { id: Date.now(), dataUrl: sigDataUrl, bounds: { x: pos.x - 90, y: pos.y - 30, w: 180, h: 60 } }]);
     setPlacingMode(false);
   };
 
-  const handleSigMouseDown = (e) => {
+  const handleSigMouseDown = (e, id) => {
     e.stopPropagation();
-    if (!sigBounds) return;
-    dragOffset.current = { x: e.clientX - sigBounds.x, y: e.clientY - sigBounds.y };
-    setDragging(true);
+    const sig = sigList.find(s => s.id === id);
+    if (!sig) return;
+    dragOffset.current = { x: e.clientX - sig.bounds.x, y: e.clientY - sig.bounds.y };
+    setDraggingId(id);
   };
 
-  const handleResizeMouseDown = (e) => {
+  const handleResizeMouseDown = (e, id) => {
     e.stopPropagation();
-    if (!sigBounds) return;
-    resizeStart.current = { x: e.clientX, y: e.clientY, w: sigBounds.w, h: sigBounds.h };
-    setResizing(true);
+    const sig = sigList.find(s => s.id === id);
+    if (!sig) return;
+    resizeStart.current = { x: e.clientX, y: e.clientY, w: sig.bounds.w, h: sig.bounds.h };
+    setResizingId(id);
   };
 
   const handleViewerMouseMove = (e) => {
-    if (dragging && sigBounds) {
-      setSigBounds(b => b ? { ...b, x: e.clientX - dragOffset.current.x, y: e.clientY - dragOffset.current.y } : b);
+    if (draggingId !== null) {
+      setSigList(prev => prev.map(s => s.id === draggingId
+        ? { ...s, bounds: { ...s.bounds, x: e.clientX - dragOffset.current.x, y: e.clientY - dragOffset.current.y } }
+        : s));
     }
-    if (resizing && sigBounds) {
+    if (resizingId !== null) {
       const dx = e.clientX - resizeStart.current.x;
       const dy = e.clientY - resizeStart.current.y;
-      setSigBounds(b => b ? { ...b, w: Math.max(60, resizeStart.current.w + dx), h: Math.max(20, resizeStart.current.h + dy) } : b);
+      setSigList(prev => prev.map(s => s.id === resizingId
+        ? { ...s, bounds: { ...s.bounds, w: Math.max(60, resizeStart.current.w + dx), h: Math.max(20, resizeStart.current.h + dy) } }
+        : s));
     }
   };
 
-  const handleViewerMouseUp = () => { setDragging(false); setResizing(false); };
+  const handleViewerMouseUp = () => { setDraggingId(null); setResizingId(null); };
+  const removeSig = (id) => setSigList(prev => prev.filter(s => s.id !== id));
 
   // Export / Print / Send
   const exportSigned = async () => {
@@ -336,10 +356,10 @@ const DocConverterModal = ({ onClose }) => {
       if (!pageDataUrl) return;
       const composed = await composeCanvas(pageDataUrl, letterhead);
 
-      if (sigBounds && sigDataUrl) {
+      for (const sig of sigList) {
         const ctx = composed.getContext('2d');
-        const sig = await loadImg(sigDataUrl);
-        ctx.drawImage(sig, sigBounds.x, sigBounds.y, sigBounds.w, sigBounds.h);
+        const img = await loadImg(sig.dataUrl);
+        ctx.drawImage(img, sig.bounds.x, sig.bounds.y, sig.bounds.w, sig.bounds.h);
       }
 
       const pdfDoc = await PDFDocument.create();
@@ -380,10 +400,10 @@ const DocConverterModal = ({ onClose }) => {
     const pageDataUrl = docPages[currentPage]?.dataUrl;
     if (!pageDataUrl) return;
     const composed = await composeCanvas(pageDataUrl, letterhead);
-    if (sigBounds && sigDataUrl) {
+    for (const sig of sigList) {
       const ctx = composed.getContext('2d');
-      const sig = await loadImg(sigDataUrl);
-      ctx.drawImage(sig, sigBounds.x, sigBounds.y, sigBounds.w, sigBounds.h);
+      const img = await loadImg(sig.dataUrl);
+      ctx.drawImage(img, sig.bounds.x, sig.bounds.y, sig.bounds.w, sig.bounds.h);
     }
     const win = window.open('', '_blank');
     win?.document.write(`<!DOCTYPE html><html><head><style>body{margin:0;}img{max-width:100%;}</style></head>
@@ -513,6 +533,7 @@ const DocConverterModal = ({ onClose }) => {
                     {/* Tab switcher */}
                     <div className="flex gap-0.5 bg-gray-100 rounded-lg p-0.5">
                       {[
+                        { id: 'saved',   label: '⭐ Saved' },
                         { id: 'presets', label: '✦ Presets' },
                         { id: 'draw',    label: '✏ Draw' },
                         { id: 'upload',  label: '↑ Upload' },
@@ -523,6 +544,36 @@ const DocConverterModal = ({ onClose }) => {
                         </button>
                       ))}
                     </div>
+
+                    {/* Saved panel */}
+                    {sigTab === 'saved' && (
+                      <div className="text-center space-y-3">
+                        {savedSigUrl ? (
+                          <>
+                            <div className="border-2 border-dashed border-gray-100 rounded-xl p-4 bg-gray-50">
+                              <img src={savedSigUrl} alt="Saved signature" className="max-h-20 object-contain mx-auto" />
+                            </div>
+                            <div className="flex gap-2 justify-center">
+                              <button onClick={() => setSigDataUrl(savedSigUrl)}
+                                className="px-4 py-2 rounded-full text-xs font-bold text-white"
+                                style={{ background: '#1e3a5f' }}>
+                                Use This Signature
+                              </button>
+                              <button onClick={() => { localStorage.removeItem(savedSigKey); setSavedSigUrl(null); }}
+                                className="px-4 py-2 rounded-full text-xs font-bold border border-gray-200 text-gray-500 hover:bg-gray-50">
+                                Remove
+                              </button>
+                            </div>
+                          </>
+                        ) : (
+                          <div className="py-6 text-gray-400">
+                            <div className="text-3xl mb-2">🖊</div>
+                            <p className="text-xs">No saved signature yet.</p>
+                            <p className="text-xs">Draw or upload one, then click "Save as default".</p>
+                          </div>
+                        )}
+                      </div>
+                    )}
 
                     {/* Presets panel */}
                     {sigTab === 'presets' && (
@@ -586,6 +637,12 @@ const DocConverterModal = ({ onClose }) => {
                           onTouchEnd={endSigDraw}
                         />
                         <p className="text-xs text-gray-400">Draw your signature above, then place it on the document.</p>
+                        {sigDataUrl && (
+                          <button onClick={() => saveSignatureAsDefault(sigDataUrl)}
+                            className="w-full py-1.5 text-xs font-semibold border border-dashed border-gray-300 rounded-lg text-gray-500 hover:bg-gray-50 transition-colors">
+                            ⭐ Save as default signature
+                          </button>
+                        )}
                       </div>
                     )}
 
@@ -599,7 +656,13 @@ const DocConverterModal = ({ onClose }) => {
                           <input type="file" accept="image/*" className="hidden" onChange={handleSigUpload} />
                         </label>
                         {uploadedSigSrc && (
-                          <img src={uploadedSigSrc} alt="Uploaded signature" className="max-h-16 object-contain mx-auto border border-gray-100 rounded-lg p-2" />
+                          <>
+                            <img src={uploadedSigSrc} alt="Uploaded signature" className="max-h-16 object-contain mx-auto border border-gray-100 rounded-lg p-2" />
+                            <button onClick={() => saveSignatureAsDefault(uploadedSigSrc)}
+                              className="w-full py-1.5 text-xs font-semibold border border-dashed border-gray-300 rounded-lg text-gray-500 hover:bg-gray-50 transition-colors">
+                              ⭐ Save as default signature
+                            </button>
+                          </>
                         )}
                       </div>
                     )}
@@ -613,14 +676,11 @@ const DocConverterModal = ({ onClose }) => {
                   <button onClick={() => setPlacingMode(p => !p)}
                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white transition-colors"
                     style={{ background: placingMode ? '#f97316' : '#1e3a5f' }}>
-                    ✍ {placingMode ? 'Click to place…' : sigBounds ? 'Move Signature' : 'Place Signature'}
+                    ✍ {placingMode ? 'Click doc to place…' : 'Place Signature'}
                   </button>
                 )}
-                {sigBounds && (
-                  <button onClick={() => setSigBounds(null)}
-                    className="px-3 py-1.5 rounded-lg text-xs font-semibold border border-gray-200 text-gray-500 hover:bg-gray-50 transition-colors">
-                    ✕ Remove Sig
-                  </button>
+                {sigList.length > 0 && (
+                  <span className="text-xs text-gray-400">{sigList.length} signature{sigList.length > 1 ? 's' : ''} placed</span>
                 )}
                 {docType === 'word' && (
                   <span className="text-xs font-semibold px-2 py-1 rounded-full border"
@@ -763,8 +823,8 @@ const DocConverterModal = ({ onClose }) => {
                   letterhead ? 'rounded-b-xl' : 'rounded-xl'
                 }`}
                 style={{
-                  borderColor: placingMode ? '#f97316' : dragging || resizing ? '#d1d5db' : '#e5e7eb',
-                  cursor: placingMode ? 'crosshair' : dragging || resizing ? 'grabbing' : 'default',
+                  borderColor: placingMode ? '#f97316' : draggingId || resizingId ? '#d1d5db' : '#e5e7eb',
+                  cursor: placingMode ? 'crosshair' : draggingId || resizingId ? 'grabbing' : 'default',
                   borderTopWidth: letterhead ? 0 : undefined,
                 }}
               >
@@ -779,31 +839,34 @@ const DocConverterModal = ({ onClose }) => {
                   <img src={docPages[currentPage].dataUrl} alt="Document page" className="w-full block" />
                 ) : null}
 
-                {/* Draggable/resizable signature */}
-                {sigBounds && sigDataUrl && (
+                {/* Multiple draggable/resizable signatures */}
+                {sigList.map(sig => (
                   <div
-                    onMouseDown={handleSigMouseDown}
+                    key={sig.id}
+                    onMouseDown={e => handleSigMouseDown(e, sig.id)}
                     style={{
                       position: 'absolute',
-                      left: sigBounds.x, top: sigBounds.y,
-                      width: sigBounds.w, height: sigBounds.h,
+                      left: sig.bounds.x, top: sig.bounds.y,
+                      width: sig.bounds.w, height: sig.bounds.h,
                       border: '2px solid #f97316', borderRadius: 4,
-                      cursor: dragging ? 'grabbing' : 'grab',
+                      cursor: draggingId === sig.id ? 'grabbing' : 'grab',
                       boxSizing: 'border-box',
                     }}
                   >
-                    <img src={sigDataUrl} alt="Signature" style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block', pointerEvents: 'none' }} />
+                    <img src={sig.dataUrl} alt="Signature" style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block', pointerEvents: 'none' }} />
+                    {/* Remove button */}
+                    <button
+                      onMouseDown={e => e.stopPropagation()}
+                      onClick={e => { e.stopPropagation(); removeSig(sig.id); }}
+                      style={{ position: 'absolute', top: -10, right: -10, width: 20, height: 20, background: '#ef4444', border: 'none', borderRadius: '50%', color: '#fff', fontSize: 12, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', lineHeight: 1 }}
+                    >×</button>
+                    {/* Resize handle */}
                     <div
-                      onMouseDown={handleResizeMouseDown}
-                      style={{
-                        position: 'absolute', bottom: 0, right: 0,
-                        width: 14, height: 14,
-                        background: '#f97316', borderRadius: '4px 0 0 0',
-                        cursor: 'se-resize',
-                      }}
+                      onMouseDown={e => handleResizeMouseDown(e, sig.id)}
+                      style={{ position: 'absolute', bottom: 0, right: 0, width: 14, height: 14, background: '#f97316', borderRadius: '4px 0 0 0', cursor: 'se-resize' }}
                     />
                   </div>
-                )}
+                ))}
               </div>
             </>
           )}
