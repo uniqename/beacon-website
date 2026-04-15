@@ -522,19 +522,44 @@ const DocConverterModal = ({ onClose }) => {
 
               {/* Signature section */}
               <div className="border border-gray-100 rounded-2xl overflow-hidden">
-                <button
-                  onClick={() => setShowSigPad(v => !v)}
-                  className="w-full flex items-center gap-3 px-4 py-3 bg-gray-50 hover:bg-gray-100 transition-colors text-left"
-                >
-                  <span className="text-gray-400 shrink-0">✍</span>
-                  <span className="text-sm font-semibold text-gray-700 flex-1">
-                    {sigDataUrl ? 'Signature ready' : 'Add Signature'}
-                  </span>
-                  {sigDataUrl && (
-                    <img src={sigDataUrl} alt="sig preview" className="h-6 object-contain" />
+                <div className="flex items-center bg-gray-50 hover:bg-gray-100 transition-colors">
+                  <button
+                    onClick={() => setShowSigPad(v => !v)}
+                    className="flex items-center gap-3 px-4 py-3 text-left flex-1"
+                  >
+                    <span className="text-gray-400 shrink-0">✍</span>
+                    <span className="text-sm font-semibold text-gray-700 flex-1">
+                      {sigDataUrl ? 'Signature ready' : 'Add Signature'}
+                    </span>
+                    {sigDataUrl && (
+                      <img src={sigDataUrl} alt="sig preview" className="h-6 object-contain" />
+                    )}
+                    <span className="text-xs text-gray-400">{showSigPad ? '▲' : '▼'}</span>
+                  </button>
+                  {sigList.length > 0 && (
+                    <button
+                      onClick={() => {
+                        setSigDataUrl(null);
+                        setUploadedSigSrc(null);
+                        setPresetName('');
+                        if (sigCanvasRef.current) {
+                          const ctx = sigCanvasRef.current.getContext('2d');
+                          ctx.fillStyle = '#fff';
+                          ctx.fillRect(0, 0, sigCanvasRef.current.width, sigCanvasRef.current.height);
+                        }
+                        setPlacingMode(false);
+                        setGhostPos(null);
+                        setSigTab('presets');
+                        setShowSigPad(true);
+                      }}
+                      className="shrink-0 mr-3 px-3 py-1.5 rounded-full text-xs font-bold border transition-colors"
+                      style={{ borderColor: '#f97316', color: '#c2410c', background: '#fff7ed' }}
+                      title="Clear current signature and create one for a different person"
+                    >
+                      + New signer
+                    </button>
                   )}
-                  <span className="text-xs text-gray-400">{showSigPad ? '▲' : '▼'}</span>
-                </button>
+                </div>
 
                 {showSigPad && (
                   <div className="px-4 py-3 space-y-3">

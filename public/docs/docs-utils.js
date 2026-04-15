@@ -35,8 +35,10 @@ const SIG_IMAGE_URL = '../images/enam-signature.png';
       </div>
 
       <!-- Insert confirmation bar -->
-      <div id="sig-confirm" style="display:none;background:#fff7ed;border-bottom:1px solid #fed7aa;padding:10px 20px;font-size:12px;color:#c2410c;font-weight:600;text-align:center;">
-        ✓ Signature placed! Click in the document where you want another, then insert again. <button onclick="closeSigModal()" style="margin-left:12px;padding:3px 12px;border:1px solid #c2410c;border-radius:20px;background:#fff;color:#c2410c;font-size:11px;font-weight:700;cursor:pointer;">Done</button>
+      <div id="sig-confirm" style="display:none;background:#fff7ed;border-bottom:1px solid #fed7aa;padding:10px 20px;font-size:12px;color:#c2410c;font-weight:600;display:none;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;">
+        <span>✓ Signature placed!</span>
+        <button onclick="startNewSigner()" style="padding:3px 12px;border:1px solid #c2410c;border-radius:20px;background:#fff;color:#c2410c;font-size:11px;font-weight:700;cursor:pointer;">+ New signer</button>
+        <button onclick="closeSigModal()" style="padding:3px 12px;border:1px solid #c2410c;border-radius:20px;background:#c2410c;color:#fff;font-size:11px;font-weight:700;cursor:pointer;">Done</button>
       </div>
 
       <!-- Saved signature panel -->
@@ -113,6 +115,26 @@ function openSignatureModal() {
 
 function closeSigModal() {
   document.getElementById('sig-overlay').style.display = 'none';
+  var confirmBar = document.getElementById('sig-confirm');
+  if (confirmBar) confirmBar.style.display = 'none';
+}
+
+/* ── Start a fresh signature for a new signer ────────────────────────────── */
+function startNewSigner() {
+  // Clear draw canvas
+  clearCanvas();
+  // Reset upload state
+  _uploadedSrc = null;
+  var preview = document.getElementById('sig-upload-preview');
+  var btn     = document.getElementById('sig-upload-btn');
+  var inp     = document.getElementById('sig-upload-input');
+  if (preview) preview.style.display = 'none';
+  if (btn)     btn.style.display     = 'none';
+  if (inp)     inp.value             = '';
+  // Hide confirmation bar, switch to draw tab
+  var confirmBar = document.getElementById('sig-confirm');
+  if (confirmBar) confirmBar.style.display = 'none';
+  switchTab('draw');
 }
 
 /* ── Tabs ────────────────────────────────────────────────────────────────── */
@@ -161,7 +183,7 @@ function insertSigAtCursor(src, h) {
 
   // Show confirmation bar, keep modal open
   var confirmBar = document.getElementById('sig-confirm');
-  if (confirmBar) confirmBar.style.display = 'block';
+  if (confirmBar) confirmBar.style.display = 'flex';
 
   // Attach resize drag after DOM updates
   setTimeout(function() {
