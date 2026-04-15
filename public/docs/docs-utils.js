@@ -352,13 +352,15 @@ function insertUploadedSig() {
 /* ── Edit / Preview toggle ───────────────────────────────────────────────── */
 (function injectEditToggle() {
   document.addEventListener('DOMContentLoaded', function() {
-    /* Make images inside contenteditable non-blocking */
+    /* Make images inside contenteditable non-blocking; suppress browser print headers */
     var style = document.createElement('style');
     style.textContent = [
       '[contenteditable] img { pointer-events: none; user-select: none; }',
       '[contenteditable]:hover:not(:focus-within) { outline: 1px dashed rgba(0,0,0,.12); outline-offset: 2px; }',
       '[contenteditable]:focus-within { outline: 2px solid ' + DOXA_ACCENT + '; outline-offset: 2px; }',
       '[contenteditable] { cursor: text; }',
+      /* Remove browser URL / date print headers by zeroing @page margin */
+      '@media print { @page { margin: 0; } body { padding: 18mm 20mm; } .toolbar { display: none; } }',
     ].join('\n');
     document.head.appendChild(style);
 

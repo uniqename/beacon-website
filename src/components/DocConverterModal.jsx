@@ -378,19 +378,26 @@ const DocConverterModal = ({ onClose }) => {
                <div style="font-family:Georgia,serif;font-weight:700;font-size:14px;color:${LH.primaryColor};letter-spacing:3px;">${LH.org}</div>
                <div style="font-size:9px;color:${LH.accentColor};font-weight:700;letter-spacing:2px;margin-top:3px;">${LH.tagline.toUpperCase()}</div>
              </div>` : '';
-        const fullHtml = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
-          body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;padding:20px;line-height:1.6;}
-          @media print{.no-print{display:none}}
-        </style></head><body>${lhHeader}<div contenteditable="true" style="outline:none;">${content}</div>
-        <div class="no-print" style="margin-top:24px;">
-          <button onclick="window.print()" style="padding:10px 24px;background:#f97316;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px;">Print / Save PDF</button>
+        const printCss = `
+          @page { margin: 0; }
+          @media print {
+            .no-print { display: none !important; }
+            body { margin: 0; padding: 18mm 20mm; max-width: none; }
+          }
+          body { font-family: Arial, sans-serif; max-width: 820px; margin: 40px auto; padding: 28px 36px; line-height: 1.7; color: #1a1a1a; }
+          img { max-width: 100%; }
+          [contenteditable] { outline: none; }
+        `;
+        const fullHtml = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${docFile.name.replace(/\.[^.]+$/, '')}</title><style>${printCss}</style></head><body>${lhHeader}<div>${content}</div>
+        <div class="no-print" style="margin-top:32px;padding-top:20px;border-top:1px solid #e5e7eb;display:flex;gap:12px;">
+          <button onclick="window.print()" style="padding:10px 24px;background:#1e3a5f;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;">🖨 Print / Save as PDF</button>
         </div></body></html>`;
         const blob = new Blob([fullHtml], { type: 'text/html' });
         const a = document.createElement('a');
-        a.download = `${docFile.name.replace(/\.[^.]+$/, '')}_edited.html`;
+        a.download = `${docFile.name.replace(/\.[^.]+$/, '')}.html`;
         a.href = URL.createObjectURL(blob);
         a.click();
-        showNotif('Downloaded — open in browser then print/save as PDF');
+        showNotif('Saved — open the file, then use Print → Save as PDF');
         return;
       }
 
@@ -449,7 +456,9 @@ const DocConverterModal = ({ onClose }) => {
            </div>` : '';
       const win = window.open('', '_blank');
       win?.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
-        body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;padding:20px;line-height:1.6;}
+        @page { margin: 0; }
+        body { font-family: Arial, sans-serif; max-width: none; margin: 0; padding: 18mm 20mm; line-height: 1.7; color: #1a1a1a; }
+        img { max-width: 100%; }
       </style></head><body>${lhHeader}<div>${content}</div></body></html>`);
       win?.document.close();
       setTimeout(() => win?.print(), 400);
@@ -479,8 +488,11 @@ const DocConverterModal = ({ onClose }) => {
       }
     }
     const win = window.open('', '_blank');
-    win?.document.write(`<!DOCTYPE html><html><head><style>body{margin:0;}img{max-width:100%;}</style></head>
-      <body><img src="${composed.toDataURL('image/png')}"/></body></html>`);
+    win?.document.write(`<!DOCTYPE html><html><head><style>
+      @page { margin: 0; }
+      body { margin: 0; padding: 0; }
+      img { width: 100%; display: block; }
+    </style></head><body><img src="${composed.toDataURL('image/png')}"/></body></html>`);
     win?.document.close();
     setTimeout(() => win?.print(), 400);
   };
