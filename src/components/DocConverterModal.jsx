@@ -85,6 +85,7 @@ const DocConverterModal = ({ onClose }) => {
   // Signature placement — supports multiple signatures
   const [sigList, setSigList]         = useState([]); // [{ id, dataUrl, bounds: {x,y,w,h} }]
   const [placingMode, setPlacingMode] = useState(false);
+  const [ghostPos, setGhostPos]       = useState(null); // viewer-relative {x,y} for cursor preview
   const [draggingId, setDraggingId]   = useState(null);
   const [resizingId, setResizingId]   = useState(null);
   const dragOffset  = useRef({ x: 0, y: 0 });
@@ -288,7 +289,7 @@ const DocConverterModal = ({ onClose }) => {
     if (!placingMode || !sigDataUrl) return;
     const pos = getViewerPos(e);
     setSigList(prev => [...prev, { id: Date.now(), dataUrl: sigDataUrl, bounds: { x: pos.x - 90, y: pos.y - 30, w: 180, h: 60 } }]);
-    setPlacingMode(false);
+    // Stay in placing mode — user can keep placing. Click Done when finished.
   };
 
   const handleSigMouseDown = (e, id) => {
@@ -320,9 +321,16 @@ const DocConverterModal = ({ onClose }) => {
         ? { ...s, bounds: { ...s.bounds, w: Math.max(60, resizeStart.current.w + dx), h: Math.max(20, resizeStart.current.h + dy) } }
         : s));
     }
+    // Track mouse for ghost signature preview in placing mode
+    if (placingMode && docViewerRef.current) {
+      const rect = docViewerRef.current.getBoundingClientRect();
+      const el = docViewerRef.current;
+      setGhostPos({ x: e.clientX - rect.left + el.scrollLeft, y: e.clientY - rect.top + el.scrollTop });
+    }
   };
 
   const handleViewerMouseUp = () => { setDraggingId(null); setResizingId(null); };
+  const handleViewerMouseLeave = () => { setDraggingId(null); setResizingId(null); setGhostPos(null); };
   const removeSig = (id) => setSigList(prev => prev.filter(s => s.id !== id));
 
   // Export / Print / Send
@@ -484,7 +492,7 @@ const DocConverterModal = ({ onClose }) => {
               {/* Filename + change */}
               <div className="flex items-center gap-2">
                 <span className="text-sm text-gray-500 truncate flex-1">{docFile.name}</span>
-                <button onClick={() => { setDocFile(null); setDocPages([]); setWordHtml(null); setSigBounds(null); setSigDataUrl(null); }}
+                <button onClick={() => { setDocFile(null); setDocPages([]); setWordHtml(null); setSigList([]); setSigDataUrl(null); setPlacingMode(false); setGhostPos(null); }}
                   className="px-3 py-1.5 rounded-lg border border-gray-200 text-gray-500 text-xs font-medium hover:bg-gray-50 transition-colors">
                   Change file
                 </button>
@@ -673,10 +681,10 @@ const DocConverterModal = ({ onClose }) => {
               {/* Action bar */}
               <div className="flex items-center gap-2 flex-wrap">
                 {sigDataUrl && (
-                  <button onClick={() => setPlacingMode(p => !p)}
+                  <button onClick={() => { if (placingMode) setGhostPos(null); setPlacingMode(p => !p); }}
                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white transition-colors"
                     style={{ background: placingMode ? '#f97316' : '#1e3a5f' }}>
-                    ✍ {placingMode ? 'Click doc to place…' : 'Place Signature'}
+                    ✍ {placingMode ? 'Placing…' : 'Place Signature'}
                   </button>
                 )}
                 {sigList.length > 0 && (
@@ -793,9 +801,15 @@ const DocConverterModal = ({ onClose }) => {
 
               {/* Placing mode banner */}
               {placingMode && (
-                <div className="px-4 py-2.5 rounded-xl text-sm font-medium text-center"
+                <div className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium"
                   style={{ background: '#fff7ed', border: '1px solid #f97316', color: '#c2410c' }}>
-                  ✦ Click anywhere on the document below to place your signature
+                  <span className="flex-1 text-xs">✦ Click anywhere on the document to stamp your signature. Click again to add more.</span>
+                  <button
+                    onClick={() => { setPlacingMode(false); setGhostPos(null); }}
+                    className="shrink-0 px-3 py-1 rounded-full text-xs font-bold border"
+                    style={{ borderColor: '#c2410c', background: '#fff', color: '#c2410c' }}>
+                    Done
+                  </button>
                 </div>
               )}
 
@@ -818,7 +832,7 @@ const DocConverterModal = ({ onClose }) => {
                 onClick={handleDocClick}
                 onMouseMove={handleViewerMouseMove}
                 onMouseUp={handleViewerMouseUp}
-                onMouseLeave={handleViewerMouseUp}
+                onMouseLeave={handleViewerMouseLeave}
                 className={`relative bg-white overflow-auto max-h-[55vh] shadow-inner border-2 select-none transition-colors ${
                   letterhead ? 'rounded-b-xl' : 'rounded-xl'
                 }`}
@@ -838,6 +852,26 @@ const DocConverterModal = ({ onClose }) => {
                 ) : docPages[currentPage] ? (
                   <img src={docPages[currentPage].dataUrl} alt="Document page" className="w-full block" />
                 ) : null}
+
+                {/* Ghost preview — semi-transparent sig follows cursor in placing mode */}
+                {placingMode && sigDataUrl && ghostPos && !draggingId && !resizingId && (
+                  <img
+                    src={sigDataUrl}
+                    alt=""
+                    style={{
+                      position: 'absolute',
+                      left: ghostPos.x - 90,
+                      top: ghostPos.y - 30,
+                      width: 180,
+                      height: 60,
+                      objectFit: 'contain',
+                      opacity: 0.45,
+                      pointerEvents: 'none',
+                      border: '2px dashed #f97316',
+                      borderRadius: 4,
+                    }}
+                  />
+                )}
 
                 {/* Multiple draggable/resizable signatures */}
                 {sigList.map(sig => (

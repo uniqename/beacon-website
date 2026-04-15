@@ -34,9 +34,14 @@ const SIG_IMAGE_URL = '../images/enam-signature.png';
         </button>
       </div>
 
+      <!-- Insert confirmation bar -->
+      <div id="sig-confirm" style="display:none;background:#fff7ed;border-bottom:1px solid #fed7aa;padding:10px 20px;font-size:12px;color:#c2410c;font-weight:600;text-align:center;">
+        ✓ Signature placed! Click in the document where you want another, then insert again. <button onclick="closeSigModal()" style="margin-left:12px;padding:3px 12px;border:1px solid #c2410c;border-radius:20px;background:#fff;color:#c2410c;font-size:11px;font-weight:700;cursor:pointer;">Done</button>
+      </div>
+
       <!-- Saved signature panel -->
       <div id="panel-saved" style="padding:24px;text-align:center;">
-        <p style="font-size:12px;color:#78716c;margin-bottom:12px;">Your saved signature — select a size then click Insert</p>
+        <p style="font-size:12px;color:#78716c;margin-bottom:12px;">Your saved signature — select a size then click Insert. Drag the orange handle to resize after placing.</p>
         <div style="border:2px dashed #d6d3d1;border-radius:8px;padding:20px;background:#fafaf9;margin-bottom:16px;">
           <img id="sig-preview" src="${SIG_IMAGE_URL}" style="max-height:80px;object-fit:contain;" />
         </div>
@@ -95,7 +100,7 @@ const SIG_IMAGE_URL = '../images/enam-signature.png';
 let _savedRange   = null;
 let _sigSize      = 'small';
 let _uploadedSrc  = null;
-const SIG_SIZES   = { small: 80, medium: 130, large: 200 };
+const SIG_SIZES   = { small: 40, medium: 65, large: 100 };
 
 /* ── Signature modal open/close ─────────────────────────────────────────── */
 function openSignatureModal() {
@@ -137,12 +142,57 @@ function setSigSize(size) {
   document.getElementById('sig-preview').style.maxHeight = SIG_SIZES[size] + 'px';
 }
 
+/* ── Insert signature at cursor — resizable wrapper ─────────────────────── */
+function insertSigAtCursor(src, h) {
+  var id = 'sig-' + Date.now();
+  var wrapHtml =
+    '<span id="' + id + '" contenteditable="false" class="sig-node" ' +
+    'style="display:inline-block;position:relative;vertical-align:middle;user-select:none;">' +
+      '<img src="' + src + '" style="height:' + h + 'px;display:block;pointer-events:none;" />' +
+      '<span onclick="this.parentNode.remove()" ' +
+        'style="position:absolute;top:-8px;right:-8px;width:18px;height:18px;background:#ef4444;color:#fff;' +
+        'border-radius:50%;font-size:12px;line-height:18px;text-align:center;cursor:pointer;z-index:10;font-weight:bold;">×</span>' +
+      '<span class="sig-resize" ' +
+        'style="position:absolute;bottom:-6px;right:-6px;width:14px;height:14px;background:' + DOXA_ACCENT + ';' +
+        'border-radius:50%;cursor:se-resize;z-index:10;"></span>' +
+    '</span>';
+
+  insertAtCursor(wrapHtml);
+
+  // Show confirmation bar, keep modal open
+  var confirmBar = document.getElementById('sig-confirm');
+  if (confirmBar) confirmBar.style.display = 'block';
+
+  // Attach resize drag after DOM updates
+  setTimeout(function() {
+    var node   = document.getElementById(id);
+    if (!node) return;
+    var handle = node.querySelector('.sig-resize');
+    var img    = node.querySelector('img');
+    if (!handle || !img) return;
+    handle.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+      var startY = e.clientY;
+      var startH = img.offsetHeight;
+      function onMove(ev) {
+        var newH = Math.max(20, startH + (ev.clientY - startY));
+        img.style.height = newH + 'px';
+      }
+      function onUp() {
+        document.removeEventListener('mousemove', onMove);
+        document.removeEventListener('mouseup', onUp);
+      }
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+    });
+  }, 60);
+}
+
 /* ── Insert saved signature ──────────────────────────────────────────────── */
 function insertSavedSig() {
-  const h = SIG_SIZES[_sigSize];
-  const imgHtml = '<img src="' + SIG_IMAGE_URL + '" style="height:' + h + 'px;vertical-align:middle;display:inline-block;" />';
-  insertAtCursor(imgHtml);
-  closeSigModal();
+  var h = SIG_SIZES[_sigSize];
+  var savedSrc = localStorage.getItem('bnb_saved_signature') || SIG_IMAGE_URL;
+  insertSigAtCursor(savedSrc, h);
 }
 
 /* ── Canvas drawing ──────────────────────────────────────────────────────── */
@@ -172,12 +222,10 @@ function clearCanvas() {
 }
 
 function insertDrawnSig() {
-  const canvas = document.getElementById('sig-canvas');
-  const dataUrl = canvas.toDataURL('image/png');
-  const h = SIG_SIZES[_sigSize];
-  const imgHtml = '<img src="' + dataUrl + '" style="height:' + h + 'px;vertical-align:middle;display:inline-block;" />';
-  insertAtCursor(imgHtml);
-  closeSigModal();
+  var canvas = document.getElementById('sig-canvas');
+  var dataUrl = canvas.toDataURL('image/png');
+  var h = SIG_SIZES[_sigSize];
+  insertSigAtCursor(dataUrl, h);
 }
 
 /* ── Insert HTML at saved cursor position ────────────────────────────────── */
@@ -228,9 +276,7 @@ function handleSigUpload(e) {
 function insertUploadedSig() {
   if (!_uploadedSrc) return;
   var h = SIG_SIZES[_sigSize];
-  var imgHtml = '<img src="' + _uploadedSrc + '" style="height:' + h + 'px;vertical-align:middle;display:inline-block;" />';
-  insertAtCursor(imgHtml);
-  closeSigModal();
+  insertSigAtCursor(_uploadedSrc, h);
 }
 
 /* ── Edit / Preview toggle ───────────────────────────────────────────────── */
