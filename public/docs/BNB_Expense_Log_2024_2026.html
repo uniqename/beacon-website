@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Beacon — Expense Log 2024–2026</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Georgia', serif; background: #fafafa; color: #111; line-height: 1.75; }
+
+  .toolbar {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+    padding: 12px 24px; background: #fff; border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
+  .toolbar button {
+    padding: 8px 20px; border: none; border-radius: 50px;
+    cursor: pointer; font-size: 13px; font-weight: 700; transition: background .15s;
+  }
+  .btn-print  { background: #ea580c; color: #fff; }
+  .btn-print:hover  { background: #c2410c; }
+  .btn-select { background: #1e293b; color: #fff; }
+  .btn-select:hover { background: #0f172a; }
+  .toolbar-note { margin-left: auto; font-size: 12px; color: #9ca3af; font-family: Arial, sans-serif; }
+
+  .page { max-width: 960px; margin: 32px auto 64px; background: #fff;
+          border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden;
+          box-shadow: 0 4px 24px rgba(0,0,0,.06); }
+
+  .letterhead {
+    display: flex; align-items: center; gap: 20px;
+    padding: 28px 40px; background: #fff3ed;
+    border-bottom: 4px solid #ea580c;
+  }
+  .letterhead img { width: 64px; height: 64px; object-fit: contain; flex-shrink: 0; }
+  .letterhead-text .org-name {
+    font-family: Georgia, serif; font-size: 20px; font-weight: 700;
+    color: #ea580c; letter-spacing: -0.3px;
+  }
+  .letterhead-text .tagline {
+    font-family: Arial, sans-serif; font-size: 12px; color: #6b7280; margin-top: 2px;
+  }
+  .letterhead-contact {
+    margin-left: auto; text-align: right;
+    font-family: Arial, sans-serif; font-size: 11px; color: #6b7280; line-height: 1.6;
+  }
+
+  .doc-body { outline: none; padding: 40px; min-height: 600px; }
+  .doc-body p  { margin: 0.55em 0; }
+  .doc-body h1 { font-size: 1.7rem; margin-top: 1.4em; margin-bottom: .5em; color: #1e293b; }
+  .doc-body h2 { font-size: 1.2rem; margin-top: 1.5em; margin-bottom: .4em; color: #ea580c; border-bottom: 2px solid #ffedd5; padding-bottom: 6px; }
+  .doc-body h3 { font-size: 1rem; margin-top: 1.1em; margin-bottom: .3em; color: #374151; font-family: Arial, sans-serif; }
+
+  .doc-title { text-align: center; padding: 32px 40px 8px; border-bottom: 1px solid #f3f4f6; }
+  .doc-title h1 { font-size: 1.8rem; color: #1e293b; margin: 0; }
+  .doc-title .subtitle { font-family: Arial, sans-serif; font-size: 13px; color: #6b7280; margin-top: 6px; }
+  .doc-title .period { font-family: Arial, sans-serif; font-size: 12px; color: #ea580c; font-weight: 700; margin-top: 4px; letter-spacing: 0.5px; text-transform: uppercase; }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-family: Arial, sans-serif; font-size: 13px; }
+  thead tr { background: #1e293b; color: #fff; }
+  thead th { padding: 10px 14px; text-align: left; font-weight: 600; }
+  tbody tr:nth-child(even) { background: #f9fafb; }
+  tbody tr:hover { background: #fff7ed; }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
+  .td-right { text-align: right; font-variant-numeric: tabular-nums; }
+  .td-note { color: #6b7280; font-style: italic; font-size: 12px; }
+  tfoot tr { background: #fff3ed; font-weight: 700; }
+  tfoot td { padding: 10px 14px; border-top: 2px solid #ea580c; }
+
+  .category-label {
+    display: inline-block; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
+    padding: 2px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.4px;
+  }
+  .cat-tech     { background: #dbeafe; color: #1d4ed8; }
+  .cat-people   { background: #dcfce7; color: #166534; }
+  .cat-travel   { background: #fef9c3; color: #854d0e; }
+  .cat-legal    { background: #f3e8ff; color: #6b21a8; }
+  .cat-program  { background: #ffe4e6; color: #9f1239; }
+
+  .summary-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin: 24px 0;
+  }
+  .summary-card {
+    background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px;
+    padding: 16px 20px; text-align: center;
+  }
+  .summary-card .amount { font-size: 1.5rem; font-weight: 700; color: #ea580c; font-family: Arial, sans-serif; }
+  .summary-card .label  { font-family: Arial, sans-serif; font-size: 12px; color: #6b7280; margin-top: 4px; }
+  .summary-card .sub    { font-family: Arial, sans-serif; font-size: 11px; color: #94a3b8; margin-top: 2px; }
+
+  .note-box {
+    background: #fffbeb; border-left: 4px solid #f59e0b; border-radius: 4px;
+    padding: 14px 18px; margin: 20px 0; font-family: Arial, sans-serif; font-size: 13px; color: #78350f;
+  }
+  .info-box {
+    background: #f0f9ff; border-left: 4px solid #0ea5e9; border-radius: 4px;
+    padding: 14px 18px; margin: 20px 0; font-family: Arial, sans-serif; font-size: 13px; color: #075985;
+  }
+
+  @media print {
+    .toolbar { display: none; }
+    .page { box-shadow: none; border: none; margin: 0; border-radius: 0; }
+    body { background: #fff; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button class="btn-print" onclick="window.print()">🖨 Print / Save PDF</button>
+  <button class="btn-select" onclick="document.execCommand('selectAll')">Select All</button>
+  <span class="toolbar-note">Click any text to edit it directly in the browser</span>
+</div>
+
+<div class="page">
+
+  <div class="letterhead">
+    <img src="/images/logo.png" alt="Beacon Logo" onerror="this.style.display='none'"/>
+    <div class="letterhead-text">
+      <div class="org-name">Beacon of New Beginnings</div>
+      <div class="tagline">Walking the path from pain to power — hand in hand</div>
+    </div>
+    <div class="letterhead-contact">
+      info@beaconnewbeginnings.org<br/>
+      beaconnewbeginnings.org<br/>
+      Accra, Ghana &nbsp;|&nbsp; United States
+    </div>
+  </div>
+
+  <div class="doc-title">
+    <h1>Organisational Expense Log</h1>
+    <div class="subtitle">Technology · Personnel · Travel · Registration · Infrastructure</div>
+    <div class="period">November 2024 — April 2026 &nbsp;·&nbsp; Prepared by Founder</div>
+  </div>
+
+  <div class="doc-body" contenteditable="true">
+
+    <div class="note-box">
+      <strong>How to use this document:</strong> Click any cell or paragraph to edit figures, add rows, or update notes directly in your browser. Print or save as PDF using the toolbar above. Exchange rate used: <strong>1 USD ≈ 15 GHS</strong> (April 2026 approximate). Update this rate as needed.
+    </div>
+
+    <h2>1. Summary Overview</h2>
+
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="amount">~$13,500</div>
+        <div class="label">Total Estimated Spend</div>
+        <div class="sub">Nov 2024 – Apr 2026</div>
+      </div>
+      <div class="summary-card">
+        <div class="amount">~GHS 202,500</div>
+        <div class="label">GHS Equivalent</div>
+        <div class="sub">at 1 USD = 15 GHS</div>
+      </div>
+      <div class="summary-card">
+        <div class="amount">18 months</div>
+        <div class="label">Operating Period</div>
+        <div class="sub">Pre-founding → Apr 2026</div>
+      </div>
+      <div class="summary-card">
+        <div class="amount">1 intern · 2 volunteers</div>
+        <div class="label">Current Team</div>
+        <div class="sub">Founder-led organisation</div>
+      </div>
+    </div>
+
+    <h2>2. Technology Expenses</h2>
+
+    <p>All technology supporting the Beacon survivor app (iOS + Android) and beaconnewbeginnings.org website. Costs are recurring unless marked one-time.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Type</th>
+          <th>Monthly (USD)</th>
+          <th>Period</th>
+          <th>Total (USD)</th>
+          <th>Total (GHS)</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>App build &amp; development</td>
+          <td><span class="category-label cat-tech">One-time</span></td>
+          <td class="td-right">—</td>
+          <td>2025</td>
+          <td class="td-right">$2,500</td>
+          <td class="td-right">GHS 37,500</td>
+          <td class="td-note">iOS + Android, Flutter; includes developer fees</td>
+        </tr>
+        <tr>
+          <td>Website build</td>
+          <td><span class="category-label cat-tech">One-time</span></td>
+          <td class="td-right">—</td>
+          <td>2025</td>
+          <td class="td-right">—</td>
+          <td class="td-right">—</td>
+          <td class="td-note">Included in build cost above / self-built; update if separate</td>
+        </tr>
+        <tr>
+          <td>Supabase (database &amp; auth)</td>
+          <td><span class="category-label cat-tech">Recurring</span></td>
+          <td class="td-right">$25</td>
+          <td>12 months</td>
+          <td class="td-right">$300</td>
+          <td class="td-right">GHS 4,500</td>
+          <td class="td-note">Pro plan; backend for survivor app</td>
+        </tr>
+        <tr>
+          <td>Apple Developer Account</td>
+          <td><span class="category-label cat-tech">Annual</span></td>
+          <td class="td-right">—</td>
+          <td>2025 + 2026</td>
+          <td class="td-right">$198</td>
+          <td class="td-right">GHS 2,970</td>
+          <td class="td-note">$99/year; required for App Store distribution</td>
+        </tr>
+        <tr>
+          <td>Google Play Developer</td>
+          <td><span class="category-label cat-tech">One-time</span></td>
+          <td class="td-right">—</td>
+          <td>2025</td>
+          <td class="td-right">$25</td>
+          <td class="td-right">GHS 375</td>
+          <td class="td-note">One-time registration fee</td>
+        </tr>
+        <tr>
+          <td>Domain registration</td>
+          <td><span class="category-label cat-tech">Annual</span></td>
+          <td class="td-right">—</td>
+          <td>2025 + 2026</td>
+          <td class="td-right">$30</td>
+          <td class="td-right">GHS 450</td>
+          <td class="td-note">beaconnewbeginnings.org (~$15/year)</td>
+        </tr>
+        <tr>
+          <td>Email / notification service (EmailJS)</td>
+          <td><span class="category-label cat-tech">Recurring</span></td>
+          <td class="td-right">$15</td>
+          <td>12 months</td>
+          <td class="td-right">$180</td>
+          <td class="td-right">GHS 2,700</td>
+          <td class="td-note">Transactional email from contact forms</td>
+        </tr>
+        <tr>
+          <td>Hosting (Netlify / cloud)</td>
+          <td><span class="category-label cat-tech">Recurring</span></td>
+          <td class="td-right">$19</td>
+          <td>12 months</td>
+          <td class="td-right">$228</td>
+          <td class="td-right">GHS 3,420</td>
+          <td class="td-note">Website hosting; update if on free tier</td>
+        </tr>
+        <tr>
+          <td>Payment processing (Stripe / Paystack / Flutterwave)</td>
+          <td><span class="category-label cat-tech">Per transaction</span></td>
+          <td class="td-right">varies</td>
+          <td>Ongoing</td>
+          <td class="td-right">—</td>
+          <td class="td-right">—</td>
+          <td class="td-note">~1.5–3% per donation; no monthly fee</td>
+        </tr>
+        <tr>
+          <td>Other SaaS tools &amp; subscriptions</td>
+          <td><span class="category-label cat-tech">Recurring</span></td>
+          <td class="td-right">$100</td>
+          <td>12 months</td>
+          <td class="td-right">$1,200</td>
+          <td class="td-right">GHS 18,000</td>
+          <td class="td-note">AI APIs, storage, analytics, misc tools — update with actuals</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4"><strong>Technology Subtotal</strong></td>
+          <td class="td-right"><strong>~$4,661</strong></td>
+          <td class="td-right"><strong>~GHS 69,915</strong></td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <h2>3. Personnel Expenses</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Person / Role</th>
+          <th>Type</th>
+          <th>Rate</th>
+          <th>Period</th>
+          <th>Total (GHS)</th>
+          <th>Total (USD)</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intern (Program Support)</td>
+          <td><span class="category-label cat-people">Stipend</span></td>
+          <td class="td-right">GHS 1,500/mo</td>
+          <td>Nov 2024 – Apr 2026 (18 mo)</td>
+          <td class="td-right">GHS 27,000</td>
+          <td class="td-right">~$1,800</td>
+          <td class="td-note">Name: [Intern name]. Increase to GHS 2,500 and convert to employee Nov 2026</td>
+        </tr>
+        <tr>
+          <td>Volunteer 1</td>
+          <td><span class="category-label cat-people">Volunteer</span></td>
+          <td class="td-right">Expenses only</td>
+          <td>2025 – present</td>
+          <td class="td-right">GHS 1,800</td>
+          <td class="td-right">~$120</td>
+          <td class="td-note">Transport, data, and incidentals (est. GHS 100/mo)</td>
+        </tr>
+        <tr>
+          <td>Volunteer 2</td>
+          <td><span class="category-label cat-people">Volunteer</span></td>
+          <td class="td-right">Expenses only</td>
+          <td>2025 – present</td>
+          <td class="td-right">GHS 1,800</td>
+          <td class="td-right">~$120</td>
+          <td class="td-note">Transport, data, and incidentals (est. GHS 100/mo)</td>
+        </tr>
+        <tr>
+          <td>Founder (Enam Egyir)</td>
+          <td><span class="category-label cat-people">Uncompensated</span></td>
+          <td class="td-right">—</td>
+          <td>2024 – present</td>
+          <td class="td-right">—</td>
+          <td class="td-right">—</td>
+          <td class="td-note">Full-time founder commitment; no salary drawn to date — record as in-kind contribution for grant reporting</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4"><strong>Personnel Subtotal</strong></td>
+          <td class="td-right"><strong>GHS 30,600</strong></td>
+          <td class="td-right"><strong>~$2,040</strong></td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <div class="info-box">
+      <strong>In-kind note:</strong> Founder time (estimated 20–30 hrs/week for 18 months) represents significant uncompensated labour. At a conservative $50/hr rate, this equals approximately $65,000–$97,500 in in-kind contribution. Document this for grant applications and board reporting.
+    </div>
+
+    <h2>4. Travel — Ghana Launch Trip</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Date</th>
+          <th>Cost (USD)</th>
+          <th>Cost (GHS)</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>International airfare (round trip)</td>
+          <td>December 2025</td>
+          <td class="td-right">$1,800</td>
+          <td class="td-right">GHS 27,000</td>
+          <td class="td-note">Update with actual ticket cost</td>
+        </tr>
+        <tr>
+          <td>Accommodation</td>
+          <td>December 2025</td>
+          <td class="td-right">$700</td>
+          <td class="td-right">GHS 10,500</td>
+          <td class="td-note">Update with actual hotel/housing cost</td>
+        </tr>
+        <tr>
+          <td>Local transport (Accra)</td>
+          <td>December 2025</td>
+          <td class="td-right">$200</td>
+          <td class="td-right">GHS 3,000</td>
+          <td class="td-note">Rideshare, taxis, fuel</td>
+        </tr>
+        <tr>
+          <td>Launch event costs</td>
+          <td>December 2025</td>
+          <td class="td-right">$500</td>
+          <td class="td-right">GHS 7,500</td>
+          <td class="td-note">Venue, materials, printing, catering — update with actual</td>
+        </tr>
+        <tr>
+          <td>Miscellaneous (meals, data, incidentals)</td>
+          <td>December 2025</td>
+          <td class="td-right">$300</td>
+          <td class="td-right">GHS 4,500</td>
+          <td class="td-note">Estimated; update with receipts</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2"><strong>Travel Subtotal</strong></td>
+          <td class="td-right"><strong>~$3,500</strong></td>
+          <td class="td-right"><strong>~GHS 52,500</strong></td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <h2>5. Legal &amp; Registration</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Jurisdiction</th>
+          <th>Cost (USD)</th>
+          <th>Cost (GHS)</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>NGO / charity registration</td>
+          <td>Ghana</td>
+          <td class="td-right">$300</td>
+          <td class="td-right">GHS 4,500</td>
+          <td class="td-note">Department of Social Welfare filing; update with actual</td>
+        </tr>
+        <tr>
+          <td>501(c)(3) / nonprofit formation</td>
+          <td>United States</td>
+          <td class="td-right">$600</td>
+          <td class="td-right">GHS 9,000</td>
+          <td class="td-note">IRS filing fee + attorney fees; update with actual</td>
+        </tr>
+        <tr>
+          <td>Legal / attorney fees</td>
+          <td>Both</td>
+          <td class="td-right">$200</td>
+          <td class="td-right">GHS 3,000</td>
+          <td class="td-note">Document review, constitutional drafting; update with actual</td>
+        </tr>
+        <tr>
+          <td>Banking &amp; account setup fees</td>
+          <td>Ghana / US</td>
+          <td class="td-right">—</td>
+          <td class="td-right">—</td>
+          <td class="td-note">Add if applicable</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2"><strong>Legal &amp; Registration Subtotal</strong></td>
+          <td class="td-right"><strong>~$1,100</strong></td>
+          <td class="td-right"><strong>~GHS 16,500</strong></td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <h2>6. Other / Miscellaneous Expenses</h2>
+
+    <table>
+      <thead>
+        <tr><th>Item</th><th>Period</th><th>Cost (USD)</th><th>Cost (GHS)</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Office supplies, printing, stationery</td>
+          <td>2025–2026</td>
+          <td class="td-right">$200</td>
+          <td class="td-right">GHS 3,000</td>
+          <td class="td-note">Branding materials, flyers, signage</td>
+        </tr>
+        <tr>
+          <td>Communications (phone, data plans)</td>
+          <td>2025–2026</td>
+          <td class="td-right">$300</td>
+          <td class="td-right">GHS 4,500</td>
+          <td class="td-note">Ghana + US operational communication</td>
+        </tr>
+        <tr>
+          <td>Add row…</td>
+          <td></td>
+          <td class="td-right">—</td>
+          <td class="td-right">—</td>
+          <td class="td-note">Click to edit</td>
+        </tr>
+        <tr>
+          <td>Add row…</td>
+          <td></td>
+          <td class="td-right">—</td>
+          <td class="td-right">—</td>
+          <td class="td-note">Click to edit</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2"><strong>Miscellaneous Subtotal</strong></td>
+          <td class="td-right"><strong>~$500</strong></td>
+          <td class="td-right"><strong>~GHS 7,500</strong></td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <h2>7. Grand Total — Nov 2024 to Apr 2026</h2>
+
+    <table>
+      <thead>
+        <tr><th>Category</th><th>USD</th><th>GHS</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Technology (build + recurring)</td><td class="td-right">~$4,661</td><td class="td-right">~GHS 69,915</td></tr>
+        <tr><td>Personnel (intern + volunteer costs)</td><td class="td-right">~$2,040</td><td class="td-right">~GHS 30,600</td></tr>
+        <tr><td>Travel (Ghana launch, Dec 2025)</td><td class="td-right">~$3,500</td><td class="td-right">~GHS 52,500</td></tr>
+        <tr><td>Legal &amp; Registration</td><td class="td-right">~$1,100</td><td class="td-right">~GHS 16,500</td></tr>
+        <tr><td>Miscellaneous</td><td class="td-right">~$500</td><td class="td-right">~GHS 7,500</td></tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td><strong>TOTAL</strong></td>
+          <td class="td-right"><strong>~$11,801</strong></td>
+          <td class="td-right"><strong>~GHS 177,015</strong></td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <div class="note-box">
+      <strong>Note:</strong> All figures marked ~ are estimates based on ranges provided by the founder. Replace with actual receipts and invoices for formal financial reporting or grant applications. The founder's uncompensated labour (~$65,000–$97,500 in-kind value) is not included in the cash total above but should be documented separately for grant purposes.
+    </div>
+
+    <p style="margin-top:40px; font-family: Arial, sans-serif; font-size: 12px; color: #9ca3af; text-align:center;">
+      Beacon of New Beginnings &nbsp;·&nbsp; Expense Log Nov 2024 – Apr 2026 &nbsp;·&nbsp; Prepared by Enam Egyir, Founder &nbsp;·&nbsp; Last updated: April 2026
+    </p>
+
+  </div><!-- /doc-body -->
+</div><!-- /page -->
+
+</body>
+</html>

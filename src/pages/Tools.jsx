@@ -80,6 +80,14 @@ const DOC_CATEGORIES = [
       { name: 'Reply Letter — Brain & Sleep (BPG)', file: 'BPG_ReplyLetter_BrainAndSleep.html' },
     ],
   },
+  {
+    label: 'Finance & Planning',
+    icon: '📊',
+    docs: [
+      { name: 'Expense Log — Nov 2024 to Apr 2026', file: 'BNB_Expense_Log_2024_2026.html' },
+      { name: 'Strategic Financial Plan — 2026 to 2031', file: 'BNB_Strategic_Financial_Plan_2026_2031.html' },
+    ],
+  },
 ];
 
 const Tools = () => {

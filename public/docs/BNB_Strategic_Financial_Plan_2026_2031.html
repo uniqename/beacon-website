@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Beacon — Strategic Financial Plan 2026–2031</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Georgia', serif; background: #fafafa; color: #111; line-height: 1.75; }
+
+  .toolbar {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+    padding: 12px 24px; background: #fff; border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
+  .toolbar button {
+    padding: 8px 20px; border: none; border-radius: 50px;
+    cursor: pointer; font-size: 13px; font-weight: 700; transition: background .15s;
+  }
+  .btn-print  { background: #ea580c; color: #fff; }
+  .btn-print:hover  { background: #c2410c; }
+  .btn-select { background: #1e293b; color: #fff; }
+  .btn-select:hover { background: #0f172a; }
+  .toolbar-note { margin-left: auto; font-size: 12px; color: #9ca3af; font-family: Arial, sans-serif; }
+
+  .page { max-width: 960px; margin: 32px auto 64px; background: #fff;
+          border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden;
+          box-shadow: 0 4px 24px rgba(0,0,0,.06); }
+
+  .letterhead {
+    display: flex; align-items: center; gap: 20px;
+    padding: 28px 40px; background: #fff3ed;
+    border-bottom: 4px solid #ea580c;
+  }
+  .letterhead img { width: 64px; height: 64px; object-fit: contain; flex-shrink: 0; }
+  .letterhead-text .org-name { font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #ea580c; }
+  .letterhead-text .tagline  { font-family: Arial, sans-serif; font-size: 12px; color: #6b7280; margin-top: 2px; }
+  .letterhead-contact { margin-left: auto; text-align: right; font-family: Arial, sans-serif; font-size: 11px; color: #6b7280; line-height: 1.6; }
+
+  .doc-title { text-align: center; padding: 32px 40px 8px; border-bottom: 1px solid #f3f4f6; }
+  .doc-title h1 { font-size: 1.8rem; color: #1e293b; margin: 0; }
+  .doc-title .subtitle { font-family: Arial, sans-serif; font-size: 13px; color: #6b7280; margin-top: 6px; }
+  .doc-title .period { font-family: Arial, sans-serif; font-size: 12px; color: #ea580c; font-weight: 700; margin-top: 4px; letter-spacing: 0.5px; text-transform: uppercase; }
+
+  .doc-body { outline: none; padding: 40px; min-height: 600px; }
+  .doc-body p  { margin: 0.7em 0; }
+  .doc-body ul { margin: 0.5em 0 0.5em 1.5em; }
+  .doc-body ul li { margin: 0.3em 0; }
+  .doc-body h1 { font-size: 1.7rem; margin-top: 1.4em; margin-bottom: .5em; color: #1e293b; }
+  .doc-body h2 { font-size: 1.2rem; margin-top: 1.8em; margin-bottom: .4em; color: #ea580c; border-bottom: 2px solid #ffedd5; padding-bottom: 6px; }
+  .doc-body h3 { font-size: 1rem; margin-top: 1.2em; margin-bottom: .3em; color: #374151; font-family: Arial, sans-serif; font-weight: 700; }
+
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-family: Arial, sans-serif; font-size: 13px; }
+  thead tr { background: #1e293b; color: #fff; }
+  thead th { padding: 10px 14px; text-align: left; font-weight: 600; }
+  tbody tr:nth-child(even) { background: #f9fafb; }
+  tbody tr:hover { background: #fff7ed; }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
+  .td-right { text-align: right; font-variant-numeric: tabular-nums; }
+  tfoot tr { background: #fff3ed; font-weight: 700; }
+  tfoot td { padding: 10px 14px; border-top: 2px solid #ea580c; }
+
+  .vision-block {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: #f8fafc; border-radius: 12px; padding: 32px 36px; margin: 28px 0;
+  }
+  .vision-block .vision-label {
+    font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase; color: #ea580c; margin-bottom: 12px;
+  }
+  .vision-block p {
+    font-size: 1.05rem; line-height: 1.85; color: #e2e8f0;
+  }
+
+  .year-card {
+    border: 2px solid #e2e8f0; border-radius: 12px; padding: 24px 28px; margin: 16px 0;
+    position: relative;
+  }
+  .year-card .year-badge {
+    position: absolute; top: -14px; left: 24px;
+    background: #ea580c; color: #fff;
+    font-family: Arial, sans-serif; font-size: 12px; font-weight: 700;
+    padding: 3px 14px; border-radius: 20px;
+  }
+  .year-card h3 { margin-top: 8px; font-size: 1.05rem; color: #1e293b; }
+  .year-card .budget { font-family: Arial, sans-serif; font-size: 1.3rem; font-weight: 700; color: #ea580c; margin: 8px 0 4px; }
+  .year-card .budget-sub { font-family: Arial, sans-serif; font-size: 12px; color: #6b7280; }
+  .year-card ul { margin-top: 12px; padding-left: 18px; font-family: Arial, sans-serif; font-size: 13px; color: #374151; }
+  .year-card ul li { margin: 5px 0; }
+
+  .honest-box {
+    background: #fef2f2; border-left: 4px solid #ef4444; border-radius: 6px;
+    padding: 20px 24px; margin: 24px 0;
+  }
+  .honest-box h3 { color: #991b1b; font-family: Arial, sans-serif; margin-bottom: 10px; }
+  .honest-box p, .honest-box ul { font-family: Arial, sans-serif; font-size: 13px; color: #7f1d1d; }
+  .honest-box ul { padding-left: 18px; }
+  .honest-box ul li { margin: 6px 0; }
+
+  .mitigation-box {
+    background: #f0fdf4; border-left: 4px solid #22c55e; border-radius: 6px;
+    padding: 20px 24px; margin: 24px 0;
+  }
+  .mitigation-box h3 { color: #166534; font-family: Arial, sans-serif; margin-bottom: 10px; }
+  .mitigation-box p, .mitigation-box ul { font-family: Arial, sans-serif; font-size: 13px; color: #14532d; }
+  .mitigation-box ul { padding-left: 18px; }
+  .mitigation-box ul li { margin: 6px 0; }
+
+  .need-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 20px 0;
+  }
+  .need-card {
+    background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 20px;
+  }
+  .need-card .need-icon { font-size: 1.5rem; margin-bottom: 8px; }
+  .need-card h4 { font-family: Arial, sans-serif; font-size: 13px; font-weight: 700; color: #1e293b; margin-bottom: 6px; }
+  .need-card p { font-family: Arial, sans-serif; font-size: 12px; color: #6b7280; line-height: 1.5; }
+
+  .note-box {
+    background: #fffbeb; border-left: 4px solid #f59e0b; border-radius: 4px;
+    padding: 14px 18px; margin: 20px 0; font-family: Arial, sans-serif; font-size: 13px; color: #78350f;
+  }
+  .info-box {
+    background: #f0f9ff; border-left: 4px solid #0ea5e9; border-radius: 4px;
+    padding: 14px 18px; margin: 20px 0; font-family: Arial, sans-serif; font-size: 13px; color: #075985;
+  }
+
+  @media print {
+    .toolbar { display: none; }
+    .page { box-shadow: none; border: none; margin: 0; border-radius: 0; }
+    body { background: #fff; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button class="btn-print" onclick="window.print()">🖨 Print / Save PDF</button>
+  <button class="btn-select" onclick="document.execCommand('selectAll')">Select All</button>
+  <span class="toolbar-note">Click any text to edit it directly in the browser</span>
+</div>
+
+<div class="page">
+
+  <div class="letterhead">
+    <img src="/images/logo.png" alt="Beacon Logo" onerror="this.style.display='none'"/>
+    <div class="letterhead-text">
+      <div class="org-name">Beacon of New Beginnings</div>
+      <div class="tagline">Walking the path from pain to power — hand in hand</div>
+    </div>
+    <div class="letterhead-contact">
+      info@beaconnewbeginnings.org<br/>
+      beaconnewbeginnings.org<br/>
+      Accra, Ghana &nbsp;|&nbsp; United States
+    </div>
+  </div>
+
+  <div class="doc-title">
+    <h1>Strategic Financial Plan &amp; Sustainability Roadmap</h1>
+    <div class="subtitle">1-Year Operating Plan · 5-Year Growth Vision · Human &amp; Financial Support Needs</div>
+    <div class="period">May 2026 — April 2031 &nbsp;·&nbsp; Prepared by Founder</div>
+  </div>
+
+  <div class="doc-body" contenteditable="true">
+
+    <div class="note-box">
+      <strong>How to use this document:</strong> Click any text to edit it directly — update figures, add rows, revise narrative. Print or save as PDF from the toolbar. This is a living document; review and update quarterly.
+    </div>
+
+    <!-- FOUNDING VISION -->
+    <h2>1. Founding Vision</h2>
+
+    <div class="vision-block">
+      <div class="vision-label">The Future We Are Building Toward</div>
+      <p>The future I am building toward is one where no survivor, regardless of language, location, or financial means, has to navigate trauma alone or in silence. The infrastructure I am building is designed to outlast any single founder — a networked system of digital tools, trained local responders, cultural humility, and survivor-centered care that can operate at scale across Ghana, the United States, and wherever Beacon's reach extends.</p>
+    </div>
+
+    <h3>Mission</h3>
+    <p>To provide holistic, technology-enabled, culturally grounded support to survivors of domestic violence and exploitation — restoring safety, dignity, and independence for women and children who have experienced trauma.</p>
+
+    <h3>Dual-Country Model</h3>
+    <p>Beacon operates simultaneously in Ghana (as BeaconPath Ghana, a registered NGO) and the United States (as Beacon of New Beginnings, a 501(c)(3) nonprofit). Both entities share technology infrastructure, brand identity, and strategic leadership while serving distinct communities with contextualised programmes.</p>
+
+    <!-- YEAR 1 PLAN -->
+    <h2>2. Year 1 Operating Plan — May 2026 to April 2027</h2>
+
+    <h3>Personnel</h3>
+    <table>
+      <thead>
+        <tr><th>Role</th><th>Status</th><th>Monthly (GHS)</th><th>Monthly (USD)</th><th>Annual Cost</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Program Support — Intern</td>
+          <td>Continuing (May–Nov 2026)</td>
+          <td class="td-right">GHS 1,500</td>
+          <td class="td-right">~$100</td>
+          <td class="td-right">GHS 10,500 / ~$700</td>
+        </tr>
+        <tr>
+          <td>Program Support — Employee</td>
+          <td>From Dec 2026 onward</td>
+          <td class="td-right">GHS 2,500</td>
+          <td class="td-right">~$167</td>
+          <td class="td-right">GHS 12,500 / ~$833 (5 months)</td>
+        </tr>
+        <tr>
+          <td>2 × Volunteers</td>
+          <td>Continuing</td>
+          <td class="td-right">GHS 200 (expenses)</td>
+          <td class="td-right">~$13</td>
+          <td class="td-right">GHS 2,400 / ~$160</td>
+        </tr>
+        <tr>
+          <td>Case Manager / Counsellor (Ghana)</td>
+          <td>Target hire: Q3 2026</td>
+          <td class="td-right">GHS 3,500–5,000</td>
+          <td class="td-right">~$233–$333</td>
+          <td class="td-right">Add when funded</td>
+        </tr>
+        <tr>
+          <td>Founder (Enam Egyir)</td>
+          <td>Target to begin drawing stipend</td>
+          <td class="td-right">TBD</td>
+          <td class="td-right">TBD</td>
+          <td class="td-note">Budget for founder sustainability; burnout prevention is a programme requirement</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Technology (Year 1)</h3>
+    <table>
+      <thead>
+        <tr><th>Item</th><th>Monthly (USD)</th><th>Annual</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Supabase + database infrastructure</td><td class="td-right">$25–50</td><td class="td-right">$300–600</td><td>Scale with user growth</td></tr>
+        <tr><td>Apple Developer Account</td><td class="td-right">—</td><td class="td-right">$99</td><td>Annual renewal</td></tr>
+        <tr><td>Domain + email services</td><td class="td-right">$15</td><td class="td-right">$180</td><td></td></tr>
+        <tr><td>AI / API costs (Gemini, etc.)</td><td class="td-right">$50–100</td><td class="td-right">$600–1,200</td><td>Scales with active users</td></tr>
+        <tr><td>Other SaaS and operational tools</td><td class="td-right">$50</td><td class="td-right">$600</td><td>Analytics, notifications, storage</td></tr>
+      </tbody>
+      <tfoot>
+        <tr><td><strong>Tech Subtotal</strong></td><td></td><td class="td-right"><strong>~$1,779–2,679</strong></td><td></td></tr>
+      </tfoot>
+    </table>
+
+    <h3>Programme &amp; Operations (Year 1)</h3>
+    <table>
+      <thead>
+        <tr><th>Item</th><th>Cost (USD)</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Case management pilot (Ghana)</td><td class="td-right">$2,000</td><td>Client transport, referral costs, materials</td></tr>
+        <tr><td>Survivor emergency support fund</td><td class="td-right">$3,000</td><td>Direct financial assistance to clients in crisis</td></tr>
+        <tr><td>Training &amp; capacity building</td><td class="td-right">$500</td><td>Staff/volunteer upskilling</td></tr>
+        <tr><td>Board meetings &amp; governance</td><td class="td-right">$500</td><td>Virtual + 1 in-person if feasible</td></tr>
+        <tr><td>Accounting / bookkeeping</td><td class="td-right">$600</td><td>$50/month; critical for grant compliance</td></tr>
+        <tr><td>Nonprofit insurance</td><td class="td-right">$800</td><td>D&amp;O liability coverage</td></tr>
+        <tr><td>Communications &amp; marketing</td><td class="td-right">$600</td><td>Social media, outreach materials</td></tr>
+        <tr><td>Contingency (10%)</td><td class="td-right">$800</td><td>Unplanned expenses</td></tr>
+      </tbody>
+      <tfoot>
+        <tr><td><strong>Operations Subtotal</strong></td><td class="td-right"><strong>~$8,800</strong></td><td></td></tr>
+      </tfoot>
+    </table>
+
+    <h3>Year 1 Total Budget</h3>
+    <table>
+      <thead><tr><th>Category</th><th>USD</th><th>GHS</th></tr></thead>
+      <tbody>
+        <tr><td>Personnel</td><td class="td-right">~$1,693</td><td class="td-right">~GHS 25,400</td></tr>
+        <tr><td>Technology</td><td class="td-right">~$2,200</td><td class="td-right">~GHS 33,000</td></tr>
+        <tr><td>Programme &amp; Operations</td><td class="td-right">~$8,800</td><td class="td-right">~GHS 132,000</td></tr>
+      </tbody>
+      <tfoot>
+        <tr><td><strong>Year 1 TOTAL</strong></td><td class="td-right"><strong>~$12,693</strong></td><td class="td-right"><strong>~GHS 190,400</strong></td></tr>
+      </tfoot>
+    </table>
+
+    <div class="info-box">
+      <strong>Fundraising target for Year 1:</strong> $15,000–$20,000 USD to cover operating costs plus a 20–30% reserve. Priority sources: faith community donations, individual major donors, small foundation grants, and US diaspora giving.
+    </div>
+
+    <!-- 5-YEAR PLAN -->
+    <h2>3. Five-Year Growth Plan — 2026 to 2031</h2>
+
+    <p>The five-year plan is built in phases: stabilise, grow, scale, expand, and establish. Each phase unlocks the next only when operational and financial benchmarks are met.</p>
+
+    <div class="year-card">
+      <div class="year-badge">Year 1 — 2026/27</div>
+      <h3>Stabilise</h3>
+      <div class="budget">$12,000 – $20,000 <span class="budget-sub">operating budget</span></div>
+      <ul>
+        <li>Convert intern to employee; recruit first paid case manager in Ghana</li>
+        <li>Complete case management pilot with 10–15 clients</li>
+        <li>App live on App Store and Google Play; 100+ registered users</li>
+        <li>Establish board (legal, finance, community representation)</li>
+        <li>First formal financial audit / bookkeeping system</li>
+        <li>File first 990 (US) and annual report (Ghana DSW)</li>
+      </ul>
+    </div>
+
+    <div class="year-card">
+      <div class="year-badge">Year 2 — 2027/28</div>
+      <h3>Grow</h3>
+      <div class="budget">$35,000 – $50,000 <span class="budget-sub">operating budget</span></div>
+      <ul>
+        <li>Hire: Programme Coordinator (US), Finance/Admin Officer (Ghana)</li>
+        <li>Expand case management to 30–50 active clients</li>
+        <li>First institutional grant secured ($10,000+)</li>
+        <li>Launch survivor peer-support group programme (in-person, Ghana)</li>
+        <li>US community engagement events; diaspora fundraising campaign</li>
+        <li>Founder begins drawing consistent stipend / salary</li>
+      </ul>
+    </div>
+
+    <div class="year-card">
+      <div class="year-badge">Year 3 — 2028/29</div>
+      <h3>Scale</h3>
+      <div class="budget">$75,000 – $120,000 <span class="budget-sub">operating budget</span></div>
+      <ul>
+        <li>Pilot physical safe space / drop-in centre in Accra (not full shelter — case management model fully validated first)</li>
+        <li>Hire: Trauma-informed counsellor (contractor), Communications manager</li>
+        <li>App: 500+ active users; introduce multilingual support (Twi, Ewe)</li>
+        <li>Formal partnerships with 3+ hospitals / police units (MOUs in place)</li>
+        <li>Second institutional grant; begin applying to USAID / Ford Foundation / UN Women small grants</li>
+      </ul>
+    </div>
+
+    <div class="year-card">
+      <div class="year-badge">Year 4 — 2029/30</div>
+      <h3>Expand</h3>
+      <div class="budget">$150,000 – $200,000 <span class="budget-sub">operating budget</span></div>
+      <ul>
+        <li>Evaluate shelter infrastructure readiness — only proceed if case management model is proven, staffed, and funded</li>
+        <li>Expand to second Ghanaian city (Kumasi or Takoradi)</li>
+        <li>US programme formalised: virtual survivor services, referral network with US shelters</li>
+        <li>Team of 6–8 paid staff across both countries</li>
+        <li>Endowment or operational reserve fund initiated ($25,000 target)</li>
+      </ul>
+    </div>
+
+    <div class="year-card">
+      <div class="year-badge">Year 5 — 2030/31</div>
+      <h3>Establish</h3>
+      <div class="budget">$250,000 – $350,000 <span class="budget-sub">operating budget</span></div>
+      <ul>
+        <li>Full dual-country operations: Ghana (in-person + digital) and US (digital + diaspora programme)</li>
+        <li>1,000+ survivors served cumulatively; impact data published annually</li>
+        <li>Beacon model documented and replicable — open-source technology, training curriculum</li>
+        <li>Strategic leadership transition planning: infrastructure designed to outlast any single founder</li>
+        <li>Multi-year institutional funding secured; operational reserve ≥ 6 months</li>
+      </ul>
+    </div>
+
+    <!-- HUMAN CAPITAL NEEDS -->
+    <h2>4. Human Capital Needs</h2>
+
+    <div class="need-grid">
+      <div class="need-card">
+        <div class="need-icon">👩‍💼</div>
+        <h4>Case Manager (Ghana) — Year 1</h4>
+        <p>Social work or counselling background. Fluent in English + Twi. Manages intake, case plans, and programme delivery. Priority hire.</p>
+      </div>
+      <div class="need-card">
+        <div class="need-icon">🧑‍⚖️</div>
+        <h4>Legal Advisor — Board / Pro Bono</h4>
+        <p>Ghana and/or US nonprofit law. Support with compliance, DSW reporting, 501(c)(3) maintenance, employment contracts.</p>
+      </div>
+      <div class="need-card">
+        <div class="need-icon">💰</div>
+        <h4>Finance / Grants Officer — Year 2</h4>
+        <p>Bookkeeping, grant reporting, budgeting. Can be part-time or consultant initially. Critical for institutional funding eligibility.</p>
+      </div>
+      <div class="need-card">
+        <div class="need-icon">🧠</div>
+        <h4>Trauma Counsellor — Year 2/3</h4>
+        <p>Licensed therapist or counsellor with trauma-informed training. Ghana-based, culturally grounded. May begin as contractor.</p>
+      </div>
+      <div class="need-card">
+        <div class="need-icon">📢</div>
+        <h4>Communications Lead — Year 2</h4>
+        <p>Storytelling, social media, donor communications, grant writing support. Essential for donor retention and public credibility.</p>
+      </div>
+      <div class="need-card">
+        <div class="need-icon">🌍</div>
+        <h4>Programme Coordinator (US) — Year 2</h4>
+        <p>Based in US. Manages diaspora engagement, volunteer coordination, US donor relationships, and virtual survivor services.</p>
+      </div>
+      <div class="need-card">
+        <div class="need-icon">🏛️</div>
+        <h4>Board Members — Ongoing</h4>
+        <p>Need: finance expertise, legal (Ghana), legal (US), community voice (survivor/advocate), mental health, and governance experience. Target: 5–7 members.</p>
+      </div>
+      <div class="need-card">
+        <div class="need-icon">🤝</div>
+        <h4>Community Volunteers — Ongoing</h4>
+        <p>Survivor advocates, intake support, event coordination, social media. Formal volunteer programme with orientation and policies already drafted.</p>
+      </div>
+    </div>
+
+    <!-- FINANCIAL SUPPORT NEEDS -->
+    <h2>5. Financial Support Needs &amp; Fundraising Strategy</h2>
+
+    <h3>Immediate Needs (Year 1)</h3>
+    <table>
+      <thead><tr><th>Need</th><th>Amount (USD)</th><th>Priority</th></tr></thead>
+      <tbody>
+        <tr><td>Operational runway (6 months)</td><td class="td-right">$8,000–$12,000</td><td>Critical</td></tr>
+        <tr><td>Case manager salary (Ghana)</td><td class="td-right">$3,000–$4,000</td><td>High</td></tr>
+        <tr><td>Survivor emergency fund</td><td class="td-right">$3,000</td><td>High</td></tr>
+        <tr><td>Technology scaling (AI, storage)</td><td class="td-right">$1,500</td><td>Medium</td></tr>
+        <tr><td>Board governance setup</td><td class="td-right">$500</td><td>Medium</td></tr>
+      </tbody>
+      <tfoot>
+        <tr><td><strong>Year 1 Target</strong></td><td class="td-right"><strong>$15,000–$20,000</strong></td><td></td></tr>
+      </tfoot>
+    </table>
+
+    <h3>Funding Sources — By Type</h3>
+    <table>
+      <thead><tr><th>Source</th><th>Target Year</th><th>Estimated Range</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Individual major donors (US diaspora)</td><td>Year 1–5</td><td class="td-right">$500–$5,000/donor</td><td>Founder network; diaspora community; faith community</td></tr>
+        <tr><td>Church &amp; faith community giving</td><td>Year 1–5</td><td class="td-right">$2,000–$10,000/yr</td><td>MOUs already in place with Agape House Church and others</td></tr>
+        <tr><td>Small foundation grants</td><td>Year 1–2</td><td class="td-right">$5,000–$25,000</td><td>DV-focused foundations, women's funds, community foundations</td></tr>
+        <tr><td>Corporate sponsorships</td><td>Year 2–3</td><td class="td-right">$5,000–$20,000/yr</td><td>Ghana: telecoms, banks. US: tech companies with CSR programs</td></tr>
+        <tr><td>Government / institutional grants</td><td>Year 3–5</td><td class="td-right">$25,000–$100,000</td><td>USAID, UN Women small grants, Ghana government social welfare funds</td></tr>
+        <tr><td>Online fundraising (app + website)</td><td>Year 1–5</td><td class="td-right">$1,000–$5,000/yr</td><td>Donation integration already live in app and website</td></tr>
+        <tr><td>Events (Ghana + US)</td><td>Year 2–5</td><td class="td-right">$3,000–$15,000/event</td><td>Annual gala, community fundraiser, virtual events</td></tr>
+      </tbody>
+    </table>
+
+    <!-- HONEST MISTAKES + MITIGATION -->
+    <h2>6. Anticipated Risks &amp; Mitigation — Founder's Honest Assessment</h2>
+
+    <div class="honest-box">
+      <h3>Honest Mistakes I Anticipate</h3>
+      <ul>
+        <li><strong>Moving too fast into physical shelter infrastructure</strong> before the case management model is fully tested and proven. Physical infrastructure is expensive, hard to reverse, and requires operational capacity that does not yet exist.</li>
+        <li><strong>Underestimating the cultural nuance</strong> required to serve Ghanaian and American communities simultaneously without flattening either. Each community has different trauma pathways, help-seeking norms, language needs, and expectations of an organisation like Beacon.</li>
+        <li><strong>Assuming technology adoption will be seamless</strong> for users in crisis who may have limited digital literacy or access. The app is powerful but can become a barrier if not introduced with appropriate support, training, and offline fallbacks.</li>
+        <li><strong>Underestimating the personal cost</strong> of building two organisations — Beacon and Doxa — in parallel without burning out. Founder sustainability is not a personal indulgence; it is a programme requirement.</li>
+      </ul>
+    </div>
+
+    <div class="mitigation-box">
+      <h3>What I Am Doing to Get Ahead of These</h3>
+      <ul>
+        <li><strong>Shelter gate:</strong> Physical infrastructure will not be pursued until (a) the case management model has served at least 30 clients successfully, (b) a qualified facility manager is hired, and (c) capital funding is secured without depleting operational reserves.</li>
+        <li><strong>Cultural humility by design:</strong> Building a board with Ghana-based and US-based community representatives. Survivor feedback is embedded in every design decision — not collected after launch. Each country has its own configured experience in the app and website.</li>
+        <li><strong>Digital literacy support:</strong> Piloting digitally before expanding physically. Case managers will onboard clients onto the app in person. Offline content and emergency numbers are embedded for users without reliable data access.</li>
+        <li><strong>Founder sustainability as policy:</strong> Committing to drawing a stipend by Year 2. Board oversight of founder workload. Doxa and Beacon are treated as complementary, not competing — shared administrative infrastructure where possible.</li>
+      </ul>
+    </div>
+
+    <!-- INFRASTRUCTURE AS LEGACY -->
+    <h2>7. Building Infrastructure That Outlasts the Founder</h2>
+
+    <p>The goal is not to build a founder-dependent organisation. Every system, process, and relationship is designed to be transferable:</p>
+
+    <ul style="font-family: Arial, sans-serif; font-size: 14px; line-height: 1.8; margin: 16px 0 16px 24px;">
+      <li><strong>Technology:</strong> Open-architecture app and website hosted on public cloud infrastructure. Code maintained in version control. Documentation written for handover.</li>
+      <li><strong>Governance:</strong> Board with clear bylaws, authority, and succession provisions. No single person holds all passwords, accounts, or relationships.</li>
+      <li><strong>Programmes:</strong> Case management model documented, piloted, and evaluated before scaling. Training materials written so any qualified hire can deliver the programme.</li>
+      <li><strong>Partnerships:</strong> MOUs formalise relationships with hospitals, police, and churches — not dependent on the founder's personal relationships.</li>
+      <li><strong>Financial systems:</strong> Accounting, grant reporting, and payroll managed through documented processes, not tribal knowledge.</li>
+    </ul>
+
+    <p>The infrastructure being built is designed to outlast any single founder — a network of people, tools, and trust strong enough to carry this work forward long after its origin story has been told.</p>
+
+    <p style="margin-top: 40px; font-family: Arial, sans-serif; font-size: 12px; color: #9ca3af; text-align: center;">
+      Beacon of New Beginnings &nbsp;·&nbsp; Strategic Financial Plan 2026–2031 &nbsp;·&nbsp; Prepared by Enam Egyir, Founder &nbsp;·&nbsp; Last updated: April 2026
+    </p>
+
+  </div>
+</div>
+
+</body>
+</html>
