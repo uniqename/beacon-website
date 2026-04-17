@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRegion } from '../context/RegionContext';
 
 const loadedScripts = new Set();
 const loadScript = (src) =>
@@ -37,7 +38,8 @@ const ICONS = { card: '💳', momo: '📱', bank_transfer: '🏦', paypal: '🅿
 const ORANGE = '#F0562D';
 
 const DonateModal = ({ onClose }) => {
-  const [currency,     setCurrency]     = useState('GHS');
+  const { config } = useRegion();
+  const [currency,     setCurrency]     = useState(config.defaultCurrency);
   const [amount,       setAmount]       = useState('');
   const [customAmount, setCustomAmount] = useState('');
   const [frequency,    setFrequency]    = useState('one-time');
@@ -84,7 +86,7 @@ const DonateModal = ({ onClose }) => {
       window.open(
         `https://www.paypal.com/donate?business=${encodeURIComponent(pe)}`
         + `&amount=${selAmt}&currency_code=USD`
-        + `&item_name=${encodeURIComponent('Beacon of New Beginnings Donation')}`,
+        + `&item_name=${encodeURIComponent(`${config.orgName} Donation`)}`,
         '_blank'
       );
       setProcessing(false);
@@ -140,7 +142,7 @@ const DonateModal = ({ onClose }) => {
             <p className="text-gray-600 mb-2">
               {method === 'paypal'
                 ? "You've been redirected to PayPal to complete your donation. Thank you for your generosity."
-                : `Your ${frequency === 'monthly' ? 'monthly ' : ''}donation of ${display} will make a real difference for survivors in Ghana.`}
+                : `Your ${frequency === 'monthly' ? 'monthly ' : ''}donation of ${display} will make a real difference for survivors in ${config.country}.`}
             </p>
             {txRef && <p className="text-xs text-gray-400 mb-4">Reference: {txRef}</p>}
             <p className="text-sm text-gray-500 mb-6">A receipt has been sent to your email.</p>
@@ -165,7 +167,7 @@ const DonateModal = ({ onClose }) => {
         <div className="px-6 py-5 text-white rounded-t-2xl flex-shrink-0 relative" style={{ background: ORANGE }}>
           <button onClick={onClose} className="absolute top-4 right-4 text-white/80 hover:text-white text-2xl leading-none">&times;</button>
           <h2 className="text-2xl font-serif font-bold">Donate to Beacon</h2>
-          <p className="text-white/80 text-sm mt-1">Your gift transforms lives in Ghana</p>
+          <p className="text-white/80 text-sm mt-1">Your gift transforms lives in {config.country}</p>
         </div>
 
         <form onSubmit={handleDonate} className="overflow-y-auto flex-1">
@@ -328,7 +330,7 @@ const DonateModal = ({ onClose }) => {
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
               <h3 className="text-base font-bold mb-3" style={{ color: ORANGE }}>Terms &amp; Agreement</h3>
               <div className="bg-gray-50 rounded-xl p-3 mb-3 text-xs text-gray-600 space-y-1 leading-relaxed">
-                <p>• Your donation goes directly to support Beacon of New Beginnings</p>
+                <p>• Your donation goes directly to support {config.orgName}</p>
                 <p>• Donations are processed securely via Paystack</p>
                 <p>• You will receive an email receipt</p>
                 <p>• Monthly donations can be cancelled anytime</p>

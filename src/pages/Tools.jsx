@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import SignatureModal from '../components/SignatureModal';
 import DocConverterModal from '../components/DocConverterModal';
+import { useRegion } from '../context/RegionContext';
 
 const DOC_CATEGORIES = [
   {
@@ -82,6 +83,7 @@ const DOC_CATEGORIES = [
 ];
 
 const Tools = () => {
+  const { config } = useRegion();
   const [showSignature, setShowSignature] = useState(false);
   const [showConverter, setShowConverter] = useState(false);
 
@@ -94,7 +96,7 @@ const Tools = () => {
       <div className="min-h-screen bg-gray-50 py-16 px-4">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-serif text-gray-900 mb-2">Staff Tools</h1>
-          <p className="text-gray-500 mb-12">Internal tools and documents for Beacon of New Beginnings staff.</p>
+          <p className="text-gray-500 mb-12">Internal tools and documents for {config.orgName} staff.</p>
 
           {/* Utilities row */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">

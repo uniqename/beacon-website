@@ -3,6 +3,42 @@ import { Link } from 'react-router-dom';
 import URLS from '../config/urls.config';
 import Sectionwraper from './Sectionwraper';
 import DonateModal from '../components/DonateModal';
+import { useRegion } from '../context/RegionContext';
+import { allConfigs } from '../config/siteConfig';
+
+const RegionToggle = () => {
+  const { regionKey, switchRegion } = useRegion();
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="relative">
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-orange-600 transition-colors px-2 py-1 rounded-full border border-gray-200 hover:border-orange-300"
+      >
+        <span>{allConfigs[regionKey].flag}</span>
+        <span className="hidden sm:inline">{allConfigs[regionKey].label}</span>
+        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      {open && (
+        <div className="absolute right-0 mt-2 w-44 bg-white border border-gray-100 rounded-xl shadow-lg z-50 overflow-hidden">
+          {Object.values(allConfigs).map((cfg) => (
+            <button
+              key={cfg.key}
+              onClick={() => { switchRegion(cfg.key); setOpen(false); }}
+              className={`w-full flex items-center gap-3 px-4 py-3 text-sm text-left hover:bg-orange-50 transition-colors ${regionKey === cfg.key ? 'text-orange-600 font-semibold bg-orange-50' : 'text-gray-700'}`}
+            >
+              <span className="text-base">{cfg.flag}</span>
+              <span>{cfg.label}</span>
+              {regionKey === cfg.key && <span className="ml-auto text-orange-600">✓</span>}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -55,6 +91,7 @@ const Navbar = () => {
 
           {/* Right Section (Buttons + Toggle) */}
           <div className="flex items-center space-x-3">
+            <RegionToggle />
             {/* Desktop Buttons */}
             <div className="hidden md:flex items-center space-x-3">
               <button

@@ -4,8 +4,10 @@ import { FaXTwitter } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import URLS from '../config/urls.config';
 import Sectionwraper from './Sectionwraper';
+import { useRegion } from '../context/RegionContext';
 
 const Footer = () => {
+    const { config } = useRegion();
     return (
         <Sectionwraper>
             <footer className="pt-16 pb-8 font-sans">
@@ -103,26 +105,13 @@ const Footer = () => {
                         <div className="lg:text-center sm:text-left lg:ml-10">
                             <h3 className="text-lg font-semibold text-gray-800 mb-5">Resources</h3>
                             <ul className="space-y-3 text-gray-700">
-                                <li>
-                                    <a href="#" className="hover:text-orange-600 transition-colors">
-                                        DOVVSU
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" className="hover:text-orange-600 transition-colors">
-                                        WILDAF
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" className="hover:text-orange-600 transition-colors">
-                                        Ministry of Health
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" className="hover:text-orange-600 transition-colors">
-                                        Emergency: 911
-                                    </a>
-                                </li>
+                                {config.footerResources.map((r) => (
+                                    <li key={r.label}>
+                                        <a href={r.href} className="hover:text-orange-600 transition-colors">
+                                            {r.label}
+                                        </a>
+                                    </li>
+                                ))}
                                 <li>
                                     <a href="#" className="hover:text-orange-600 transition-colors">
                                         Partners
@@ -171,7 +160,7 @@ const Footer = () => {
                     {/* Bottom Footer */}
                     <div className="flex flex-col sm:flex-row justify-between items-center text-gray-600 text-sm border-t border-gray-200 pt-6 text-center sm:text-left">
                         <p className="mb-4 sm:mb-0">
-                            &copy; {new Date().getFullYear()} Beacon of New Beginnings
+                            &copy; {new Date().getFullYear()} {config.orgName}
                         </p>
                         {/* <div className="flex flex-wrap justify-center sm:justify-end gap-4">
                             <a href="#" className="hover:text-orange-600 transition-colors">

@@ -3,11 +3,13 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useRoutes } from "./routes";
 import Navbar from "./main/Navbar";
 import Footer from "./main/Footer";
+import { RegionProvider } from "./context/RegionContext";
 
 const App = () => {
   const routes = useRoutes();
 
   return (
+    <RegionProvider>
     <Router>
  
       <div className="min-h-screen flex flex-col justify-between">
@@ -23,6 +25,7 @@ const App = () => {
       </div>
 
     </Router>
+    </RegionProvider>
   );
 };
 

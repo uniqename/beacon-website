@@ -6,9 +6,11 @@ import Sectionwraper from '../main/Sectionwraper';
 import URLS from '../config/urls.config';
 import { Link } from 'react-router-dom';
 import DonateModal from '../components/DonateModal';
+import { useRegion } from '../context/RegionContext';
 
 const Home = () => {
     const [showDonate, setShowDonate] = useState(false);
+    const { config } = useRegion();
     const items = [
         { icon: <FaUser className="w-5 h-5 text-gray-700" />, text: 'Individual therapy' },
         { icon: <FaUsers className="w-5 h-5 text-gray-700" />, text: 'Group support sessions' },
@@ -21,7 +23,7 @@ const Home = () => {
                     <div className="text-center">
                         {/* Main Heading */}
                         <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif text-gray-900 leading-tight mb-6">
-                            Healing hope for <br /> survivors in Ghana
+                            {config.tagline}
                         </h1>
 
                         {/* Description */}
@@ -49,7 +51,7 @@ const Home = () => {
                         <div className=" mx-auto rounded-lg overflow-hidden shadow-xl">
                             <img
                                 src="/images/hero.png" // Placeholder image URL
-                                alt="Three children from Ghana smiling"
+                                alt={config.heroAlt}
                                 className="w-full h-[327px] md:h-[700px] object-cover"
                             />
                         </div>
@@ -60,7 +62,7 @@ const Home = () => {
                 <section className="bg-orange-600 py-6">
                     <div className="max-w-4xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-16 text-white text-center">
                         <div>
-                            <p className="text-2xl font-bold">Greater Accra</p>
+                            <p className="text-2xl font-bold">{config.serviceArea}</p>
                             <p className="text-sm opacity-80 uppercase tracking-widest">Service Area</p>
                         </div>
                         <div className="hidden sm:block w-px h-10 bg-white/30" />
@@ -390,7 +392,7 @@ const Home = () => {
                     <div className=" text-center">
                         {/* Main Heading */}
                         <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif text-gray-900 leading-tight mb-6">
-                            Healing hope for <br /> survivors in Ghana
+                            {config.tagline}
                         </h1>
 
                         {/* Description */}
@@ -418,7 +420,7 @@ const Home = () => {
                         <div className=" mx-auto rounded-lg overflow-hidden shadow-xl">
                             <img
                                 src="/images/home6.png" // Placeholder image URL
-                                alt="Three children from Ghana smiling"
+                                alt={config.heroAlt}
                                 className="w-full h-[200px] lg:h-[700px]  object-cover"
                             />
                         </div>
@@ -518,7 +520,7 @@ const Home = () => {
                                     </svg>
                                 </div>
                                 <div className="lg:text-lg text-sm font-bold text-black">
-                                    +233 55 171 0100
+                                    {config.phone1}
                                 </div>
                             </Link>
 

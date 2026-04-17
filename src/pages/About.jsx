@@ -2,8 +2,10 @@ import React from 'react';
 import Footer2 from '../main/Footer2';
 import URLS from '../config/urls.config';
 import { Link } from 'react-router-dom';
+import { useRegion } from '../context/RegionContext';
 
 const About = () => {
+    const { config } = useRegion();
     return (
         <>
        
@@ -18,7 +20,7 @@ const About = () => {
 
                         {/* Description */}
                         <p className="text-gray-700 text-center max-w-2xl mx-auto leading-relaxed text-base md:text-lg mb-16">
-                            Beacon of New Beginnings is a Ghana-based non-profit organization dedicated
+                            {config.orgName} is a {config.country}-based non-profit organization dedicated
                             to supporting survivors of abuse and exploitation. We provide holistic recovery
                             services that restore safety, dignity, and independence for women and children
                             who have experienced trauma. Through our integrated approach, we help survivors
@@ -33,9 +35,9 @@ const About = () => {
                         {/* Story Content */}
                         <div className="space-y-4 text-gray-700 text-base md:text-lg leading-relaxed  text-center md:text-left sm:px-0">
                             <p className='px-0 md:px-28'>
-                                Beacon of New Beginnings was founded on a simple yet powerful belief:
+                                {config.orgName} was founded on a simple yet powerful belief:
                                 every survivor deserves a chance to reclaim their life, rebuild their dignity,
-                                and rediscover their strength. In Ghana, countless individuals face the devastating
+                                and rediscover their strength. In {config.country}, countless individuals face the devastating
                                 aftermath of trauma, abuse, and violence, often with nowhere to turn and no one to walk
                                 alongside them on their journey to healing.
                             </p>

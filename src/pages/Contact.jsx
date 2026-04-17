@@ -3,8 +3,10 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import emailjs from '@emailjs/browser';
 import Footer2 from '../main/Footer2';
+import { useRegion } from '../context/RegionContext';
 
 const Contact = () => {
+  const { config } = useRegion();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -75,7 +77,7 @@ const Contact = () => {
             Join Our Mission
           </h2>
           <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-            Together, we can create lasting change for survivors across Ghana. Join us in restoring hope, rebuilding lives, and empowering those on their journey to healing.
+            Together, we can create lasting change for survivors across {config.country}. Join us in restoring hope, rebuilding lives, and empowering those on their journey to healing.
           </p>
         </div>
       </div>
@@ -87,7 +89,7 @@ const Contact = () => {
               Why Reach Out to Us?
             </h2>
             <p className="text-base md:text-lg text-gray-700 max-w-2xl mx-auto leading-relaxed">
-              At Beacon of New Beginnings, we are committed to providing
+              At {config.orgName}, we are committed to providing
               responsive and compassionate support to everyone we serve.
               Whether you are a survivor seeking help, a donor wishing to
               contribute, a volunteer looking to get involved, or a partner
@@ -178,7 +180,7 @@ const Contact = () => {
                 <path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67a24 24 0 0 1-35.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z" />
               </svg>
               <h3 className="text-lg font-semibold text-gray-800 mb-1">Address</h3>
-              <p className="text-gray-700">Accra, Ghana</p>
+              <p className="text-gray-700">{config.address}</p>
             </div>
 
             <div className="flex flex-col items-center">
@@ -191,8 +193,8 @@ const Contact = () => {
                 <path d="M497.39 361.8l-112-48a24 24 0 0 0-28 6.9l-49.6 60.6A370.66 370.66 0 0 1 130.6 204.11l60.6-49.6a23.94 23.94 0 0 0 6.9-28l-48-112A24.16 24.16 0 0 0 122.6.61l-104 24A24 24 0 0 0 0 48c0 256.5 207.9 464 464 464a24 24 0 0 0 23.4-18.6l24-104a24.29 24.29 0 0 0-14.01-27.6z" />
               </svg>
               <h3 className="text-lg font-semibold text-gray-800 mb-1">Phone</h3>
-              <p className="text-gray-700">+233 55 171 0100</p>
-              <p className="text-gray-700">+233 55 348 9806</p>
+              <p className="text-gray-700">{config.phone1}</p>
+              {config.phone2 && <p className="text-gray-700">{config.phone2}</p>}
             </div>
 
             <div className="flex flex-col items-center">
