@@ -20,9 +20,20 @@
   }
   .btn-print  { background: #ea580c; color: #fff; }
   .btn-print:hover  { background: #c2410c; }
-  .btn-select { background: #1e293b; color: #fff; }
-  .btn-select:hover { background: #0f172a; }
+  .btn-select   { background: #1e293b; color: #fff; }
+  .btn-select:hover   { background: #0f172a; }
+  .btn-download { background: #0891b2; color: #fff; }
+  .btn-download:hover { background: #0e7490; }
+  .btn-reset    { background: #dc2626; color: #fff; }
+  .btn-reset:hover    { background: #b91c1c; }
   .toolbar-note { margin-left: auto; font-size: 12px; color: #9ca3af; font-family: Arial, sans-serif; }
+  .add-row-btn {
+    display: block; margin: 4px 0 16px; padding: 5px 18px;
+    background: #f0fdf4; border: 1px dashed #86efac; border-radius: 50px;
+    color: #16a34a; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700;
+    cursor: pointer; transition: background .15s;
+  }
+  .add-row-btn:hover { background: #dcfce7; }
 
   .page { max-width: 960px; margin: 32px auto 64px; background: #fff;
           border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden;
@@ -138,7 +149,9 @@
 <div class="toolbar">
   <button class="btn-print" onclick="window.print()">🖨 Print / Save PDF</button>
   <button class="btn-select" onclick="document.execCommand('selectAll')">Select All</button>
-  <span class="toolbar-note">Click any text to edit it directly in the browser</span>
+  <button class="btn-download" onclick="downloadDoc()">⬇ Download HTML</button>
+  <button class="btn-reset" onclick="resetDoc()">↺ Reset</button>
+  <span id="save-status" class="toolbar-note">Click any text to edit · changes save automatically</span>
 </div>
 
 <div class="page">
@@ -228,6 +241,7 @@
         </tr>
       </tbody>
     </table>
+    <button contenteditable="false" class="add-row-btn" onclick="addRow(this)">+ Add Row</button>
 
     <h3>Technology (Year 1)</h3>
     <table>
@@ -245,6 +259,7 @@
         <tr><td><strong>Tech Subtotal</strong></td><td></td><td class="td-right"><strong>~$1,779–2,679</strong></td><td></td></tr>
       </tfoot>
     </table>
+    <button contenteditable="false" class="add-row-btn" onclick="addRow(this)">+ Add Row</button>
 
     <h3>Programme &amp; Operations (Year 1)</h3>
     <table>
@@ -265,6 +280,7 @@
         <tr><td><strong>Operations Subtotal</strong></td><td class="td-right"><strong>~$8,800</strong></td><td></td></tr>
       </tfoot>
     </table>
+    <button contenteditable="false" class="add-row-btn" onclick="addRow(this)">+ Add Row</button>
 
     <h3>Year 1 Total Budget</h3>
     <table>
@@ -278,6 +294,7 @@
         <tr><td><strong>Year 1 TOTAL</strong></td><td class="td-right"><strong>~$12,693</strong></td><td class="td-right"><strong>~GHS 190,400</strong></td></tr>
       </tfoot>
     </table>
+    <button contenteditable="false" class="add-row-btn" onclick="addRow(this)">+ Add Row</button>
 
     <div class="info-box">
       <strong>Fundraising target for Year 1:</strong> $15,000–$20,000 USD to cover operating costs plus a 20–30% reserve. Priority sources: faith community donations, individual major donors, small foundation grants, and US diaspora giving.
@@ -418,6 +435,7 @@
         <tr><td><strong>Year 1 Target</strong></td><td class="td-right"><strong>$15,000–$20,000</strong></td><td></td></tr>
       </tfoot>
     </table>
+    <button contenteditable="false" class="add-row-btn" onclick="addRow(this)">+ Add Row</button>
 
     <h3>Funding Sources — By Type</h3>
     <table>
@@ -432,6 +450,7 @@
         <tr><td>Events (Ghana + US)</td><td>Year 2–5</td><td class="td-right">$3,000–$15,000/event</td><td>Annual gala, community fundraiser, virtual events</td></tr>
       </tbody>
     </table>
+    <button contenteditable="false" class="add-row-btn" onclick="addRow(this)">+ Add Row</button>
 
     <!-- HONEST MISTAKES + MITIGATION -->
     <h2>6. Anticipated Risks &amp; Mitigation — Founder's Honest Assessment</h2>
@@ -477,6 +496,75 @@
 
   </div>
 </div>
+
+<script>
+(function () {
+  var KEY = 'beacon_strategic_plan_2026_2031';
+  var body = document.querySelector('.doc-body');
+  var status = document.getElementById('save-status');
+  var _t;
+
+  function flash(msg, color, dur) {
+    status.textContent = msg;
+    status.style.color = color || '#9ca3af';
+    if (dur !== 0) {
+      clearTimeout(status._ft);
+      status._ft = setTimeout(function () {
+        status.textContent = 'All changes saved';
+        status.style.color = '#9ca3af';
+      }, dur || 3000);
+    }
+  }
+
+  function save(silent) {
+    localStorage.setItem(KEY, body.innerHTML);
+    if (!silent) flash('✓ Saved', '#16a34a');
+  }
+
+  body.addEventListener('input', function () {
+    flash('• Unsaved…', '#f59e0b', 0);
+    clearTimeout(_t);
+    _t = setTimeout(function () { save(); }, 1500);
+  });
+
+  window.addRow = function (btn) {
+    var tbl = btn.previousElementSibling;
+    while (tbl && tbl.tagName !== 'TABLE') tbl = tbl.previousElementSibling;
+    if (!tbl) return;
+    var tbody = tbl.querySelector('tbody');
+    if (!tbody) return;
+    var rows = tbody.querySelectorAll('tr');
+    if (!rows.length) return;
+    var clone = rows[rows.length - 1].cloneNode(true);
+    clone.querySelectorAll('td').forEach(function (td) { td.textContent = ''; });
+    tbody.appendChild(clone);
+    flash('Row added', '#0ea5e9');
+    save(true);
+  };
+
+  window.resetDoc = function () {
+    if (confirm('Reset to the original document? All your edits will be permanently lost.')) {
+      localStorage.removeItem(KEY);
+      location.reload();
+    }
+  };
+
+  window.downloadDoc = function () {
+    var html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+    var blob = new Blob([html], { type: 'text/html' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'BNB_Strategic_Financial_Plan_2026_2031.html';
+    a.click();
+  };
+
+  var saved = localStorage.getItem(KEY);
+  if (saved) {
+    body.innerHTML = saved;
+    flash('✓ Restored your last edits', '#0ea5e9');
+  }
+})();
+</script>
 
 </body>
 </html>
