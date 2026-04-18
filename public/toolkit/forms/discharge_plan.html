@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Discharge &amp; Transition Plan — Beacon Toolkit</title>
+<link rel="stylesheet" href="../styles.css"/>
+</head>
+<body>
+<div class="page">
+  <div class="page-nav"><a href="../index.html">← Back to Toolkit Hub</a></div>
+  <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+
+  <div class="doc-header">
+    <div class="doc-header-left">
+      <div class="org-name">Beacon of New Beginnings</div>
+      <div class="doc-title">Discharge &amp; Transition Plan</div>
+      <div class="doc-subtitle">Completed collaboratively with the resident before they leave the shelter</div>
+    </div>
+    <div class="doc-header-right">
+      <span class="module-badge">Module 02 — Shelter Ops</span>
+      <div class="form-meta">
+        <span>Form: BNB-02d</span>
+        <span>Case #: <input type="text" style="width:100px;display:inline-block;"/></span>
+        <span>Date of Discharge: <input type="text" style="width:110px;display:inline-block;"/></span>
+        <span>Length of Stay: <input type="text" style="width:80px;display:inline-block;"/> days</span>
+        <span>Case Manager: <input type="text" style="width:130px;display:inline-block;"/></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="instructions">
+    <strong>Instructions:</strong> Complete this plan together with the resident — not for them. Both the resident and case manager keep a copy. Complete all sections before the resident departs. If the discharge is unplanned (self-discharge), complete as much as possible and note the circumstances.
+  </div>
+
+  <div class="form-section">
+    <div class="form-section-header">Section 1 — Departure Details</div>
+    <div class="form-section-body">
+      <div class="field-row">
+        <div class="field-group half"><label>Reason for Discharge <span class="req">*</span></label>
+          <select><option>Select…</option><option>Planned positive exit — goals met</option><option>Moved to independent housing</option><option>Transferred to another shelter</option><option>Returned to family (safe arrangement)</option><option>Self-discharge (own decision, planned)</option><option>Self-discharge against staff advice</option><option>Removed for policy violation</option><option>Program completed</option><option>Other</option></select>
+        </div>
+        <div class="field-group half"><label>If other, describe</label><input type="text"/></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>Exit Destination (describe — do not write a specific address here; file separately)</label>
+          <select><option>Select…</option><option>Own rented accommodation</option><option>Social housing / government housing</option><option>Family home (safe arrangement confirmed)</option><option>Another NGO shelter or programme</option><option>Transitional housing programme</option><option>Unknown</option><option>Other</option></select>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>Is the exit destination confirmed safe from the perpetrator? Notes.</label><textarea rows="2"></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <div class="form-section-header">Section 2 — Outcomes at Discharge</div>
+    <div class="form-section-body">
+      <div class="instructions" style="margin-bottom:10px;">Rate progress on each area at the point of departure. This feeds into the Case Closure Form and impact reporting.</div>
+      <table>
+        <thead><tr><th>Goal Area</th><th>Status at Discharge</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Housing stability</td>
+            <td><select><option>Select…</option><option>Achieved</option><option>Partial</option><option>Not achieved</option><option>N/A</option></select></td>
+            <td><input type="text"/></td></tr>
+          <tr><td>Legal case / protection order</td>
+            <td><select><option>Select…</option><option>Achieved</option><option>In progress</option><option>Not started</option><option>N/A</option></select></td>
+            <td><input type="text"/></td></tr>
+          <tr><td>Mental health / counseling</td>
+            <td><select><option>Select…</option><option>Significant improvement</option><option>Some improvement</option><option>No change</option><option>N/A</option></select></td>
+            <td><input type="text"/></td></tr>
+          <tr><td>Employment / income source</td>
+            <td><select><option>Select…</option><option>Employed / income secured</option><option>In training / job search</option><option>Not yet</option><option>N/A</option></select></td>
+            <td><input type="text"/></td></tr>
+          <tr><td>Children's wellbeing</td>
+            <td><select><option>Select…</option><option>Good — in school</option><option>Improving</option><option>Ongoing concern</option><option>N/A</option></select></td>
+            <td><input type="text"/></td></tr>
+          <tr><td>Safety from perpetrator</td>
+            <td><select><option>Select…</option><option>Safe — perpetrator no contact</option><option>Safer than on arrival</option><option>Still at risk</option><option>Unknown</option></select></td>
+            <td><input type="text"/></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <div class="form-section-header">Section 3 — Referrals Made at Discharge</div>
+    <div class="form-section-body">
+      <table>
+        <thead><tr><th>Service Type</th><th>Organization / Contact</th><th>Date Referred</th><th>Appointment Confirmed?</th></tr></thead>
+        <tbody>
+          <tr><td><input type="text" placeholder="e.g. Legal aid"/></td><td><input type="text"/></td><td><input type="date"/></td><td><select><option>Yes</option><option>No</option><option>Pending</option></select></td></tr>
+          <tr><td><input type="text" placeholder="e.g. Counseling"/></td><td><input type="text"/></td><td><input type="date"/></td><td><select><option>Yes</option><option>No</option><option>Pending</option></select></td></tr>
+          <tr><td><input type="text" placeholder="e.g. Employment support"/></td><td><input type="text"/></td><td><input type="date"/></td><td><select><option>Yes</option><option>No</option><option>Pending</option></select></td></tr>
+          <tr><td><input type="text" placeholder="e.g. Housing service"/></td><td><input type="text"/></td><td><input type="date"/></td><td><select><option>Yes</option><option>No</option><option>Pending</option></select></td></tr>
+          <tr><td><input type="text" placeholder="e.g. Children's support"/></td><td><input type="text"/></td><td><input type="date"/></td><td><select><option>Yes</option><option>No</option><option>Pending</option></select></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <div class="form-section-header">Section 4 — Safety Plan at Exit</div>
+    <div class="form-section-body">
+      <div class="field-row">
+        <div class="field-group full"><label>Emergency contact(s) the resident will call if in danger</label><textarea rows="2"></textarea></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>Safe places the resident can go in an emergency</label><textarea rows="2"></textarea></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>What the resident will do if they feel unsafe in the next 30 days</label><textarea rows="2"></textarea></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group half"><label>Does the resident have the Beacon app installed?</label>
+          <select><option>Select…</option><option>Yes</option><option>No — set up today</option><option>Not appropriate (device may be monitored)</option></select>
+        </div>
+        <div class="field-group half"><label>Does the resident have a safe device to access support?</label>
+          <select><option>Select…</option><option>Yes</option><option>No</option><option>Arranged through referral</option></select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <div class="form-section-header">Section 5 — Follow-Up Schedule</div>
+    <div class="form-section-body">
+      <table>
+        <thead><tr><th>Follow-Up Point</th><th>Target Date</th><th>Method (call / visit / app)</th><th>Completed?</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>7-day check-in</td><td><input type="date"/></td><td><input type="text"/></td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+          <tr><td>30-day follow-up</td><td><input type="date"/></td><td><input type="text"/></td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+          <tr><td>3-month follow-up</td><td><input type="date"/></td><td><input type="text"/></td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+          <tr><td>6-month follow-up</td><td><input type="date"/></td><td><input type="text"/></td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <div class="form-section-header">Acknowledgement</div>
+    <div class="form-section-body">
+      <p style="font-size:9.5pt; margin-bottom:14px;">We have completed this transition plan together. The resident has received a copy of this plan, the safety plan, and all referral contacts.</p>
+      <div class="sig-row">
+        <div class="sig-block">Resident Signature (or mark)</div>
+        <div class="sig-block">Case Manager Signature</div>
+        <div class="sig-block">Date</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-footer">
+    <div><strong>Beacon of New Beginnings</strong> · ename@beaconnewbeginnings.org · Form BNB-02d · CONFIDENTIAL</div>
+    <div>Discharge &amp; Transition Plan · v1.0 · 2026 · Resident and Case Manager each keep a copy</div>
+  </div>
+</div>
+</body>
+</html>

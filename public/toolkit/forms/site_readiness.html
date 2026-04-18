@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Site Readiness Assessment — Beacon Toolkit</title>
+<link rel="stylesheet" href="../styles.css"/>
+<style>
+  .readiness-table td:first-child { width: 55%; }
+  .readiness-table td:nth-child(2) { width: 12%; text-align:center; }
+  .readiness-table td:nth-child(3) { width: 33%; }
+  .section-row td { background: var(--light); font-family:'Arial',sans-serif; font-weight:700; font-size:9pt; color:var(--orange); }
+  .score-box { background:var(--light); border:2px solid var(--orange); border-radius:4px; padding:14px 18px; margin-top:18px; font-family:'Arial',sans-serif; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="page-nav"><a href="../index.html">← Back to Toolkit Hub</a></div>
+  <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+
+  <div class="doc-header">
+    <div class="doc-header-left">
+      <div class="org-name">Beacon of New Beginnings</div>
+      <div class="doc-title">Site Readiness Assessment</div>
+      <div class="doc-subtitle">Complete before applying to become a Beacon Partner Site</div>
+    </div>
+    <div class="doc-header-right">
+      <span class="module-badge">Module 01 — Setup</span>
+      <div class="form-meta">
+        <span>Form: BNB-01a</span>
+        <span>Date: <input type="text" style="width:110px;display:inline-block;"/></span>
+        <span>Completed by: <input type="text" style="width:140px;display:inline-block;"/></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="instructions">
+    <strong>Instructions:</strong> Work through each item honestly. Tick <strong>Yes</strong> only when the item is fully in place — not planned, not in progress.
+    For each "No," record what action is needed and by when. Submit this form with your Partner Application.
+    <strong>Minimum passing score: 80% (24 of 30 items).</strong>
+  </div>
+
+  <div class="form-section">
+    <div class="form-section-header">Organization Details</div>
+    <div class="form-section-body">
+      <div class="field-row">
+        <div class="field-group half"><label>Organization Name <span class="req">*</span></label><input type="text"/></div>
+        <div class="field-group half"><label>Country / City</label><input type="text"/></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group third"><label>Lead Contact Name</label><input type="text"/></div>
+        <div class="field-group third"><label>Title / Role</label><input type="text"/></div>
+        <div class="field-group third"><label>Email</label><input type="email"/></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group half"><label>Years Operating</label><input type="text"/></div>
+        <div class="field-group half"><label>Current Annual Budget (approx.)</label><input type="text"/></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <div class="form-section-header">Readiness Checklist</div>
+    <div class="form-section-body" style="padding:0;">
+      <table class="readiness-table">
+        <thead>
+          <tr><th>Item</th><th>Yes / No</th><th>If No — Action Needed &amp; Date</th></tr>
+        </thead>
+        <tbody>
+          <tr class="section-row"><td colspan="3">A. Legal &amp; Governance</td></tr>
+          <tr><td>Organization is legally registered (or registration is in active process)</td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+          <tr><td>A named Executive Director or equivalent is in post</td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+          <tr><td>A functioning board or advisory committee exists (min. 3 members)</td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+          <tr><td>A bank account with dual-signatory controls is open</td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+          <tr><td>Basic financial record-keeping is in place</td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+
+          <tr class="section-row"><td colspan="3">B. Staff &amp; Capacity</td></tr>
+          <tr><td>At least 1 full-time staff member dedicated to survivor support</td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+          <tr><td>Staff lead has experience in social work, counseling, or survivor services</td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+          <tr><td>Staff are willing to complete Beacon trauma-informed care training</td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+          <tr><td>A code of conduct and safeguarding policy exists for staff and volunteers</td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+
+          <tr class="section-row"><td colspan="3">C. Physical Shelter</td></tr>
+          <tr><td>A physical location has been identified or secured</td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+          <tr><td>The location is in a reasonably discreet area (not easily traced by perpetrators)</td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+          <tr><td>The shelter has lockable entry and secure sleeping areas</td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+          <tr><td>Running water, sanitation, and cooking facilities are available</td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+          <tr><td>Minimum capacity of 3 beds exists (5–8 target)</td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+
+          <tr class="section-row"><td colspan="3">D. Community &amp; Partnerships</td></tr>
+          <tr><td>A documented community need exists (data, assessments, or referral demand)</td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+          <tr><td>At least 1 legal aid organization has been identified as a potential partner</td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+          <tr><td>At least 1 healthcare or counseling provider has been identified</td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+          <tr><td>The organization has existing relationships with the target community</td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+          <tr><td>A plan exists to address cultural barriers specific to this context</td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+
+          <tr class="section-row"><td colspan="3">E. Funding &amp; Sustainability</td></tr>
+          <tr><td>Minimum 6 months of operating budget is secured or committed</td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+          <tr><td>A fundraising plan or grant pipeline exists for Year 1</td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+          <tr><td>The organization has experience managing donor or grant funds responsibly</td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+
+          <tr class="section-row"><td colspan="3">F. Data &amp; Survivor Safety</td></tr>
+          <tr><td>A confidentiality and data protection policy exists (or will be adopted from toolkit)</td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+          <tr><td>Secure storage (physical or digital) exists for survivor files</td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+          <tr><td>Leadership understands that survivor identities are never shared externally</td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+          <tr><td>An incident reporting process exists or will be created</td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+
+          <tr class="section-row"><td colspan="3">G. Alignment with Beacon</td></tr>
+          <tr><td>Leadership has read the Beacon Replication Toolkit Overview and Strategic Plan</td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+          <tr><td>The organization is willing to submit monthly data reports to Beacon HQ</td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+          <tr><td>The organization agrees to the Beacon partner branding and quality standards</td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+          <tr><td>The organization commits to annual MOU renewal and partner network participation</td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="score-box">
+    <div class="field-row">
+      <div class="field-group third"><label>Total Yes Answers (out of 30)</label><input type="number" min="0" max="30"/></div>
+      <div class="field-group third"><label>Readiness Score (÷30 × 100)</label><input type="text" placeholder="e.g. 87%"/></div>
+      <div class="field-group third"><label>Result</label>
+        <select><option>Select…</option><option>Pass (80%+) — Proceed to Partner Application</option><option>Conditional (65–79%) — Address gaps first</option><option>Not Ready (&lt;65%) — Significant development needed</option></select>
+      </div>
+    </div>
+    <div class="field-row" style="margin-top:8px;">
+      <div class="field-group full"><label>Key Gaps to Address Before Applying</label><textarea rows="3"></textarea></div>
+    </div>
+  </div>
+
+  <div class="form-section" style="margin-top:20px;">
+    <div class="form-section-header">Declaration</div>
+    <div class="form-section-body">
+      <p style="font-size:9.5pt; margin-bottom:14px;">I confirm that the information above is accurate to the best of my knowledge and that our organization is genuinely committed to Beacon's survivor-centered, trauma-informed model.</p>
+      <div class="sig-row">
+        <div class="sig-block">Executive Director Signature</div>
+        <div class="sig-block">Printed Name</div>
+        <div class="sig-block">Date</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-footer">
+    <div><strong>Beacon of New Beginnings</strong> · ename@beaconnewbeginnings.org · Form BNB-01a</div>
+    <div>Submit with Partner Application · v1.0 · 2026</div>
+  </div>
+</div>
+</body>
+</html>

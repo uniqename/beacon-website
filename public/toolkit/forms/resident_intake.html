@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Resident Intake Form — Beacon Toolkit</title>
+<link rel="stylesheet" href="../styles.css"/>
+</head>
+<body>
+<div class="page">
+  <div class="page-nav"><a href="../index.html">← Back to Toolkit Hub</a></div>
+  <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+
+  <div class="doc-header">
+    <div class="doc-header-left">
+      <div class="org-name">Beacon of New Beginnings</div>
+      <div class="doc-title">Resident Intake Form</div>
+      <div class="doc-subtitle">Complete within 2 hours of arrival — in a private, calm setting</div>
+    </div>
+    <div class="doc-header-right">
+      <span class="module-badge">Module 02 — Shelter Ops</span>
+      <div class="form-meta">
+        <span>Form: BNB-02b</span>
+        <span>Case #: <input type="text" style="width:100px;display:inline-block;"/></span>
+        <span>Date of Arrival: <input type="text" style="width:110px;display:inline-block;"/></span>
+        <span>Time of Arrival: <input type="text" style="width:80px;display:inline-block;"/></span>
+        <span>Intake Staff: <input type="text" style="width:130px;display:inline-block;"/></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="note-box">
+    <strong>Confidentiality:</strong> This form contains sensitive personal information. Store in a locked cabinet or password-protected system. Do NOT use the resident's full name in any external communication — use their Case # only. Do not photograph or photocopy without consent.
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="form-section">
+    <div class="form-section-header">Section 1 — Personal Details</div>
+    <div class="form-section-body">
+      <div class="instructions" style="margin-bottom:12px;">Ask conversationally. If the resident declines to answer any item, write "Declined" — never leave fields blank. Do not push for information they are not ready to give.</div>
+      <div class="field-row">
+        <div class="field-group half"><label>Preferred First Name (what they want to be called) <span class="req">*</span></label><input type="text"/></div>
+        <div class="field-group half"><label>Full Legal Name (for records only — kept strictly confidential)</label><input type="text"/></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group third"><label>Date of Birth</label><input type="date"/></div>
+        <div class="field-group third"><label>Age</label><input type="number" min="0" max="120"/></div>
+        <div class="field-group third"><label>Gender Identity</label>
+          <select><option>Select…</option><option>Woman</option><option>Man</option><option>Non-binary</option><option>Prefer not to say</option><option>Other</option></select>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field-group third"><label>Nationality</label><input type="text"/></div>
+        <div class="field-group third"><label>Primary Language</label><input type="text"/></div>
+        <div class="field-group third"><label>Other Languages Spoken</label><input type="text"/></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group half"><label>Interpreter Needed?</label>
+          <select><option>Select…</option><option>No</option><option>Yes — Language: </option><option>Arranged</option></select>
+        </div>
+        <div class="field-group half"><label>Interpreter Language (if yes)</label><input type="text"/></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>Safe Contact Number (a number NOT monitored by perpetrator)</label><input type="tel"/></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="form-section">
+    <div class="form-section-header">Section 2 — Referral &amp; Arrival</div>
+    <div class="form-section-body">
+      <div class="field-row">
+        <div class="field-group half"><label>How did they come to Beacon? <span class="req">*</span></label>
+          <select><option>Select…</option><option>Self-referred</option><option>Police referral</option><option>Hospital / clinic</option><option>NGO / social worker</option><option>Legal aid partner</option><option>Community member / church</option><option>Beacon app</option><option>Other</option></select>
+        </div>
+        <div class="field-group half"><label>Referring Organization / Person (if applicable)</label><input type="text"/></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>Brief description of immediate circumstances on arrival (what they shared)</label>
+          <textarea rows="3"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="form-section">
+    <div class="form-section-header">Section 3 — Immediate Needs (tick all that apply)</div>
+    <div class="form-section-body">
+      <div class="check-group">
+        <label class="check-item"><input type="checkbox"/> Medical attention needed</label>
+        <label class="check-item"><input type="checkbox"/> Mental health crisis support</label>
+        <label class="check-item"><input type="checkbox"/> Food / nutrition</label>
+        <label class="check-item"><input type="checkbox"/> Hygiene supplies</label>
+        <label class="check-item"><input type="checkbox"/> Clothing / shoes</label>
+        <label class="check-item"><input type="checkbox"/> Safe phone / communication</label>
+        <label class="check-item"><input type="checkbox"/> Children's supplies</label>
+        <label class="check-item"><input type="checkbox"/> Medication (current prescription)</label>
+        <label class="check-item"><input type="checkbox"/> Legal protection (urgent)</label>
+        <label class="check-item"><input type="checkbox"/> Document retrieval (ID, passport)</label>
+        <label class="check-item"><input type="checkbox"/> Childcare</label>
+        <label class="check-item"><input type="checkbox"/> Interpreter / translation</label>
+      </div>
+      <div class="field-row" style="margin-top:12px;">
+        <div class="field-group full"><label>Other immediate needs (describe)</label><textarea rows="2"></textarea></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>Actions taken in first 24 hours to address immediate needs</label><textarea rows="3"></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="form-section">
+    <div class="form-section-header">Section 4 — Immediate Safety Assessment</div>
+    <div class="form-section-body">
+      <div class="instructions" style="margin-bottom:12px;">Ask gently. These questions inform immediate safety steps — not for judgment. A full Risk &amp; Safety Assessment (Form BNB-03c) will be completed separately within 24 hours.</div>
+      <div class="field-row">
+        <div class="field-group half"><label>Does the perpetrator know this shelter's location?</label>
+          <select><option>Select…</option><option>No</option><option>Yes</option><option>Unsure</option><option>Declined to answer</option></select>
+        </div>
+        <div class="field-group half"><label>Is the perpetrator currently following or tracking them?</label>
+          <select><option>Select…</option><option>No</option><option>Yes</option><option>Unsure</option><option>Declined to answer</option></select>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field-group half"><label>Does the perpetrator have access to weapons?</label>
+          <select><option>Select…</option><option>No</option><option>Yes</option><option>Unsure</option><option>Declined to answer</option></select>
+        </div>
+        <div class="field-group half"><label>Are there immediate threats to life?</label>
+          <select><option>Select…</option><option>No</option><option>Yes — describe below</option><option>Unsure</option></select>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>Immediate safety concerns (describe any "Yes" answers above and actions taken)</label>
+          <textarea rows="3"></textarea>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>Immediate safety steps taken (e.g. called police, locked shelter, notified legal partner)</label>
+          <textarea rows="2"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="form-section">
+    <div class="form-section-header">Section 5 — Children</div>
+    <div class="form-section-body">
+      <div class="field-row">
+        <div class="field-group half"><label>Are there children accompanying the resident?</label>
+          <select><option>Select…</option><option>No</option><option>Yes</option></select>
+        </div>
+        <div class="field-group half"><label>Number of children present</label><input type="number" min="0"/></div>
+      </div>
+      <table style="margin-top:10px;">
+        <thead><tr><th>Child's First Name</th><th>Age</th><th>Gender</th><th>Any immediate needs?</th></tr></thead>
+        <tbody>
+          <tr><td><input type="text"/></td><td><input type="number" min="0" max="18"/></td><td><input type="text"/></td><td><input type="text"/></td></tr>
+          <tr><td><input type="text"/></td><td><input type="number" min="0" max="18"/></td><td><input type="text"/></td><td><input type="text"/></td></tr>
+          <tr><td><input type="text"/></td><td><input type="number" min="0" max="18"/></td><td><input type="text"/></td><td><input type="text"/></td></tr>
+          <tr><td><input type="text"/></td><td><input type="number" min="0" max="18"/></td><td><input type="text"/></td><td><input type="text"/></td></tr>
+        </tbody>
+      </table>
+      <div class="field-row" style="margin-top:10px;">
+        <div class="field-group full"><label>Are any children in school currently? Notes on children's situation.</label><textarea rows="2"></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 6 -->
+  <div class="form-section">
+    <div class="form-section-header">Section 6 — Documents &amp; Identity</div>
+    <div class="form-section-body">
+      <div class="field-row">
+        <div class="field-group full"><label>Documents in resident's possession (tick all present)</label>
+          <div class="check-group" style="margin-top:6px;">
+            <label class="check-item"><input type="checkbox"/> National ID</label>
+            <label class="check-item"><input type="checkbox"/> Passport</label>
+            <label class="check-item"><input type="checkbox"/> Birth certificate(s)</label>
+            <label class="check-item"><input type="checkbox"/> Children's IDs/certificates</label>
+            <label class="check-item"><input type="checkbox"/> Marriage certificate</label>
+            <label class="check-item"><input type="checkbox"/> Medical records</label>
+            <label class="check-item"><input type="checkbox"/> Financial documents</label>
+            <label class="check-item"><input type="checkbox"/> None</label>
+          </div>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>Documents that need to be retrieved or replaced (note which and plan)</label><textarea rows="2"></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 7 — CONSENT -->
+  <div class="form-section">
+    <div class="form-section-header">Section 7 — Consent &amp; Rights</div>
+    <div class="form-section-body">
+      <div class="instructions">Read this aloud to the resident before asking them to sign.</div>
+      <p style="font-size:9.5pt; line-height:1.7; margin:12px 0; border:1px solid var(--border); padding:12px; border-radius:4px; background:#fafaf7;">
+        "<em>You have the right to stay here voluntarily and to leave at any time. The information you share with us is kept strictly confidential — your name and personal details will never be shared outside this shelter without your explicit permission, except where required by law to protect your safety or the safety of a child.
+        You have the right to respectful treatment at all times. You have the right to know what services are available to you and to make your own decisions. By signing below, you confirm that you understand and agree to the shelter's house rules, that you have received a copy of the resident rights charter, and that you consent to us maintaining a confidential case file to support your care.</em>"
+      </p>
+      <div class="field-row">
+        <div class="field-group half"><label>Resident acknowledges and consents</label>
+          <select><option>Select…</option><option>Yes — signed below</option><option>Verbal consent given (unable to sign — document reason)</option><option>Consent declined — document reason below</option></select>
+        </div>
+        <div class="field-group half"><label>If verbal/declined — reason</label><input type="text"/></div>
+      </div>
+      <div class="sig-row">
+        <div class="sig-block">Resident Signature (or mark)</div>
+        <div class="sig-block">Date</div>
+        <div class="sig-block">Intake Staff Signature</div>
+        <div class="sig-block">Witness (if applicable)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-footer">
+    <div><strong>Beacon of New Beginnings</strong> · ename@beaconnewbeginnings.org · Form BNB-02b · CONFIDENTIAL</div>
+    <div>Resident Intake Form · v1.0 · 2026</div>
+  </div>
+</div>
+</body>
+</html>

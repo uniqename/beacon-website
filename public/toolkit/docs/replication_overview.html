@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NGO Replication Overview — Beacon Toolkit</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Georgia', 'Times New Roman', serif; background: #EAEADA; color: #221E1F; font-size: 10.5pt; line-height: 1.55; }
+  .page { max-width: 820px; margin: 0 auto; background: #fff; padding: 48px 52px 52px; }
+  .page-nav { margin-bottom: 18px; font-family: Arial, sans-serif; font-size: 9pt; }
+  .page-nav a { color: #F0562D; text-decoration: none; }
+  .page-nav a:hover { text-decoration: underline; }
+  .print-btn { display: block; margin-bottom: 18px; background: #F0562D; color: #fff; border: none; padding: 8px 20px; font-family: Arial, sans-serif; font-size: 9pt; border-radius: 3px; cursor: pointer; }
+  .print-btn:hover { background: #d44a22; }
+  .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 3px solid #F0562D; padding-bottom: 18px; margin-bottom: 22px; }
+  .header-left h1 { font-size: 26pt; color: #F0562D; font-weight: 700; letter-spacing: -0.5px; line-height: 1.1; }
+  .header-left .subtitle { font-size: 10pt; color: #221E1F; margin-top: 4px; font-family: 'Arial', sans-serif; letter-spacing: 0.3px; }
+  .header-right { text-align: right; font-family: 'Arial', sans-serif; font-size: 9.5pt; color: #221E1F; line-height: 1.6; }
+  .header-right strong { font-size: 10.5pt; font-weight: 700; display: block; }
+  .intro { border-left: 4px solid #F0562D; padding: 12px 18px; background: #EAEADA; margin-bottom: 26px; font-size: 10.5pt; color: #221E1F; }
+  .intro strong { color: #F0562D; }
+  .section-title { font-family: 'Arial', sans-serif; font-size: 9pt; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #F0562D; border-left: 4px solid #F0562D; padding-left: 8px; margin-bottom: 12px; }
+  .overview-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 28px; }
+  .ov-card { background: #faf9f6; border-top: 3px solid #F0562D; border-radius: 0 0 4px 4px; padding: 12px 12px 14px; text-align: center; }
+  .ov-card .ov-num { font-family: 'Arial', sans-serif; font-size: 20pt; font-weight: 700; color: #F0562D; line-height: 1; }
+  .ov-card .ov-label { font-family: 'Arial', sans-serif; font-size: 8pt; color: #555; margin-top: 4px; line-height: 1.3; }
+  .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-bottom: 28px; }
+  .tl-item { padding: 0 10px 0 0; }
+  .tl-dot-row { display: flex; align-items: center; margin-bottom: 8px; }
+  .tl-dot { width: 14px; height: 14px; border-radius: 50%; background: #F0562D; flex-shrink: 0; z-index: 1; }
+  .tl-line { flex: 1; height: 2px; background: #F0562D; }
+  .tl-item:last-child .tl-line { background: transparent; }
+  .tl-month { font-family: 'Arial', sans-serif; font-size: 8.5pt; font-weight: 700; color: #F0562D; margin-bottom: 2px; }
+  .tl-theme { font-family: 'Arial', sans-serif; font-size: 8pt; color: #888; font-style: italic; margin-bottom: 6px; }
+  .tl-item ul { list-style: none; padding: 0; }
+  .tl-item ul li { font-size: 8.5pt; color: #221E1F; padding: 2px 0 2px 12px; position: relative; line-height: 1.4; }
+  .tl-item ul li::before { content: '•'; color: #F0562D; position: absolute; left: 0; font-weight: 700; }
+  hr.divider { border: none; border-top: 2px solid #F0562D; margin: 28px 0 24px; }
+  .module-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 28px; }
+  .module-card { border: 1.5px solid #e0ddd5; border-radius: 4px; padding: 16px 16px 18px; }
+  .module-header { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+  .module-num { font-family: 'Arial', sans-serif; font-size: 18pt; font-weight: 700; color: #F0562D; line-height: 1; flex-shrink: 0; width: 30px; }
+  .module-title { font-family: 'Arial', sans-serif; font-size: 10pt; font-weight: 700; color: #221E1F; line-height: 1.2; }
+  .module-subtitle { font-family: 'Arial', sans-serif; font-size: 8pt; color: #888; font-style: italic; margin-top: 1px; }
+  .module-card ul { list-style: none; padding: 0; }
+  .module-card ul li { font-size: 9.5pt; color: #221E1F; padding: 3px 0 3px 14px; position: relative; line-height: 1.45; border-bottom: 1px solid #f0ede6; }
+  .module-card ul li:last-child { border-bottom: none; }
+  .module-card ul li::before { content: '›'; color: #F0562D; position: absolute; left: 0; font-weight: 700; font-size: 11pt; line-height: 1.3; }
+  .module-tag { display: inline-block; margin-top: 8px; font-family: 'Arial', sans-serif; font-size: 7.5pt; background: #EAEADA; color: #555; padding: 2px 7px; border-radius: 20px; letter-spacing: 0.3px; }
+  .module-tag.doc { background: #fff3ee; color: #F0562D; }
+  .module-tag.template { background: #eef4ff; color: #094880; }
+  .module-tag.training { background: #f0fff0; color: #2a7a2a; }
+  .module-tag.digital { background: #f5f0ff; color: #6a0dad; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 28px; }
+  .checklist ul { list-style: none; padding: 0; }
+  .checklist ul li { font-size: 9.5pt; color: #221E1F; padding: 4px 0 4px 22px; position: relative; border-bottom: 1px solid #f0ede6; line-height: 1.45; }
+  .checklist ul li:last-child { border-bottom: none; }
+  .checklist ul li::before { content: '☐'; color: #F0562D; position: absolute; left: 0; font-size: 10pt; }
+  .criteria-card { background: #faf9f6; border: 1.5px solid #e0ddd5; border-radius: 4px; padding: 14px 16px; }
+  .criteria-card ul { list-style: none; padding: 0; }
+  .criteria-card ul li { font-size: 9.5pt; padding: 3px 0 3px 22px; position: relative; line-height: 1.5; }
+  .criteria-card ul li::before { content: '✓'; color: #F0562D; font-weight: 700; position: absolute; left: 0; }
+  .me-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; }
+  .me-card { border: 1.5px solid #e0ddd5; border-radius: 4px; padding: 14px; }
+  .me-card .me-title { font-family: 'Arial', sans-serif; font-size: 9pt; font-weight: 700; color: #F0562D; margin-bottom: 8px; }
+  .me-card ul { list-style: none; padding: 0; }
+  .me-card ul li { font-size: 9pt; color: #221E1F; padding: 2.5px 0 2.5px 13px; position: relative; line-height: 1.4; }
+  .me-card ul li::before { content: '•'; color: #F0562D; position: absolute; left: 0; font-weight: 700; }
+  .tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; }
+  .tier-card { border-radius: 4px; padding: 16px; border: 1.5px solid #e0ddd5; }
+  .tier-card.featured { background: #F0562D; border-color: #F0562D; color: #fff; }
+  .tier-name { font-family: 'Arial', sans-serif; font-size: 10pt; font-weight: 700; color: #F0562D; margin-bottom: 4px; }
+  .tier-card.featured .tier-name { color: #fff; }
+  .tier-price { font-family: 'Arial', sans-serif; font-size: 9pt; color: #888; margin-bottom: 10px; font-style: italic; }
+  .tier-card.featured .tier-price { color: #fde0d5; }
+  .tier-card ul { list-style: none; padding: 0; }
+  .tier-card ul li { font-size: 9pt; padding: 2.5px 0 2.5px 14px; position: relative; line-height: 1.4; }
+  .tier-card ul li::before { content: '•'; color: #F0562D; position: absolute; left: 0; font-weight: 700; }
+  .tier-card.featured ul li { color: #fff; }
+  .tier-card.featured ul li::before { color: #fde0d5; }
+  .footer { border-top: 1px solid #ddd; margin-top: 32px; padding-top: 12px; display: flex; justify-content: space-between; font-family: 'Arial', sans-serif; font-size: 8.5pt; color: #888; }
+  .footer strong { color: #F0562D; }
+  @media print { body { background: #fff; } .page { padding: 32px 40px; } .page-nav, .print-btn { display: none; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="page-nav"><a href="../index.html">← Back to Toolkit Hub</a></div>
+  <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+
+  <div class="header">
+    <div class="header-left">
+      <h1>Beacon of New Beginnings</h1>
+      <div class="subtitle">NGO Replication Toolkit — Survivor Support Program</div>
+    </div>
+    <div class="header-right">
+      <strong>Enam Egyir</strong>
+      Executive Director &amp; Founder<br/>
+      ename@beaconnewbeginnings.org<br/>
+      beaconnewbeginnings.org
+    </div>
+  </div>
+
+  <div class="intro">
+    This toolkit enables organizations in Ghana, the United States, and beyond to replicate Beacon's
+    integrated survivor support model — combining <strong>shelter</strong>, <strong>counseling</strong>,
+    <strong>legal advocacy</strong>, and <strong>livelihood empowerment</strong> — within
+    <strong>3–4 months</strong>, without starting from scratch. It is a living document, updated as
+    Beacon learns from each new site.
+  </div>
+
+  <div class="overview-grid">
+    <div class="ov-card"><div class="ov-num">8</div><div class="ov-label">Core Modules covering every program area</div></div>
+    <div class="ov-card"><div class="ov-num">3–4</div><div class="ov-label">Months to launch a Beacon-compatible program</div></div>
+    <div class="ov-card"><div class="ov-num">40+</div><div class="ov-label">Ready-to-use templates, forms &amp; guides</div></div>
+    <div class="ov-card"><div class="ov-num">3</div><div class="ov-label">Tiers of ongoing support from Beacon HQ</div></div>
+  </div>
+
+  <div class="section-title">90-Day Launch Timeline</div>
+  <div class="timeline" style="margin-top:12px;">
+    <div class="tl-item">
+      <div class="tl-dot-row"><div class="tl-dot"></div><div class="tl-line"></div></div>
+      <div class="tl-month">Month 1</div><div class="tl-theme">Assess &amp; Register</div>
+      <ul><li>Complete site readiness checklist</li><li>File legal entity registration</li><li>Identify shelter location</li><li>Hire case manager lead</li><li>Sign Beacon partner MOU</li></ul>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot-row"><div class="tl-dot"></div><div class="tl-line"></div></div>
+      <div class="tl-month">Month 2</div><div class="tl-theme">Build &amp; Train</div>
+      <ul><li>Complete staff trauma training</li><li>Adapt intake protocols locally</li><li>Set up Beacon app (local config)</li><li>Execute legal &amp; health MOUs</li><li>Run community sensitization</li></ul>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot-row"><div class="tl-dot"></div><div class="tl-line"></div></div>
+      <div class="tl-month">Month 3</div><div class="tl-theme">Soft Launch</div>
+      <ul><li>Accept first 3–5 residents</li><li>Begin case management cycles</li><li>Launch livelihood workshops</li><li>Activate app referral network</li><li>Submit Month 1 data to Beacon HQ</li></ul>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot-row"><div class="tl-dot"></div><div class="tl-line"></div></div>
+      <div class="tl-month">Month 4</div><div class="tl-theme">Full Operations</div>
+      <ul><li>Reach full shelter capacity</li><li>Peer mentorship program active</li><li>Employer partnerships signed</li><li>Board advisory group formed</li><li>Publish local impact baseline</li></ul>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="section-title">The 8 Core Modules</div>
+  <div class="module-grid" style="margin-top:12px;">
+    <div class="module-card">
+      <div class="module-header"><div class="module-num">01</div><div><div class="module-title">Organizational Setup</div><div class="module-subtitle">Legal foundation &amp; governance</div></div></div>
+      <ul><li>Legal registration guide (NGO, Ghana + U.S. 501c3)</li><li>Sample bylaws &amp; articles of incorporation</li><li>Board structure template (roles, terms, quorum rules)</li><li>Staff org chart &amp; job description library</li><li>HR policy manual template</li><li>Code of conduct &amp; safeguarding policy</li><li>Financial controls &amp; accounting procedures</li></ul>
+      <span class="module-tag doc">Document Pack</span><span class="module-tag template">Templates</span>
+    </div>
+    <div class="module-card">
+      <div class="module-header"><div class="module-num">02</div><div><div class="module-title">Shelter Operations</div><div class="module-subtitle">Running a safe, trauma-informed home</div></div></div>
+      <ul><li>Shelter setup checklist (facility, safety, supplies)</li><li>Resident intake &amp; admissions process</li><li>House rules &amp; resident rights charter</li><li>Daily operations schedule template</li><li>Crisis response &amp; de-escalation protocol</li><li>Discharge &amp; transition planning guide</li><li>Volunteer onboarding &amp; supervision guide</li></ul>
+      <span class="module-tag doc">Operations Manual</span><span class="module-tag template">Forms</span>
+    </div>
+    <div class="module-card">
+      <div class="module-header"><div class="module-num">03</div><div><div class="module-title">Case Management</div><div class="module-subtitle">From intake to independence</div></div></div>
+      <ul><li>Trauma-informed care framework &amp; principles</li><li>Survivor intake assessment form</li><li>Individual care plan template (90-day cycles)</li><li>Risk &amp; safety assessment tool</li><li>Progress tracking &amp; milestone documentation</li><li>Referral pathway map (legal, health, housing)</li><li>Case closure &amp; follow-up protocol (6-month)</li></ul>
+      <span class="module-tag training">Training Required</span><span class="module-tag template">Forms</span>
+    </div>
+    <div class="module-card">
+      <div class="module-header"><div class="module-num">04</div><div><div class="module-title">Legal Advocacy</div><div class="module-subtitle">Rights, evidence &amp; protection</div></div></div>
+      <ul><li>Survivor legal rights guide (Ghana &amp; U.S. versions)</li><li>Legal partner MOU template</li><li>Evidence documentation guide (court-admissible)</li><li>Protection order application walkthrough</li><li>Police report support guide for case managers</li><li>Legal aid referral directory template</li><li>Survivor confidentiality &amp; data protection policy</li></ul>
+      <span class="module-tag doc">Legal Pack</span><span class="module-tag template">Templates</span>
+    </div>
+    <div class="module-card">
+      <div class="module-header"><div class="module-num">05</div><div><div class="module-title">Counseling &amp; Mental Health</div><div class="module-subtitle">Healing &amp; psychological support</div></div></div>
+      <ul><li>Counselor hiring guide &amp; competency checklist</li><li>Healthcare partner MOU template</li><li>Group therapy session facilitation guide</li><li>Peer mentorship program structure &amp; curriculum</li><li>Self-care &amp; burnout prevention guide for staff</li><li>Trauma-informed language guide (do's &amp; don'ts)</li><li>Mental health referral escalation protocol</li></ul>
+      <span class="module-tag training">Training Required</span><span class="module-tag doc">Curriculum</span>
+    </div>
+    <div class="module-card">
+      <div class="module-header"><div class="module-num">06</div><div><div class="module-title">Livelihood &amp; Economic Empowerment</div><div class="module-subtitle">Skills, jobs &amp; financial independence</div></div></div>
+      <ul><li>Skills assessment &amp; interest mapping tool</li><li>Livelihood workshop curriculum (8-week program)</li><li>Employer partnership agreement template</li><li>Job placement tracking &amp; follow-up form</li><li>Microenterprise starter guide for survivors</li><li>Financial literacy workshop curriculum (4-week)</li><li>Childcare coordination guide during training</li></ul>
+      <span class="module-tag doc">Curriculum</span><span class="module-tag template">Templates</span>
+    </div>
+    <div class="module-card">
+      <div class="module-header"><div class="module-num">07</div><div><div class="module-title">Beacon App &amp; Digital Tools</div><div class="module-subtitle">Technology setup &amp; administration</div></div></div>
+      <ul><li>App deployment &amp; configuration guide (local setup)</li><li>Admin dashboard walkthrough for case managers</li><li>Stealth mode &amp; evidence tool user guide</li><li>Language &amp; local hotline configuration guide</li><li>App data privacy policy template</li><li>Digital safety guide for survivors</li><li>Incident reporting via app — protocol for staff</li></ul>
+      <span class="module-tag digital">Digital</span><span class="module-tag training">Training Required</span>
+    </div>
+    <div class="module-card">
+      <div class="module-header"><div class="module-num">08</div><div><div class="module-title">Fundraising &amp; Sustainability</div><div class="module-subtitle">Funding the mission long-term</div></div></div>
+      <ul><li>Grant writing guide &amp; funder research framework</li><li>Sample grant proposal (DV/homelessness focus)</li><li>Donor pitch deck template</li><li>Budget modeling spreadsheet ($85K–$500K scale)</li><li>Corporate CSR partnership pitch template</li><li>Individual donor cultivation guide</li><li>Annual report &amp; impact statement template</li></ul>
+      <span class="module-tag template">Templates</span><span class="module-tag doc">Playbook</span>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="two-col">
+    <div>
+      <div class="section-title">Site Readiness Checklist</div>
+      <div style="font-family:Arial,sans-serif; font-size:8.5pt; color:#555; margin: 10px 0 8px; font-style:italic;">Complete before applying to become a Beacon partner site.</div>
+      <div class="checklist"><ul>
+        <li>Dedicated staff lead identified (min. 1 FTE)</li>
+        <li>Physical location available or secured</li>
+        <li>Community need documented (data or assessment)</li>
+        <li>Local legal/healthcare referral partner identified</li>
+        <li>Organization legally registered (or in process)</li>
+        <li>Minimum 6-month operating budget secured</li>
+        <li>Leadership committed to trauma-informed principles</li>
+        <li>Data protection &amp; survivor privacy plan in place</li>
+        <li>Community trust-building plan for target population</li>
+        <li>Cultural adaptation plan for local context</li>
+      </ul></div>
+    </div>
+    <div>
+      <div class="section-title">Partner Site Eligibility Criteria</div>
+      <div style="margin-top:10px;" class="criteria-card"><ul>
+        <li>Shares Beacon's survivor-centered, trauma-informed values</li>
+        <li>Leadership committed to non-discrimination policy</li>
+        <li>Willing to collect &amp; share anonymized outcome data</li>
+        <li>Commits to Beacon branding &amp; quality standards</li>
+        <li>Has existing community relationships in target area</li>
+        <li>At least 1 staff member completes Beacon training</li>
+        <li>Signs Beacon Partner MOU (annual renewal)</li>
+        <li>Participates in quarterly partner network calls</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="section-title" style="margin-bottom:12px;">Monitoring &amp; Evaluation Framework</div>
+  <div class="me-grid">
+    <div class="me-card">
+      <div class="me-title">Survivor Outcomes</div>
+      <ul><li>% achieving stable housing post-exit</li><li>% with income source at 6 months</li><li>% who complete legal process (if applicable)</li><li>Wellbeing score change (intake vs. exit)</li><li>% who return to abusive situation</li><li>Children in school at 6-month follow-up</li></ul>
+    </div>
+    <div class="me-card">
+      <div class="me-title">Program Performance</div>
+      <ul><li>Shelter occupancy rate (target: 80%+)</li><li>Average length of stay (target: 60–90 days)</li><li>Case management sessions per resident/month</li><li>Partner referrals completed on time</li><li>Staff turnover rate (target: &lt;20%/yr)</li><li>App active users &amp; engagement rate</li></ul>
+    </div>
+    <div class="me-card">
+      <div class="me-title">Reporting to Beacon HQ</div>
+      <ul><li>Monthly: intake/exit numbers, incidents</li><li>Quarterly: outcome data, financials, staffing</li><li>Annually: full impact report (using template)</li><li>All data anonymized — no survivor names shared</li><li>Submitted via Beacon admin dashboard</li><li>Beacon HQ provides aggregate network report</li></ul>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="section-title" style="margin-bottom:12px;">Ongoing Support from Beacon HQ</div>
+  <div class="tier-grid">
+    <div class="tier-card">
+      <div class="tier-name">Affiliate</div>
+      <div class="tier-price">Self-directed · Toolkit access only</div>
+      <ul><li>Full digital toolkit access</li><li>All 40+ templates &amp; forms</li><li>Access to Beacon partner community</li><li>Quarterly partner network calls</li><li>Annual renewal check-in</li></ul>
+    </div>
+    <div class="tier-card featured">
+      <div class="tier-name">Partner Site</div>
+      <div class="tier-price">Active co-support from Beacon HQ</div>
+      <ul><li>Everything in Affiliate tier</li><li>2-day onboarding training (remote or in-person)</li><li>Monthly check-ins with Beacon advisor</li><li>App deployment &amp; configuration support</li><li>Co-branded grant application support</li><li>Listed on Beacon's official partner network</li></ul>
+    </div>
+    <div class="tier-card">
+      <div class="tier-name">Hub Site</div>
+      <div class="tier-price">Regional anchor · Trains others</div>
+      <ul><li>Everything in Partner Site tier</li><li>Certified to train other Affiliates regionally</li><li>Priority for Beacon site visits &amp; support</li><li>Input into toolkit updates &amp; policy</li><li>Featured in Beacon impact reports</li></ul>
+    </div>
+  </div>
+
+  <div style="background:#EAEADA; border-radius:4px; padding:14px 18px; font-family:Arial,sans-serif; font-size:9.5pt; color:#221E1F;">
+    <strong style="color:#F0562D;">Ready to become a Beacon Partner?</strong>&nbsp;
+    Contact us to request a site readiness call and receive full toolkit access.<br/>
+    <strong>ename@beaconnewbeginnings.org</strong> &nbsp;·&nbsp; beaconnewbeginnings.org &nbsp;·&nbsp; Ghana · United States
+  </div>
+
+  <div class="footer">
+    <div><strong>Beacon of New Beginnings</strong> · beaconnewbeginnings.org · ename@beaconnewbeginnings.org</div>
+    <div>NGO Replication Toolkit · v1.0 · 2026</div>
+  </div>
+</div>
+</body>
+</html>

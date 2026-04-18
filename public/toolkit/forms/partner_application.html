@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Partner Application — Beacon Toolkit</title>
+<link rel="stylesheet" href="../styles.css"/>
+</head>
+<body>
+<div class="page">
+  <div class="page-nav"><a href="../index.html">← Back to Toolkit Hub</a></div>
+  <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+
+  <div class="doc-header">
+    <div class="doc-header-left">
+      <div class="org-name">Beacon of New Beginnings</div>
+      <div class="doc-title">Partner Application</div>
+      <div class="doc-subtitle">Application to become a Beacon Affiliate, Partner Site, or Hub Site</div>
+    </div>
+    <div class="doc-header-right">
+      <span class="module-badge">Module 01 — Setup</span>
+      <div class="form-meta">
+        <span>Form: BNB-01b</span>
+        <span>Date: <input type="text" style="width:110px;display:inline-block;"/></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="instructions">
+    <strong>Instructions:</strong> Complete all sections. Attach the following:
+    <ol>
+      <li>Completed Site Readiness Assessment (BNB-01a) — passing score required</li>
+      <li>Proof of legal registration (certificate, filing receipt, or equivalent)</li>
+      <li>Most recent financial statement or budget summary</li>
+      <li>Brief bio of the lead staff person</li>
+    </ol>
+    Email the completed PDF to <strong>ename@beaconnewbeginnings.org</strong> with subject: <em>"Partner Application — [Your Organization Name]"</em>.
+    Beacon HQ will respond within 10 business days.
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="form-section">
+    <div class="form-section-header">Section 1 — Organization Details</div>
+    <div class="form-section-body">
+      <div class="field-row">
+        <div class="field-group full"><label>Full Organization Name <span class="req">*</span></label><input type="text"/></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group half"><label>Organization Type</label>
+          <select><option>Select…</option><option>NGO / Non-Profit</option><option>Community-Based Organization</option><option>Faith-Based Organization</option><option>Government Agency</option><option>Social Enterprise</option><option>Other</option></select>
+        </div>
+        <div class="field-group half"><label>Year Founded</label><input type="text"/></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group half"><label>Country</label><input type="text"/></div>
+        <div class="field-group half"><label>City / Region</label><input type="text"/></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group third"><label>Website</label><input type="text"/></div>
+        <div class="field-group third"><label>Phone</label><input type="tel"/></div>
+        <div class="field-group third"><label>General Email</label><input type="email"/></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group half"><label>Executive Director / Lead Contact Name <span class="req">*</span></label><input type="text"/></div>
+        <div class="field-group half"><label>Direct Contact Email <span class="req">*</span></label><input type="email"/></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="form-section">
+    <div class="form-section-header">Section 2 — Your Community Context</div>
+    <div class="form-section-body">
+      <div class="field-row">
+        <div class="field-group full"><label>Describe the domestic violence / homelessness situation in your target area. Include any available data. <span class="req">*</span></label>
+          <textarea rows="5"></textarea>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>Who is your primary target population? (age, gender, background, language)</label>
+          <textarea rows="3"></textarea>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>What existing services are available in your area for DV survivors? What gaps does your program address?</label>
+          <textarea rows="4"></textarea>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>Are there specific cultural, linguistic, or legal factors that will shape how you deliver Beacon's model locally? Describe.</label>
+          <textarea rows="3"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="form-section">
+    <div class="form-section-header">Section 3 — Your Proposed Program</div>
+    <div class="form-section-body">
+      <div class="field-row">
+        <div class="field-group half"><label>Proposed shelter capacity (number of beds)</label><input type="number" min="1"/></div>
+        <div class="field-group half"><label>Proposed launch date</label><input type="date"/></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>Describe your shelter facility (location type, size, amenities, current status)</label>
+          <textarea rows="3"></textarea>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>Which Beacon program pillars will you implement? (Tick all you plan to offer)</label>
+          <div class="check-group" style="margin-top:6px;">
+            <label class="check-item"><input type="checkbox"/> Shelter</label>
+            <label class="check-item"><input type="checkbox"/> Case Management</label>
+            <label class="check-item"><input type="checkbox"/> Legal Advocacy</label>
+            <label class="check-item"><input type="checkbox"/> Counseling &amp; Mental Health</label>
+            <label class="check-item"><input type="checkbox"/> Livelihood &amp; Employment</label>
+            <label class="check-item"><input type="checkbox"/> Beacon Mobile App</label>
+          </div>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field-group half"><label>Number of dedicated staff at launch</label><input type="number" min="1"/></div>
+        <div class="field-group half"><label>Year 1 budget (USD or local currency)</label><input type="text"/></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>Describe your funding sources for Year 1 (grants, donations, government, etc.)</label>
+          <textarea rows="3"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="form-section">
+    <div class="form-section-header">Section 4 — Support Tier Requested</div>
+    <div class="form-section-body">
+      <div class="field-row">
+        <div class="field-group full">
+          <label>Which Beacon partner tier are you applying for? <span class="req">*</span></label>
+          <div class="radio-group" style="margin-top:8px; flex-direction:column; gap:10px;">
+            <label class="radio-item">
+              <input type="radio" name="tier" value="affiliate"/>
+              <div><strong>Affiliate</strong> — Self-directed access to the full toolkit, templates, and partner community. No active co-support from Beacon HQ.</div>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="tier" value="partner"/>
+              <div><strong>Partner Site</strong> — Active co-support including onboarding training, monthly advisor check-ins, app deployment support, and co-branded grant assistance.</div>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="tier" value="hub"/>
+              <div><strong>Hub Site</strong> — Regional anchor certified to train other Affiliates. Requires 12+ months of demonstrated Partner Site operation first.</div>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>Why are you applying for this tier? What do you hope to achieve through the Beacon partnership?</label>
+          <textarea rows="4"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="form-section">
+    <div class="form-section-header">Section 5 — Declaration &amp; Signature</div>
+    <div class="form-section-body">
+      <p style="font-size:9.5pt; line-height:1.6; margin-bottom:14px;">
+        I confirm that the information in this application is accurate and complete. I understand that:
+        (a) Beacon HQ may request additional information before making a decision;
+        (b) Approval is subject to MOU signature and annual renewal;
+        (c) Misrepresentation may result in termination of the partnership.
+        I commit to Beacon's survivor-centered, trauma-informed values and to the reporting and quality standards of the partner program.
+      </p>
+      <div class="sig-row">
+        <div class="sig-block">Executive Director Signature</div>
+        <div class="sig-block">Printed Name</div>
+        <div class="sig-block">Organization Stamp (if applicable)</div>
+        <div class="sig-block">Date</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note-box"><strong>Submit to:</strong> ename@beaconnewbeginnings.org · Subject: "Partner Application — [Your Org Name]" · Response within 10 business days.</div>
+
+  <div class="form-footer">
+    <div><strong>Beacon of New Beginnings</strong> · ename@beaconnewbeginnings.org · Form BNB-01b</div>
+    <div>Partner Application · v1.0 · 2026</div>
+  </div>
+</div>
+</body>
+</html>

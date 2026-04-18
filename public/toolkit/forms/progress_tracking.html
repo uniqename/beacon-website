@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Progress Tracking Form — Beacon Toolkit</title>
+<link rel="stylesheet" href="../styles.css"/>
+</head>
+<body>
+<div class="page">
+  <div class="page-nav"><a href="../index.html">← Back to Toolkit Hub</a></div>
+  <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+
+  <div class="doc-header">
+    <div class="doc-header-left">
+      <div class="org-name">Beacon of New Beginnings</div>
+      <div class="doc-title">Progress Tracking Form</div>
+      <div class="doc-subtitle">Bi-weekly or monthly check-in against the 90-Day Care Plan</div>
+    </div>
+    <div class="doc-header-right">
+      <span class="module-badge">Module 03 — Case Management</span>
+      <div class="form-meta">
+        <span>Form: BNB-03d</span>
+        <span>Case #: <input type="text" style="width:100px;display:inline-block;"/></span>
+        <span>Check-in #: <input type="text" style="width:60px;display:inline-block;"/></span>
+        <span>Date: <input type="text" style="width:110px;display:inline-block;"/></span>
+        <span>Case Manager: <input type="text" style="width:130px;display:inline-block;"/></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="instructions">
+    <strong>Instructions:</strong> Complete this form at every bi-weekly or monthly check-in. Rate progress on each care plan goal area using the 1–5 scale. Add brief narrative notes — these feed into your monthly report to Beacon HQ and the 90-day case review.
+    <br/><strong>Scale: 1 = No progress / significant setback &nbsp;·&nbsp; 3 = Steady progress &nbsp;·&nbsp; 5 = Goal achieved / exceeded</strong>
+  </div>
+
+  <div class="form-section">
+    <div class="form-section-header">Check-in Overview</div>
+    <div class="form-section-body">
+      <div class="field-row">
+        <div class="field-group third"><label>Days in shelter / program</label><input type="number" min="0"/></div>
+        <div class="field-group third"><label>Care plan start date</label><input type="date"/></div>
+        <div class="field-group third"><label>Days remaining in current plan</label><input type="number" min="0"/></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>Survivor's own assessment of how things are going (in their words)</label><textarea rows="3"></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <div class="form-section-header">Goal Area Progress Ratings</div>
+    <div class="form-section-body">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:22%">Goal Area</th>
+            <th style="width:12%">Rating (1–5)</th>
+            <th style="width:33%">What progressed / what happened</th>
+            <th style="width:33%">Barriers or setbacks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1. Housing</strong></td>
+            <td>
+              <select>
+                <option>–</option><option>1 — No progress</option><option>2 — Slight progress</option>
+                <option>3 — Steady progress</option><option>4 — Good progress</option><option>5 — Achieved</option>
+              </select>
+            </td>
+            <td><textarea rows="2"></textarea></td>
+            <td><textarea rows="2"></textarea></td>
+          </tr>
+          <tr>
+            <td><strong>2. Legal &amp; Safety</strong></td>
+            <td>
+              <select>
+                <option>–</option><option>1 — No progress</option><option>2 — Slight progress</option>
+                <option>3 — Steady progress</option><option>4 — Good progress</option><option>5 — Achieved</option>
+              </select>
+            </td>
+            <td><textarea rows="2"></textarea></td>
+            <td><textarea rows="2"></textarea></td>
+          </tr>
+          <tr>
+            <td><strong>3. Mental Health</strong></td>
+            <td>
+              <select>
+                <option>–</option><option>1 — No progress</option><option>2 — Slight progress</option>
+                <option>3 — Steady progress</option><option>4 — Good progress</option><option>5 — Achieved</option>
+              </select>
+            </td>
+            <td><textarea rows="2"></textarea></td>
+            <td><textarea rows="2"></textarea></td>
+          </tr>
+          <tr>
+            <td><strong>4. Livelihood</strong></td>
+            <td>
+              <select>
+                <option>–</option><option>1 — No progress</option><option>2 — Slight progress</option>
+                <option>3 — Steady progress</option><option>4 — Good progress</option><option>5 — Achieved</option>
+              </select>
+            </td>
+            <td><textarea rows="2"></textarea></td>
+            <td><textarea rows="2"></textarea></td>
+          </tr>
+          <tr>
+            <td><strong>5. Children</strong></td>
+            <td>
+              <select>
+                <option>N/A</option><option>1 — No progress</option><option>2 — Slight progress</option>
+                <option>3 — Steady progress</option><option>4 — Good progress</option><option>5 — Achieved</option>
+              </select>
+            </td>
+            <td><textarea rows="2"></textarea></td>
+            <td><textarea rows="2"></textarea></td>
+          </tr>
+          <tr>
+            <td><strong>Overall Safety</strong></td>
+            <td>
+              <select>
+                <option>–</option><option>1 — Still at high risk</option><option>2 — Slightly safer</option>
+                <option>3 — Moderately safe</option><option>4 — Generally safe</option><option>5 — Safe &amp; stable</option>
+              </select>
+            </td>
+            <td><textarea rows="2"></textarea></td>
+            <td><textarea rows="2"></textarea></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <div class="form-section-header">Actions &amp; Next Steps</div>
+    <div class="form-section-body">
+      <div class="field-row">
+        <div class="field-group full"><label>Care plan goals to update or add based on this check-in</label><textarea rows="3"></textarea></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>Referrals made or planned this period</label><textarea rows="2"></textarea></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>Any concerns requiring escalation (safety, health, legal)</label><textarea rows="2"></textarea></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group half"><label>Next check-in date</label><input type="date"/></div>
+        <div class="field-group half"><label>Overall case status</label>
+          <select><option>On track</option><option>Needs attention</option><option>Escalating concern</option><option>Ready for closure review</option></select>
+        </div>
+      </div>
+      <div class="sig-row">
+        <div class="sig-block">Case Manager Signature</div>
+        <div class="sig-block">Date</div>
+        <div class="sig-block">Supervisor (if escalating)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-footer">
+    <div><strong>Beacon of New Beginnings</strong> · ename@beaconnewbeginnings.org · Form BNB-03d · CONFIDENTIAL</div>
+    <div>Progress Tracking Form · v1.0 · 2026</div>
+  </div>
+</div>
+</body>
+</html>

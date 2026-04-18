@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import SignatureModal from '../components/SignatureModal';
 import DocConverterModal from '../components/DocConverterModal';
 import { useRegion } from '../context/RegionContext';
+import PasswordGate from '../components/PasswordGate';
 
 const DOC_CATEGORIES = [
   {
@@ -100,6 +101,7 @@ const Tools = () => {
   };
 
   return (
+    <PasswordGate>
     <>
       <div className="min-h-screen bg-gray-50 py-16 px-4">
         <div className="max-w-4xl mx-auto">
@@ -183,6 +185,7 @@ const Tools = () => {
       {showConverter && <DocConverterModal onClose={() => setShowConverter(false)} />}
       {showSignature && <SignatureModal onClose={() => setShowSignature(false)} />}
     </>
+    </PasswordGate>
   );
 };
 

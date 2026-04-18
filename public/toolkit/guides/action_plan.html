@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>90-Day Action Plan — Beacon Toolkit</title>
+<link rel="stylesheet" href="../styles.css"/>
+<style>
+  .month-header {
+    background: var(--orange);
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+    font-weight: 700;
+    font-size: 11pt;
+    padding: 10px 16px;
+    border-radius: 4px 4px 0 0;
+    margin-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .month-theme { font-size: 9pt; font-weight: 400; opacity: 0.9; }
+  .week-block {
+    border: 1.5px solid var(--border);
+    border-top: none;
+    padding: 14px 16px;
+    margin-bottom: 0;
+  }
+  .week-block:last-child { border-radius: 0 0 4px 4px; margin-bottom: 20px; }
+  .week-label {
+    font-family: 'Arial', sans-serif;
+    font-size: 9pt;
+    font-weight: 700;
+    color: var(--orange);
+    margin-bottom: 8px;
+  }
+  .task-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 7px;
+    align-items: flex-start;
+  }
+  .task-check {
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid #bbb;
+    border-radius: 3px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    accent-color: var(--orange);
+  }
+  .task-text {
+    font-size: 9.5pt;
+    line-height: 1.45;
+    flex: 1;
+  }
+  .task-link {
+    font-family: 'Arial', sans-serif;
+    font-size: 8pt;
+    color: var(--navy);
+    text-decoration: none;
+    flex-shrink: 0;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 1px 6px;
+    white-space: nowrap;
+  }
+  .task-link:hover { background: #eef4ff; }
+  .milestone-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border);
+    align-items: flex-start;
+  }
+  .milestone-icon { color: var(--orange); font-size: 11pt; flex-shrink: 0; }
+  .milestone-text { font-size: 9.5pt; font-weight: 700; font-family: 'Arial', sans-serif; color: var(--charcoal); }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="page-nav"><a href="../index.html">← Back to Toolkit Hub</a></div>
+  <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+
+  <div class="doc-header">
+    <div class="doc-header-left">
+      <div class="org-name">Beacon of New Beginnings</div>
+      <div class="doc-title">90-Day Action Plan</div>
+      <div class="doc-subtitle">Month-by-month launch roadmap with form references at every step</div>
+    </div>
+    <div class="doc-header-right">
+      <span class="module-badge">LAUNCH GUIDE</span>
+      <div class="form-meta">
+        <span>Organization: ___________________________</span>
+        <span>Launch Date: ___________________________</span>
+        <span>Site Lead: ___________________________</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="instructions">
+    <strong>How to use this plan:</strong> Work through each week in order. For each task, tick the checkbox when complete. Where a form is referenced, click the link to open it, fill it out, and file it in your case management system. Customize dates by writing your actual calendar dates next to each week header.
+    <br/><br/>
+    <strong>Before you start:</strong> Complete the <a href="../forms/site_readiness.html" style="color:var(--orange);">Site Readiness Assessment</a> and the <a href="../forms/partner_application.html" style="color:var(--orange);">Partner Application</a> first. Receive Beacon HQ confirmation before proceeding.
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-card"><div class="stat-num">90</div><div class="stat-label">Days to full operations</div></div>
+    <div class="stat-card"><div class="stat-num">3</div><div class="stat-num" style="font-size:10pt; color:var(--muted);">phases</div></div>
+    <div class="stat-card"><div class="stat-num">12</div><div class="stat-label">Weekly milestones</div></div>
+    <div class="stat-card"><div class="stat-num">18+</div><div class="stat-label">Forms referenced</div></div>
+  </div>
+
+  <!-- ══ MONTH 1 ══ -->
+  <div class="month-header">
+    Month 1 — Foundation &amp; Setup
+    <span class="month-theme">Dates: _____________ to _____________</span>
+  </div>
+
+  <div class="week-block">
+    <div class="week-label">Week 1 — Legal &amp; Governance · Target date: _____________</div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">File legal registration documents (NGO / 501c3). Engage a lawyer if needed.</div></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Complete Site Readiness Assessment and submit with partner application to Beacon HQ.</div><a class="task-link" href="../forms/site_readiness.html">→ Site Readiness</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Submit Partner Application to Beacon HQ (ename@beaconnewbeginnings.org).</div><a class="task-link" href="../forms/partner_application.html">→ Partner App</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Draft initial board structure — recruit 3–5 founding board members.</div></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Open organizational bank account with dual-signatory controls.</div></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Set up secure filing system for survivor documents (physical + digital).</div></div>
+    <div class="milestone-row"><span class="milestone-icon">✓</span><div class="milestone-text">Milestone: Partner application submitted, legal filing in process.</div></div>
+  </div>
+
+  <div class="week-block">
+    <div class="week-label">Week 2 — Team &amp; Partnerships · Target date: _____________</div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Post and begin hiring: Case Manager (required), Admin Coordinator (if budget allows).</div><a class="task-link" href="../templates/staff_job_description.html">→ Job Description</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Contact 2–3 local legal aid organizations to discuss partnership.</div><a class="task-link" href="../templates/legal_aid_mou.html">→ Legal MOU</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Contact 1–2 local healthcare/counseling providers to discuss partnership.</div></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Sign Partner MOU with Beacon HQ (returned after application approval).</div><a class="task-link" href="../templates/partner_mou.html">→ Partner MOU</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Begin identifying shelter location — shortlist 2–3 options.</div></div>
+    <div class="milestone-row"><span class="milestone-icon">✓</span><div class="milestone-text">Milestone: Case manager hired or shortlisted. At least 1 legal partner in discussion.</div></div>
+  </div>
+
+  <div class="week-block">
+    <div class="week-label">Week 3 — Shelter &amp; Budget · Target date: _____________</div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Secure shelter location. Sign lease or access agreement.</div></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Complete Shelter Setup Checklist for the physical space.</div><a class="task-link" href="../forms/shelter_checklist.html">→ Shelter Checklist</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Finalize Year 1 budget and submit to board for approval.</div><a class="task-link" href="../templates/budget_template.html">→ Budget Template</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Set up grant tracking log — identify 5+ funders to apply to in months 1–3.</div><a class="task-link" href="../forms/grant_tracker.html">→ Grant Tracker</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Purchase supplies: bedding, hygiene kits, lockable filing cabinet, first aid kit.</div></div>
+    <div class="milestone-row"><span class="milestone-icon">✓</span><div class="milestone-text">Milestone: Shelter space secured and checklist complete. Budget approved by board.</div></div>
+  </div>
+
+  <div class="week-block">
+    <div class="week-label">Week 4 — Training &amp; Protocols · Target date: _____________</div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Case manager and site lead complete Beacon trauma-informed care orientation (contact Beacon HQ to schedule).</div></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Draft and finalize intake protocol — adapt forms to your local context.</div><a class="task-link" href="../forms/resident_intake.html">→ Intake Form</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Sign legal aid MOU with at least 1 legal partner.</div><a class="task-link" href="../templates/legal_aid_mou.html">→ Legal MOU</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Run first local outreach event (church, community centre, hospital) to announce services.</div></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Install Beacon app — configure local hotlines and language settings (contact Beacon HQ).</div></div>
+    <div class="milestone-row"><span class="milestone-icon">✓</span><div class="milestone-text">Milestone: Team trained, legal MOU signed, intake protocol ready, app configured.</div></div>
+  </div>
+
+  <!-- ══ MONTH 2 ══ -->
+  <div class="month-header">
+    Month 2 — Soft Launch &amp; First Residents
+    <span class="month-theme">Dates: _____________ to _____________</span>
+  </div>
+
+  <div class="week-block">
+    <div class="week-label">Week 5 — Open Doors (Quietly) · Target date: _____________</div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Accept first 1–3 residents. Complete Resident Intake Form for each within 2 hours of arrival.</div><a class="task-link" href="../forms/resident_intake.html">→ Intake Form</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Complete Digital Safety Assessment for each resident at intake.</div><a class="task-link" href="../forms/digital_safety_assessment.html">→ Digital Safety</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Complete Risk &amp; Safety Assessment within 24 hours of arrival.</div><a class="task-link" href="../forms/risk_safety_assessment.html">→ Risk Assessment</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Deliver legal rights information sheet to each resident.</div><a class="task-link" href="../templates/legal_rights_ghana.html">→ Legal Rights</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Submit first grant application from your tracker.</div><a class="task-link" href="../forms/grant_tracker.html">→ Grant Tracker</a></div>
+    <div class="milestone-row"><span class="milestone-icon">✓</span><div class="milestone-text">Milestone: First residents admitted and intake paperwork complete.</div></div>
+  </div>
+
+  <div class="week-block">
+    <div class="week-label">Week 6 — Case Management Begins · Target date: _____________</div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Complete Survivor Intake Assessment for each resident (48–72 hrs after arrival).</div><a class="task-link" href="../forms/survivor_assessment.html">→ Assessment</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Create 90-Day Individual Care Plan with each resident by end of Week 1 in shelter.</div><a class="task-link" href="../forms/care_plan_90day.html">→ Care Plan</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Make first referrals: legal, counseling, or healthcare as identified in care plan.</div><a class="task-link" href="../forms/legal_referral.html">→ Legal Referral</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Run first weekly house meeting with all residents.</div></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Conduct first staff wellbeing check-in with case manager.</div><a class="task-link" href="../forms/staff_wellbeing.html">→ Staff Wellbeing</a></div>
+    <div class="milestone-row"><span class="milestone-icon">✓</span><div class="milestone-text">Milestone: All residents have care plans. First referrals made. Case files complete.</div></div>
+  </div>
+
+  <div class="week-block">
+    <div class="week-label">Week 7 — Livelihood &amp; Skills · Target date: _____________</div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Complete Skills Assessment with each resident eligible for livelihood programming.</div><a class="task-link" href="../forms/skills_assessment.html">→ Skills Assessment</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Launch first livelihood workshop session (enroll appropriate residents).</div></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Begin employer outreach — contact 3+ local employers using the partnership template.</div><a class="task-link" href="../templates/employer_agreement.html">→ Employer Agreement</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Run first group support session. Log attendance and notes.</div><a class="task-link" href="../forms/group_session_log.html">→ Group Session Log</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Submit Month 1 report to Beacon HQ via dashboard.</div></div>
+    <div class="milestone-row"><span class="milestone-icon">✓</span><div class="milestone-text">Milestone: Livelihood workshops started. Employer outreach underway.</div></div>
+  </div>
+
+  <div class="week-block">
+    <div class="week-label">Week 8 — First Progress Review · Target date: _____________</div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Complete first Progress Tracking form for each resident (30-day mark).</div><a class="task-link" href="../forms/progress_tracking.html">→ Progress Form</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Review and update each care plan based on progress.</div><a class="task-link" href="../forms/care_plan_90day.html">→ Care Plan</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Hold board meeting: share first resident outcomes and financials.</div></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Apply to 2nd and 3rd grant funders from tracker.</div><a class="task-link" href="../forms/grant_tracker.html">→ Grant Tracker</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Recruit peer mentors from survivor alumni if available.</div><a class="task-link" href="../forms/peer_mentor_application.html">→ Peer Mentor App</a></div>
+    <div class="milestone-row"><span class="milestone-icon">✓</span><div class="milestone-text">Milestone: 30-day progress reviews complete. Board briefed. 3+ grants submitted.</div></div>
+  </div>
+
+  <!-- ══ MONTH 3 ══ -->
+  <div class="month-header">
+    Month 3 — Full Operations &amp; Review
+    <span class="month-theme">Dates: _____________ to _____________</span>
+  </div>
+
+  <div class="week-block">
+    <div class="week-label">Week 9 — Scale Intake · Target date: _____________</div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Expand to full shelter capacity (5–8 residents). Repeat full intake process for all new arrivals.</div><a class="task-link" href="../forms/resident_intake.html">→ Intake Form</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Formalize peer mentorship program — onboard first peer mentors.</div></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Sign employer partnership agreement with at least 1 employer.</div><a class="task-link" href="../templates/employer_agreement.html">→ Employer Agreement</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Begin tracking job placements in the placement tracker.</div><a class="task-link" href="../forms/job_placement_tracker.html">→ Job Tracker</a></div>
+    <div class="milestone-row"><span class="milestone-icon">✓</span><div class="milestone-text">Milestone: Shelter at capacity. Employer partnership signed. Peer mentors active.</div></div>
+  </div>
+
+  <div class="week-block">
+    <div class="week-label">Week 10 — First Closures &amp; Transitions · Target date: _____________</div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Process first case closures for residents who are ready to transition. Complete Discharge Plan and Case Closure form for each.</div><a class="task-link" href="../forms/discharge_plan.html">→ Discharge Plan</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Schedule 30-day follow-up calls for all closed cases.</div><a class="task-link" href="../forms/case_closure.html">→ Case Closure</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Complete Month 2 report to Beacon HQ.</div></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Run workshop feedback survey with livelihood participants.</div><a class="task-link" href="../forms/workshop_feedback.html">→ Workshop Feedback</a></div>
+    <div class="milestone-row"><span class="milestone-icon">✓</span><div class="milestone-text">Milestone: First positive exits. Follow-up system in place.</div></div>
+  </div>
+
+  <div class="week-block">
+    <div class="week-label">Week 11 — Community &amp; Fundraising · Target date: _____________</div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Host community awareness event. Distribute legal rights guides.</div><a class="task-link" href="../templates/legal_rights_ghana.html">→ Legal Rights</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Update donor log with all supporters engaged to date.</div><a class="task-link" href="../forms/donor_log.html">→ Donor Log</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Submit 4th and 5th grant applications.</div><a class="task-link" href="../forms/grant_tracker.html">→ Grant Tracker</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Staff wellbeing check-in — assess team morale and burnout risk.</div><a class="task-link" href="../forms/staff_wellbeing.html">→ Staff Wellbeing</a></div>
+    <div class="milestone-row"><span class="milestone-icon">✓</span><div class="milestone-text">Milestone: 5+ grants submitted. Donor log current. Community event held.</div></div>
+  </div>
+
+  <div class="week-block">
+    <div class="week-label">Week 12 — 90-Day Review &amp; Impact Baseline · Target date: _____________</div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Complete 90-day progress reviews for all early residents.</div><a class="task-link" href="../forms/progress_tracking.html">→ Progress Form</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Compile Month 3 impact report for Beacon HQ and your board.</div><a class="task-link" href="../templates/impact_report_template.html">→ Impact Report</a></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Identify location for 2nd shelter and begin planning Year 2 expansion.</div></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Apply for Beacon Hub Site status if you are ready to support other organizations.</div></div>
+    <div class="task-row"><input type="checkbox" class="task-check"/><div class="task-text">Send thank-you letters/messages to all donors and partners from the donor log.</div></div>
+    <div class="milestone-row"><span class="milestone-icon">✓</span><div class="milestone-text">MILESTONE: Full operations achieved. Impact baseline documented. Ready for Year 1 continuation.</div></div>
+  </div>
+
+  <!-- SUMMARY -->
+  <hr class="divider"/>
+  <div class="section-title">90-Day Success Checklist</div>
+  <div class="two-col" style="margin-top:12px;">
+    <div>
+      <ul class="beacon-list">
+        <li>Legal registration filed or complete</li>
+        <li>Partner MOU signed with Beacon HQ</li>
+        <li>Shelter open and at 50%+ capacity</li>
+        <li>All residents have complete case files</li>
+        <li>At least 1 legal partner MOU signed</li>
+        <li>Livelihood workshops running weekly</li>
+        <li>First job placements tracked</li>
+      </ul>
+    </div>
+    <div>
+      <ul class="beacon-list">
+        <li>5+ grant applications submitted</li>
+        <li>Board of 3–5 members in place</li>
+        <li>Monthly reporting to Beacon HQ active</li>
+        <li>Staff wellbeing monitored monthly</li>
+        <li>Donor log current</li>
+        <li>Impact baseline report complete</li>
+        <li>Second shelter location identified</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="form-footer">
+    <div><strong>Beacon of New Beginnings</strong> · ename@beaconnewbeginnings.org</div>
+    <div>90-Day Action Plan · v1.0 · 2026</div>
+  </div>
+</div>
+</body>
+</html>

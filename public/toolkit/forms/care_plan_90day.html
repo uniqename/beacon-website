@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>90-Day Individual Care Plan — Beacon Toolkit</title>
+<link rel="stylesheet" href="../styles.css"/>
+<style>
+  .goal-table td:first-child { width: 30%; font-weight: 600; font-size: 9.5pt; }
+  .goal-table td:nth-child(2) { width: 30%; }
+  .goal-table td:nth-child(3) { width: 20%; }
+  .goal-table td:nth-child(4) { width: 20%; }
+  .review-row { background: #fff8f0; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="page-nav"><a href="../index.html">← Back to Toolkit Hub</a></div>
+  <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+
+  <div class="doc-header">
+    <div class="doc-header-left">
+      <div class="org-name">Beacon of New Beginnings</div>
+      <div class="doc-title">90-Day Individual Care Plan</div>
+      <div class="doc-subtitle">Created collaboratively with the survivor at end of Week 1 — reviewed every 30 days</div>
+    </div>
+    <div class="doc-header-right">
+      <span class="module-badge">Module 03 — Case Management</span>
+      <div class="form-meta">
+        <span>Form: BNB-03c</span>
+        <span>Case #: <input type="text" style="width:100px;display:inline-block;"/></span>
+        <span>Plan Start Date: <input type="text" style="width:110px;display:inline-block;"/></span>
+        <span>Plan End Date: <input type="text" style="width:110px;display:inline-block;"/></span>
+        <span>Case Manager: <input type="text" style="width:130px;display:inline-block;"/></span>
+        <span>Plan #: <input type="text" style="width:60px;display:inline-block;"/> (1 = initial)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="instructions">
+    <strong>Instructions:</strong> Complete this plan together with the survivor — not for them. Use their own words wherever possible for the goals. Assign each action a responsible person and a realistic target date. Review and update every 30 days. At day 90, use this plan to complete the Progress Tracking Form (BNB-03d) and decide whether to renew or close the case.
+  </div>
+
+  <div class="form-section">
+    <div class="form-section-header">Survivor Profile (for this plan cycle)</div>
+    <div class="form-section-body">
+      <div class="field-row">
+        <div class="field-group half"><label>Primary language(s)</label><input type="text"/></div>
+        <div class="field-group half"><label>Children in household (ages)</label><input type="text"/></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>Top 3 goals the survivor identified for this period (their own words)</label><textarea rows="3"></textarea></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>Key strengths and resources to build on</label><textarea rows="2"></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AREA 1: HOUSING -->
+  <div class="form-section">
+    <div class="form-section-header">Goal Area 1 — Housing &amp; Living Situation</div>
+    <div class="form-section-body">
+      <div class="field-row">
+        <div class="field-group full"><label>Current situation</label><textarea rows="2"></textarea></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>90-day goal (specific &amp; measurable)</label><textarea rows="2"></textarea></div>
+      </div>
+      <table class="goal-table" style="margin-top:8px;">
+        <thead><tr><th>Action Step</th><th>Details</th><th>Responsible</th><th>Target Date</th></tr></thead>
+        <tbody>
+          <tr><td><input type="text" placeholder="e.g. Apply for social housing"/></td><td><input type="text"/></td><td><input type="text"/></td><td><input type="date"/></td></tr>
+          <tr><td><input type="text"/></td><td><input type="text"/></td><td><input type="text"/></td><td><input type="date"/></td></tr>
+          <tr><td><input type="text"/></td><td><input type="text"/></td><td><input type="text"/></td><td><input type="date"/></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- AREA 2: LEGAL -->
+  <div class="form-section">
+    <div class="form-section-header">Goal Area 2 — Legal &amp; Safety</div>
+    <div class="form-section-body">
+      <div class="field-row">
+        <div class="field-group full"><label>Current legal situation / active cases</label><textarea rows="2"></textarea></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>90-day goal</label><textarea rows="2"></textarea></div>
+      </div>
+      <table class="goal-table" style="margin-top:8px;">
+        <thead><tr><th>Action Step</th><th>Details</th><th>Responsible</th><th>Target Date</th></tr></thead>
+        <tbody>
+          <tr><td><input type="text" placeholder="e.g. Apply for protection order"/></td><td><input type="text"/></td><td><input type="text"/></td><td><input type="date"/></td></tr>
+          <tr><td><input type="text"/></td><td><input type="text"/></td><td><input type="text"/></td><td><input type="date"/></td></tr>
+          <tr><td><input type="text"/></td><td><input type="text"/></td><td><input type="text"/></td><td><input type="date"/></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- AREA 3: MENTAL HEALTH -->
+  <div class="form-section">
+    <div class="form-section-header">Goal Area 3 — Mental Health &amp; Wellbeing</div>
+    <div class="form-section-body">
+      <div class="field-row">
+        <div class="field-group full"><label>Current mental health / emotional state</label><textarea rows="2"></textarea></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>90-day goal</label><textarea rows="2"></textarea></div>
+      </div>
+      <table class="goal-table" style="margin-top:8px;">
+        <thead><tr><th>Action Step</th><th>Details</th><th>Responsible</th><th>Target Date</th></tr></thead>
+        <tbody>
+          <tr><td><input type="text" placeholder="e.g. Begin weekly counseling sessions"/></td><td><input type="text"/></td><td><input type="text"/></td><td><input type="date"/></td></tr>
+          <tr><td><input type="text"/></td><td><input type="text"/></td><td><input type="text"/></td><td><input type="date"/></td></tr>
+          <tr><td><input type="text"/></td><td><input type="text"/></td><td><input type="text"/></td><td><input type="date"/></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- AREA 4: LIVELIHOOD -->
+  <div class="form-section">
+    <div class="form-section-header">Goal Area 4 — Livelihood &amp; Economic Independence</div>
+    <div class="form-section-body">
+      <div class="field-row">
+        <div class="field-group full"><label>Current income/employment status</label><textarea rows="2"></textarea></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>90-day goal</label><textarea rows="2"></textarea></div>
+      </div>
+      <table class="goal-table" style="margin-top:8px;">
+        <thead><tr><th>Action Step</th><th>Details</th><th>Responsible</th><th>Target Date</th></tr></thead>
+        <tbody>
+          <tr><td><input type="text" placeholder="e.g. Complete skills assessment"/></td><td><input type="text"/></td><td><input type="text"/></td><td><input type="date"/></td></tr>
+          <tr><td><input type="text"/></td><td><input type="text"/></td><td><input type="text"/></td><td><input type="date"/></td></tr>
+          <tr><td><input type="text"/></td><td><input type="text"/></td><td><input type="text"/></td><td><input type="date"/></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- AREA 5: CHILDREN -->
+  <div class="form-section">
+    <div class="form-section-header">Goal Area 5 — Children's Wellbeing (if applicable)</div>
+    <div class="form-section-body">
+      <div class="field-row">
+        <div class="field-group full"><label>Current situation for children</label><textarea rows="2"></textarea></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>90-day goal</label><textarea rows="2"></textarea></div>
+      </div>
+      <table class="goal-table" style="margin-top:8px;">
+        <thead><tr><th>Action Step</th><th>Details</th><th>Responsible</th><th>Target Date</th></tr></thead>
+        <tbody>
+          <tr><td><input type="text" placeholder="e.g. Enroll children in school"/></td><td><input type="text"/></td><td><input type="text"/></td><td><input type="date"/></td></tr>
+          <tr><td><input type="text"/></td><td><input type="text"/></td><td><input type="text"/></td><td><input type="date"/></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 30-DAY REVIEWS -->
+  <div class="form-section">
+    <div class="form-section-header">30-Day Reviews</div>
+    <div class="form-section-body">
+      <table>
+        <thead><tr><th>Review</th><th>Date</th><th>Progress Summary</th><th>Goals Updated?</th><th>Case Manager</th></tr></thead>
+        <tbody>
+          <tr class="review-row"><td>Day 30 Review</td><td><input type="date"/></td><td><input type="text"/></td><td><select><option>No</option><option>Yes</option></select></td><td><input type="text"/></td></tr>
+          <tr class="review-row"><td>Day 60 Review</td><td><input type="date"/></td><td><input type="text"/></td><td><select><option>No</option><option>Yes</option></select></td><td><input type="text"/></td></tr>
+          <tr class="review-row"><td>Day 90 Final</td><td><input type="date"/></td><td><input type="text"/></td><td><select><option>Close case</option><option>Renew plan</option><option>Transfer</option></select></td><td><input type="text"/></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <div class="form-section-header">Sign-Off</div>
+    <div class="form-section-body">
+      <p style="font-size:9.5pt;margin-bottom:14px;">We have created this plan together. The survivor agrees these goals reflect their wishes and they understand they can request changes at any time.</p>
+      <div class="sig-row">
+        <div class="sig-block">Survivor Signature (or mark)</div>
+        <div class="sig-block">Case Manager Signature</div>
+        <div class="sig-block">Supervisor (if required)</div>
+        <div class="sig-block">Date</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-footer">
+    <div><strong>Beacon of New Beginnings</strong> · ename@beaconnewbeginnings.org · Form BNB-03c · CONFIDENTIAL</div>
+    <div>90-Day Care Plan · v1.0 · 2026</div>
+  </div>
+</div>
+</body>
+</html>

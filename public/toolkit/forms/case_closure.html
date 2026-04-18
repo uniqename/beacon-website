@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Case Closure Form — Beacon Toolkit</title>
+<link rel="stylesheet" href="../styles.css"/>
+</head>
+<body>
+<div class="page">
+  <div class="page-nav"><a href="../index.html">← Back to Toolkit Hub</a></div>
+  <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+
+  <div class="doc-header">
+    <div class="doc-header-left">
+      <div class="org-name">Beacon of New Beginnings</div>
+      <div class="doc-title">Case Closure Form</div>
+      <div class="doc-subtitle">Documents exit outcomes, referrals at closure, and follow-up schedule</div>
+    </div>
+    <div class="doc-header-right">
+      <span class="module-badge">Module 03 — Case Management</span>
+      <div class="form-meta">
+        <span>Form: BNB-03e</span>
+        <span>Case #: <input type="text" style="width:100px;display:inline-block;"/></span>
+        <span>Date Opened: <input type="text" style="width:110px;display:inline-block;"/></span>
+        <span>Date Closed: <input type="text" style="width:110px;display:inline-block;"/></span>
+        <span>Total Days: <input type="text" style="width:60px;display:inline-block;"/></span>
+        <span>Case Manager: <input type="text" style="width:130px;display:inline-block;"/></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="note-box"><strong>Reminder:</strong> Complete this alongside the Discharge &amp; Transition Plan (BNB-02d). Even difficult closures must be documented without judgment. Schedule all follow-ups before archiving the file.</div>
+
+  <div class="form-section">
+    <div class="form-section-header">Section 1 — Reason for Closure</div>
+    <div class="form-section-body">
+      <div class="field-row">
+        <div class="field-group full">
+          <label>Primary reason for closure <span class="req">*</span></label>
+          <div class="radio-group" style="flex-direction:column; gap:8px; margin-top:8px;">
+            <label class="radio-item"><input type="radio" name="closure_reason"/> <strong>Positive exit</strong> — survivor met goals and is ready to live independently</label>
+            <label class="radio-item"><input type="radio" name="closure_reason"/> <strong>Planned transfer</strong> — moved to another shelter, programme or support service</label>
+            <label class="radio-item"><input type="radio" name="closure_reason"/> <strong>Programme completed</strong> — reached maximum programme duration</label>
+            <label class="radio-item"><input type="radio" name="closure_reason"/> <strong>Self-discharge (planned)</strong> — survivor chose to leave, informed decision</label>
+            <label class="radio-item"><input type="radio" name="closure_reason"/> <strong>Self-discharge against advice</strong> — survivor left before goals met; risks documented</label>
+            <label class="radio-item"><input type="radio" name="closure_reason"/> <strong>Removed for policy violation</strong> — describe below</label>
+            <label class="radio-item"><input type="radio" name="closure_reason"/> <strong>External circumstances</strong> — funding ended, facility closed, etc.</label>
+            <label class="radio-item"><input type="radio" name="closure_reason"/> <strong>Other</strong> — describe below</label>
+          </div>
+        </div>
+      </div>
+      <div class="field-row"><div class="field-group full"><label>Additional context / description</label><textarea rows="3"></textarea></div></div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <div class="form-section-header">Section 2 — Outcomes at Closure</div>
+    <div class="form-section-body">
+      <table>
+        <thead><tr><th style="width:25%">Outcome Area</th><th style="width:25%">Status at Closure</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Housing</td><td><select><option>–</option><option>Stable independent housing</option><option>Temporary housing</option><option>Staying with family/friends</option><option>Transferred to another shelter</option><option>Unknown/unsecured</option></select></td><td><input type="text"/></td></tr>
+          <tr><td>Safety from perpetrator</td><td><select><option>–</option><option>Safe — no contact</option><option>Protection order in place</option><option>Safer but risk remains</option><option>Still at risk</option><option>Unknown</option></select></td><td><input type="text"/></td></tr>
+          <tr><td>Legal case</td><td><select><option>–</option><option>Resolved — positive outcome</option><option>Ongoing — referred out</option><option>Not pursued</option><option>N/A</option></select></td><td><input type="text"/></td></tr>
+          <tr><td>Mental health</td><td><select><option>–</option><option>Significant improvement</option><option>Moderate improvement</option><option>Stable, no change</option><option>Declined</option><option>Referred to specialist</option></select></td><td><input type="text"/></td></tr>
+          <tr><td>Employment / income</td><td><select><option>–</option><option>Employed full-time</option><option>Employed part-time</option><option>Self-employed/business started</option><option>In training</option><option>No income yet</option></select></td><td><input type="text"/></td></tr>
+          <tr><td>Children (if applicable)</td><td><select><option>–</option><option>In school, doing well</option><option>In school, monitoring needed</option><option>Not yet in school</option><option>Custody resolved</option><option>Custody ongoing</option><option>N/A</option></select></td><td><input type="text"/></td></tr>
+        </tbody>
+      </table>
+      <div class="field-row" style="margin-top:12px;">
+        <div class="field-group full"><label>Overall narrative summary of survivor's journey and outcomes</label><textarea rows="4"></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <div class="form-section-header">Section 3 — Referrals Made at Closure</div>
+    <div class="form-section-body">
+      <table>
+        <thead><tr><th>Service</th><th>Organization</th><th>Contact Person</th><th>Date</th><th>Appt Confirmed</th></tr></thead>
+        <tbody>
+          <tr><td><input type="text" placeholder="e.g. Counseling"/></td><td><input type="text"/></td><td><input type="text"/></td><td><input type="date"/></td><td><select><option>Yes</option><option>No</option><option>Pending</option></select></td></tr>
+          <tr><td><input type="text"/></td><td><input type="text"/></td><td><input type="text"/></td><td><input type="date"/></td><td><select><option>Yes</option><option>No</option><option>Pending</option></select></td></tr>
+          <tr><td><input type="text"/></td><td><input type="text"/></td><td><input type="text"/></td><td><input type="date"/></td><td><select><option>Yes</option><option>No</option><option>Pending</option></select></td></tr>
+          <tr><td><input type="text"/></td><td><input type="text"/></td><td><input type="text"/></td><td><input type="date"/></td><td><select><option>Yes</option><option>No</option><option>Pending</option></select></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <div class="form-section-header">Section 4 — Follow-Up Schedule</div>
+    <div class="form-section-body">
+      <table>
+        <thead><tr><th>Follow-Up</th><th>Date</th><th>Method</th><th>Completed?</th><th>Outcome Notes</th></tr></thead>
+        <tbody>
+          <tr><td>7-day check-in</td><td><input type="date"/></td><td><input type="text" placeholder="Call / visit / app"/></td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+          <tr><td>30-day follow-up</td><td><input type="date"/></td><td><input type="text"/></td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+          <tr><td>3-month follow-up</td><td><input type="date"/></td><td><input type="text"/></td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+          <tr><td>6-month follow-up</td><td><input type="date"/></td><td><input type="text"/></td><td><input type="text" placeholder="Y/N"/></td><td><input type="text"/></td></tr>
+        </tbody>
+      </table>
+      <div class="field-row" style="margin-top:10px;">
+        <div class="field-group half"><label>Does survivor have the Beacon app installed?</label>
+          <select><option>Yes</option><option>No — referred to alternative</option><option>Not appropriate (device monitored)</option></select>
+        </div>
+        <div class="field-group half"><label>Does survivor have a safe communication device?</label>
+          <select><option>Yes</option><option>No</option><option>Arranged via referral</option></select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <div class="form-section-header">Section 5 — Case Manager Reflection</div>
+    <div class="form-section-body">
+      <div class="field-row"><div class="field-group full"><label>What went well in this case? What would you do differently?</label><textarea rows="3"></textarea></div></div>
+      <div class="field-row"><div class="field-group full"><label>Any systemic gaps or referral issues to flag for service improvement?</label><textarea rows="2"></textarea></div></div>
+      <div class="sig-row">
+        <div class="sig-block">Case Manager Signature</div>
+        <div class="sig-block">Supervisor Signature</div>
+        <div class="sig-block">Date Archived</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-footer">
+    <div><strong>Beacon of New Beginnings</strong> · ename@beaconnewbeginnings.org · Form BNB-03e · CONFIDENTIAL</div>
+    <div>Case Closure Form · v1.0 · 2026</div>
+  </div>
+</div>
+</body>
+</html>

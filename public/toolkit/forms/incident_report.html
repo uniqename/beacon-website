@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Incident Report — Beacon Toolkit</title>
+<link rel="stylesheet" href="../styles.css"/>
+</head>
+<body>
+<div class="page">
+  <div class="page-nav"><a href="../index.html">← Back to Toolkit Hub</a></div>
+  <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+
+  <div class="doc-header">
+    <div class="doc-header-left">
+      <div class="org-name">Beacon of New Beginnings</div>
+      <div class="doc-title">Incident Report</div>
+      <div class="doc-subtitle">Complete within 2 hours of any safety, welfare, or operational incident</div>
+    </div>
+    <div class="doc-header-right">
+      <span class="module-badge">Module 02 — Shelter Ops</span>
+      <div class="form-meta">
+        <span>Form: BNB-02c</span>
+        <span>Incident Ref #: <input type="text" style="width:100px;display:inline-block;"/></span>
+        <span>Report Date: <input type="text" style="width:110px;display:inline-block;"/></span>
+        <span>Reporting Staff: <input type="text" style="width:130px;display:inline-block;"/></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="note-box"><strong>Important:</strong> Be factual. Describe what you observed and what was said — not interpretations or assumptions. If you are unsure of something, write "unclear" or "unconfirmed." Submit to site manager within 2 hours and send to Beacon HQ within 24 hours.</div>
+
+  <div class="form-section">
+    <div class="form-section-header">Section 1 — Incident Details</div>
+    <div class="form-section-body">
+      <div class="field-row">
+        <div class="field-group third"><label>Date of Incident <span class="req">*</span></label><input type="date"/></div>
+        <div class="field-group third"><label>Time of Incident</label><input type="time"/></div>
+        <div class="field-group third"><label>Location (room / area)</label><input type="text"/></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>Incident Type (tick all that apply) <span class="req">*</span></label>
+          <div class="check-group" style="margin-top:6px;">
+            <label class="check-item"><input type="checkbox"/> Physical altercation (between residents)</label>
+            <label class="check-item"><input type="checkbox"/> Physical altercation (resident &amp; staff)</label>
+            <label class="check-item"><input type="checkbox"/> Verbal altercation</label>
+            <label class="check-item"><input type="checkbox"/> Self-harm concern</label>
+            <label class="check-item"><input type="checkbox"/> Suicide risk</label>
+            <label class="check-item"><input type="checkbox"/> Unauthorized visitor / security breach</label>
+            <label class="check-item"><input type="checkbox"/> Medical emergency</label>
+            <label class="check-item"><input type="checkbox"/> Property damage / theft</label>
+            <label class="check-item"><input type="checkbox"/> Child welfare concern</label>
+            <label class="check-item"><input type="checkbox"/> Staff misconduct allegation</label>
+            <label class="check-item"><input type="checkbox"/> Fire / evacuation</label>
+            <label class="check-item"><input type="checkbox"/> Resident self-discharge (against advice)</label>
+            <label class="check-item"><input type="checkbox"/> Perpetrator contact / attempted contact</label>
+            <label class="check-item"><input type="checkbox"/> Other</label>
+          </div>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>Other incident type (describe)</label><input type="text"/></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <div class="form-section-header">Section 2 — People Involved</div>
+    <div class="form-section-body">
+      <div class="instructions" style="margin-bottom:10px;">Use Case Numbers — do NOT write full resident names in this section.</div>
+      <table>
+        <thead><tr><th>Role (resident/staff/visitor)</th><th>Case # or Staff ID</th><th>Present at time of incident?</th><th>Injured?</th></tr></thead>
+        <tbody>
+          <tr><td><input type="text"/></td><td><input type="text"/></td><td><input type="text" placeholder="Y/N"/></td><td><input type="text" placeholder="Y/N"/></td></tr>
+          <tr><td><input type="text"/></td><td><input type="text"/></td><td><input type="text" placeholder="Y/N"/></td><td><input type="text" placeholder="Y/N"/></td></tr>
+          <tr><td><input type="text"/></td><td><input type="text"/></td><td><input type="text" placeholder="Y/N"/></td><td><input type="text" placeholder="Y/N"/></td></tr>
+          <tr><td><input type="text"/></td><td><input type="text"/></td><td><input type="text" placeholder="Y/N"/></td><td><input type="text" placeholder="Y/N"/></td></tr>
+        </tbody>
+      </table>
+      <div class="field-row" style="margin-top:12px;">
+        <div class="field-group full"><label>Witnesses (name / role)</label><input type="text"/></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <div class="form-section-header">Section 3 — Account of Events</div>
+    <div class="form-section-body">
+      <div class="field-row">
+        <div class="field-group full"><label>Describe exactly what happened — in chronological order. State facts only. <span class="req">*</span></label><textarea rows="6"></textarea></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>What led up to the incident? (contributing factors, if known)</label><textarea rows="3"></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <div class="form-section-header">Section 4 — Response &amp; Actions Taken</div>
+    <div class="form-section-body">
+      <div class="field-row">
+        <div class="field-group full"><label>Immediate actions taken during and after the incident <span class="req">*</span></label><textarea rows="3"></textarea></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group half"><label>Police notified?</label><select><option>No</option><option>Yes — report # below</option><option>In progress</option></select></div>
+        <div class="field-group half"><label>Police report number (if applicable)</label><input type="text"/></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group half"><label>Medical attention sought?</label><select><option>No</option><option>Yes — hospital / clinic below</option><option>First aid on site</option></select></div>
+        <div class="field-group half"><label>Medical facility / provider</label><input type="text"/></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group half"><label>Beacon HQ notified?</label><select><option>No</option><option>Yes</option><option>Will notify within 24 hrs</option></select></div>
+        <div class="field-group half"><label>Time Beacon HQ notified</label><input type="text"/></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group full"><label>Follow-up actions required (who does what, by when)</label><textarea rows="3"></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <div class="form-section-header">Section 5 — Sign-Off</div>
+    <div class="form-section-body">
+      <div class="sig-row">
+        <div class="sig-block">Reporting Staff Signature</div>
+        <div class="sig-block">Witness Signature</div>
+        <div class="sig-block">Site Manager Signature</div>
+        <div class="sig-block">Date Submitted to HQ</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-footer">
+    <div><strong>Beacon of New Beginnings</strong> · ename@beaconnewbeginnings.org · Form BNB-02c · CONFIDENTIAL</div>
+    <div>Incident Report · v1.0 · 2026 · Submit to site manager within 2 hrs, Beacon HQ within 24 hrs</div>
+  </div>
+</div>
+</body>
+</html>
