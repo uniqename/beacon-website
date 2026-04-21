@@ -148,11 +148,30 @@ const DocConverterModal = ({ onClose }) => {
     showNotif('Signature saved as default');
   };
 
+  // Date stamp state
+  const [placingDateMode, setPlacingDateMode] = useState(false);
+  const [dateText, setDateText] = useState(() =>
+    new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+  );
+
   // Notification
   const [notif, setNotif] = useState(null);
   const showNotif = (msg, ok = true) => {
     setNotif({ msg, ok });
     setTimeout(() => setNotif(null), 3000);
+  };
+
+  const renderDateStamp = (text) => {
+    const W = 260, H = 44, scale = 3;
+    const c = document.createElement('canvas');
+    c.width = W * scale; c.height = H * scale;
+    const ctx = c.getContext('2d');
+    ctx.scale(scale, scale);
+    ctx.font = '14px "Helvetica Neue", Arial, sans-serif';
+    ctx.fillStyle = '#1a1a1a';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(text, 8, H / 2);
+    return c.toDataURL('image/png');
   };
 
   // Sync wordHtml into DOM
@@ -296,34 +315,60 @@ const DocConverterModal = ({ onClose }) => {
   };
 
   const handleDocClick = (e) => {
-    if (!placingMode || !sigDataUrl) return;
+    if (!placingMode && !placingDateMode) return;
 
-    if (docType === 'word') {
-      // Insert inline into the contenteditable so it is part of the saved HTML
-      const imgHtml =
-        `<span contenteditable="false" style="display:inline-block;position:relative;vertical-align:middle;user-select:none;">` +
-        `<img src="${sigDataUrl}" style="height:60px;width:auto;display:block;pointer-events:none;" />` +
-        `</span>`;
-      let range = document.caretRangeFromPoint?.(e.clientX, e.clientY) ?? null;
-      if (!range && document.caretPositionFromPoint) {
-        const p = document.caretPositionFromPoint(e.clientX, e.clientY);
-        if (p) { range = document.createRange(); range.setStart(p.offsetNode, p.offset); }
+    if (placingMode && sigDataUrl) {
+      if (docType === 'word') {
+        const imgHtml =
+          `<span contenteditable="false" style="display:inline-block;position:relative;vertical-align:middle;user-select:none;">` +
+          `<img src="${sigDataUrl}" style="height:60px;width:auto;display:block;pointer-events:none;" />` +
+          `</span>`;
+        let range = document.caretRangeFromPoint?.(e.clientX, e.clientY) ?? null;
+        if (!range && document.caretPositionFromPoint) {
+          const p = document.caretPositionFromPoint(e.clientX, e.clientY);
+          if (p) { range = document.createRange(); range.setStart(p.offsetNode, p.offset); }
+        }
+        if (range && wordViewRef.current?.contains(range.startContainer)) {
+          const sel = window.getSelection();
+          sel.removeAllRanges(); sel.addRange(range);
+          document.execCommand('insertHTML', false, imgHtml);
+        } else {
+          wordViewRef.current?.insertAdjacentHTML('beforeend', imgHtml);
+        }
+        showNotif('Signature placed — click another spot to add more');
+        return;
       }
-      if (range && wordViewRef.current?.contains(range.startContainer)) {
-        const sel = window.getSelection();
-        sel.removeAllRanges();
-        sel.addRange(range);
-        document.execCommand('insertHTML', false, imgHtml);
-      } else {
-        wordViewRef.current?.insertAdjacentHTML('beforeend', imgHtml);
-      }
-      showNotif('Signature placed — click another spot to add more');
-      return; // word sigs live in the contenteditable, not sigList
+      const pos = getViewerPos(e);
+      setSigList(prev => [...prev, { id: Date.now(), dataUrl: sigDataUrl, bounds: { x: pos.x - 90, y: pos.y - 30, w: 180, h: 60 } }]);
     }
 
-    // PDF/image: floating overlay, composited at export with scale correction
-    const pos = getViewerPos(e);
-    setSigList(prev => [...prev, { id: Date.now(), dataUrl: sigDataUrl, bounds: { x: pos.x - 90, y: pos.y - 30, w: 180, h: 60 } }]);
+    if (placingDateMode) {
+      const stampUrl = renderDateStamp(dateText);
+      if (docType === 'word') {
+        const dateHtml =
+          `<span contenteditable="false" style="display:inline;font-family:'Helvetica Neue',Arial,sans-serif;font-size:14px;color:#1a1a1a;user-select:none;">` +
+          `${dateText}` +
+          `</span>`;
+        let range = document.caretRangeFromPoint?.(e.clientX, e.clientY) ?? null;
+        if (!range && document.caretPositionFromPoint) {
+          const p = document.caretPositionFromPoint(e.clientX, e.clientY);
+          if (p) { range = document.createRange(); range.setStart(p.offsetNode, p.offset); }
+        }
+        if (range && wordViewRef.current?.contains(range.startContainer)) {
+          const sel = window.getSelection();
+          sel.removeAllRanges(); sel.addRange(range);
+          document.execCommand('insertHTML', false, dateHtml);
+        } else {
+          wordViewRef.current?.insertAdjacentHTML('beforeend', dateHtml);
+        }
+        setPlacingDateMode(false);
+        showNotif('Date placed');
+        return;
+      }
+      const pos = getViewerPos(e);
+      setSigList(prev => [...prev, { id: Date.now(), dataUrl: stampUrl, bounds: { x: pos.x - 110, y: pos.y - 18, w: 220, h: 36 }, isDate: true }]);
+      setPlacingDateMode(false);
+    }
   };
 
   const handleSigMouseDown = (e, id) => {
@@ -783,14 +828,29 @@ const DocConverterModal = ({ onClose }) => {
               {/* Action bar */}
               <div className="flex items-center gap-2 flex-wrap">
                 {sigDataUrl && (
-                  <button onClick={() => { if (placingMode) setGhostPos(null); setPlacingMode(p => !p); }}
+                  <button onClick={() => { if (placingMode) setGhostPos(null); setPlacingMode(p => !p); setPlacingDateMode(false); }}
                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white transition-colors"
                     style={{ background: placingMode ? '#f97316' : '#1e3a5f' }}>
                     ✍ {placingMode ? 'Placing…' : 'Place Signature'}
                   </button>
                 )}
+                <div className="flex items-center gap-1">
+                  <input
+                    type="text"
+                    value={dateText}
+                    onChange={(e) => setDateText(e.target.value)}
+                    placeholder="e.g. 21 April 2026"
+                    className="w-32 px-2 py-1.5 rounded-lg border border-gray-200 text-xs text-gray-700 focus:outline-none focus:border-orange-400"
+                  />
+                  <button
+                    onClick={() => { setPlacingDateMode(p => !p); setPlacingMode(false); setGhostPos(null); }}
+                    className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors"
+                    style={{ background: placingDateMode ? '#f97316' : '#fff', color: placingDateMode ? '#fff' : '#374151', border: '1px solid #e5e7eb' }}>
+                    📅 {placingDateMode ? 'Click to place…' : 'Place Date'}
+                  </button>
+                </div>
                 {sigList.length > 0 && (
-                  <span className="text-xs text-gray-400">{sigList.length} signature{sigList.length > 1 ? 's' : ''} placed</span>
+                  <span className="text-xs text-gray-400">{sigList.filter(s => !s.isDate).length > 0 ? `${sigList.filter(s => !s.isDate).length} sig` : ''}{sigList.filter(s => s.isDate).length > 0 ? ` ${sigList.filter(s => s.isDate).length} date` : ''} placed</span>
                 )}
                 {docType === 'word' && (
                   <span className="text-xs font-semibold px-2 py-1 rounded-full border"
@@ -911,6 +971,18 @@ const DocConverterModal = ({ onClose }) => {
                     className="shrink-0 px-3 py-1 rounded-full text-xs font-bold border"
                     style={{ borderColor: '#c2410c', background: '#fff', color: '#c2410c' }}>
                     Done
+                  </button>
+                </div>
+              )}
+              {placingDateMode && (
+                <div className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium"
+                  style={{ background: '#fffbeb', border: '1px solid #f59e0b', color: '#92400e' }}>
+                  <span className="flex-1 text-xs">✦ Click anywhere on the document to place the date stamp.</span>
+                  <button
+                    onClick={() => setPlacingDateMode(false)}
+                    className="shrink-0 px-3 py-1 rounded-full text-xs font-bold border"
+                    style={{ borderColor: '#92400e', background: '#fff', color: '#92400e' }}>
+                    Cancel
                   </button>
                 </div>
               )}

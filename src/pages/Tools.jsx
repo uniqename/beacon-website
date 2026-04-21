@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import SignatureModal from '../components/SignatureModal';
 import DocConverterModal from '../components/DocConverterModal';
+import DateGenerator from '../components/DateGenerator';
 import { useRegion } from '../context/RegionContext';
 import PasswordGate from '../components/PasswordGate';
 
@@ -95,6 +96,7 @@ const Tools = () => {
   const { config } = useRegion();
   const [showSignature, setShowSignature] = useState(false);
   const [showConverter, setShowConverter] = useState(false);
+  const [showDate, setShowDate] = useState(false);
 
   const openDoc = (file) => {
     window.open(`/docs/${file}`, '_blank');
@@ -143,6 +145,23 @@ const Tools = () => {
                 </div>
               </div>
             </div>
+
+            {/* Date Generator */}
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-7">
+              <div className="flex items-start gap-4">
+                <div className="bg-orange-100 text-orange-600 rounded-xl p-3 text-2xl">📅</div>
+                <div className="flex-1">
+                  <h2 className="text-lg font-serif font-bold text-gray-900 mb-1">Date Generator</h2>
+                  <p className="text-gray-500 text-sm mb-4">Pick a date and copy in any format. Stamp dates directly onto documents in the converter.</p>
+                  <button
+                    onClick={() => setShowDate(true)}
+                    className="bg-orange-600 text-white text-sm font-semibold py-2 px-5 rounded-full hover:bg-orange-700 transition-colors"
+                  >
+                    Open Date Tool
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Document Library */}
@@ -184,6 +203,7 @@ const Tools = () => {
 
       {showConverter && <DocConverterModal onClose={() => setShowConverter(false)} />}
       {showSignature && <SignatureModal onClose={() => setShowSignature(false)} />}
+      {showDate && <DateGenerator onClose={() => setShowDate(false)} />}
     </>
     </PasswordGate>
   );
