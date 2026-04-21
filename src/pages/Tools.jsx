@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import SignatureModal from '../components/SignatureModal';
 import DocConverterModal from '../components/DocConverterModal';
 import DateGenerator from '../components/DateGenerator';
+import PayrollManager from '../components/PayrollManager';
 import { useRegion } from '../context/RegionContext';
 import PasswordGate from '../components/PasswordGate';
 
@@ -97,6 +98,7 @@ const Tools = () => {
   const [showSignature, setShowSignature] = useState(false);
   const [showConverter, setShowConverter] = useState(false);
   const [showDate, setShowDate] = useState(false);
+  const [showPayroll, setShowPayroll] = useState(false);
 
   const openDoc = (file) => {
     window.open(`/docs/${file}`, '_blank');
@@ -162,6 +164,23 @@ const Tools = () => {
                 </div>
               </div>
             </div>
+
+            {/* Payroll Manager */}
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-7">
+              <div className="flex items-start gap-4">
+                <div className="bg-emerald-100 text-emerald-700 rounded-xl p-3 text-2xl">💼</div>
+                <div className="flex-1">
+                  <h2 className="text-lg font-serif font-bold text-gray-900 mb-1">Payroll Manager</h2>
+                  <p className="text-gray-500 text-sm mb-4">Process monthly payroll, generate payslips, and calculate Ghana PAYE &amp; SSNIT.</p>
+                  <button
+                    onClick={() => setShowPayroll(true)}
+                    className="bg-emerald-700 text-white text-sm font-semibold py-2 px-5 rounded-full hover:bg-emerald-800 transition-colors"
+                  >
+                    Open Payroll
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Document Library */}
@@ -204,6 +223,7 @@ const Tools = () => {
       {showConverter && <DocConverterModal onClose={() => setShowConverter(false)} />}
       {showSignature && <SignatureModal onClose={() => setShowSignature(false)} />}
       {showDate && <DateGenerator onClose={() => setShowDate(false)} />}
+      {showPayroll && <PayrollManager onClose={() => setShowPayroll(false)} />}
     </>
     </PasswordGate>
   );
