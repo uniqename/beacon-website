@@ -14,28 +14,28 @@ jobs:
         run: |
           STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
             "https://leuizklnwukrseocweyu.supabase.co/rest/v1/" \
-            -H "apikey: sb_publishable_afnYXMXEBFVH0AroXDZFcQ_qBYB0EAy")
+            -H "apikey: sb_publishable_afnYXMXEBFVH0AroXDZFcQ_qBYB0EAy" || echo "000")
           echo "HomeLinkGH → $STATUS"
 
       - name: Ping Beacon
         run: |
           STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
             "https://mloatbnakkjbmsrvzybk.supabase.co/rest/v1/" \
-            -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1sb2F0Ym5ha2tqYm1zcnZ6eWJrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0MTU2NzUsImV4cCI6MjA4ODk5MTY3NX0.DJAhPOvItx381PRpC61xKZ4t7UG5UVHgyRNrWKJfrdM")
+            -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1sb2F0Ym5ha2tqYm1zcnZ6eWJrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0MTU2NzUsImV4cCI6MjA4ODk5MTY3NX0.DJAhPOvItx381PRpC61xKZ4t7UG5UVHgyRNrWKJfrdM" || echo "000")
           echo "Beacon → $STATUS"
 
       - name: Ping FaithKlinik
         run: |
           STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
             "https://pfitpxihsynuidibzyqa.supabase.co/rest/v1/" \
-            -H "apikey: sb_publishable_CiPWVmT3-xqTluGSaf6yig_kCuSfJvC")
+            -H "apikey: sb_publishable_CiPWVmT3-xqTluGSaf6yig_kCuSfJvC" || echo "000")
           echo "FaithKlinik → $STATUS"
 
       - name: Ping Ekjona
         run: |
           STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
             "https://zsbjvurxorrnxnnotmbq.supabase.co/rest/v1/" \
-            -H "apikey: sb_publishable_5gm3VrXrdwtBwTme1JOU3Q_v7LH-E5N")
+            -H "apikey: sb_publishable_5gm3VrXrdwtBwTme1JOU3Q_v7LH-E5N" || echo "000")
           echo "Ekjona → $STATUS"
 
       - name: Summary

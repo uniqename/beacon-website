@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRegion } from '../context/RegionContext';
 
 const loadedScripts = new Set();
@@ -54,6 +54,8 @@ const DonateModal = ({ onClose }) => {
   const [txRef,        setTxRef]        = useState('');
   const [processing,   setProcessing]   = useState(false);
   const [error,        setError]        = useState('');
+  const paypalContainerRef = useRef(null);
+  const paypalButtonsRef   = useRef(null);
 
   const cur     = CURRENCIES[currency];
   const methods = PAYMENT_METHODS[currency];
@@ -82,15 +84,8 @@ const DonateModal = ({ onClose }) => {
     setProcessing(true);
 
     if (method === 'paypal') {
-      const pe = import.meta.env.VITE_PAYPAL_EMAIL ?? '';
-      window.open(
-        `https://www.paypal.com/donate?business=${encodeURIComponent(pe)}`
-        + `&amount=${selAmt}&currency_code=USD`
-        + `&item_name=${encodeURIComponent(`${config.orgName} Donation`)}`,
-        '_blank'
-      );
+      // PayPal buttons handle checkout — this submit path is unused for PayPal
       setProcessing(false);
-      setSubmitted(true);
       return;
     }
 
@@ -128,6 +123,57 @@ const DonateModal = ({ onClose }) => {
       setError('Could not load payment gateway. Please check your connection and try again.');
     }
   };
+
+  // Render PayPal SDK buttons whenever PayPal is selected and an amount is entered
+  useEffect(() => {
+    if (method !== 'paypal') return;
+    const clientId = import.meta.env.VITE_PAYPAL_CLIENT_ID;
+    if (!clientId || !selAmt || Number(selAmt) <= 0) return;
+
+    const renderButtons = () => {
+      if (!paypalContainerRef.current) return;
+      if (paypalButtonsRef.current) {
+        paypalButtonsRef.current.close?.();
+        paypalButtonsRef.current = null;
+      }
+      paypalContainerRef.current.innerHTML = '';
+
+      paypalButtonsRef.current = window.paypal.Buttons({
+        style: { layout: 'horizontal', color: 'gold', shape: 'pill', height: 48 },
+        createOrder: (_data, actions) =>
+          actions.order.create({
+            purchase_units: [{
+              amount: { value: Number(selAmt).toFixed(2), currency_code: 'USD' },
+              description: `${config.orgName} Donation`,
+            }],
+            application_context: { shipping_preference: 'NO_SHIPPING' },
+          }),
+        onApprove: async (_data, actions) => {
+          setProcessing(true);
+          const details = await actions.order.capture();
+          setTxRef(details.id);
+          setSubmitted(true);
+          setProcessing(false);
+        },
+        onError: () => setError('PayPal payment failed. Please try again.'),
+        onCancel: () => setProcessing(false),
+      });
+
+      if (paypalButtonsRef.current.isEligible()) {
+        paypalButtonsRef.current.render(paypalContainerRef.current);
+      }
+    };
+
+    const sdkSrc = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=USD&intent=capture`;
+    loadScript(sdkSrc).then(renderButtons).catch(() =>
+      setError('Could not load PayPal. Please check your connection.')
+    );
+
+    return () => {
+      paypalButtonsRef.current?.close?.();
+      paypalButtonsRef.current = null;
+    };
+  }, [method, selAmt, config.orgName]);
 
   if (submitted) {
     return (
@@ -353,6 +399,17 @@ const DonateModal = ({ onClose }) => {
 
           {/* Sticky donate button — matches app bottom bar */}
           <div className="p-4 border-t border-gray-100 flex-shrink-0">
+            {method === 'paypal' ? (
+              <div>
+                {!selAmt || Number(selAmt) <= 0 ? (
+                  <p className="text-center text-sm text-gray-400 py-2">Enter an amount above to see PayPal options</p>
+                ) : !email || (!anonymous && !name) || !agreeToTerms ? (
+                  <p className="text-center text-sm text-gray-400 py-2">Complete the form above to continue with PayPal</p>
+                ) : (
+                  <div ref={paypalContainerRef} className="min-h-[52px]" />
+                )}
+              </div>
+            ) : (
             <button
               type="submit"
               disabled={!isValid() || processing}
@@ -368,6 +425,7 @@ const DonateModal = ({ onClose }) => {
                     : 'Donate Now'}
               </span>
             </button>
+            )}
           </div>
         </form>
       </div>
