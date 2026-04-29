@@ -13,6 +13,8 @@ const SignatureModal = ({ onClose, onInsert }) => {
   const [sigDataUrl, setSigDataUrl] = useState(null);
   const [selectedPreset, setSelectedPreset] = useState(null);
   const [mode, setMode] = useState('preset'); // 'preset' | 'draw'
+  const [copied, setCopied] = useState(false);
+  const [toast, setToast] = useState(null);
 
   useEffect(() => {
     if (mode === 'draw') {
@@ -71,41 +73,52 @@ const SignatureModal = ({ onClose, onInsert }) => {
 
   const effectiveSig = mode === 'preset' ? selectedPreset : sigDataUrl;
 
-  const buildHTMLPage = (imgSrc) => `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<title>Signed Document</title>
-<style>
-  body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; }
-  .signature-block { margin-top: 40px; border-top: 1px solid #ccc; padding-top: 16px; }
-  .signature-block img { max-height: 80px; }
-  .signature-label { font-size: 12px; color: #666; margin-top: 4px; }
-  @media print { button { display: none; } }
-</style>
-</head>
-<body>
-<div contenteditable="true" style="min-height:300px; outline:none;">
-  <p>Document content goes here...</p>
-</div>
-<div class="signature-block">
-  <img src="${imgSrc}" alt="Signature"/>
-  <div class="signature-label">Signature — Enam Egyir</div>
-</div>
-<button onclick="window.print()" style="margin-top:24px;padding:10px 24px;background:#ea580c;color:#fff;border:none;border-radius:24px;cursor:pointer;font-size:14px;">Print / Save PDF</button>
-</body>
-</html>`;
+  const showToast = (msg, ok = true) => {
+    setToast({ msg, ok });
+    setTimeout(() => setToast(null), 3000);
+  };
+
+  const fetchBlob = async (src) => {
+    if (src.startsWith('data:')) {
+      const res = await fetch(src);
+      return res.blob();
+    }
+    const res = await fetch(src);
+    return res.blob();
+  };
+
+  const copyImage = async () => {
+    if (!effectiveSig) return;
+    try {
+      const blob = await fetchBlob(effectiveSig);
+      await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+      showToast('Copied! Paste into Word, Gmail, or any app.');
+    } catch (err) {
+      showToast('Copy failed — use Download instead, or try Chrome/Edge.', false);
+    }
+  };
+
+  const downloadSig = async () => {
+    if (!effectiveSig) return;
+    try {
+      const blob = await fetchBlob(effectiveSig);
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'enam_signature.png';
+      a.click();
+      URL.revokeObjectURL(url);
+      onClose();
+    } catch (err) {
+      showToast('Download failed. Try right-clicking the preview to save.', false);
+    }
+  };
 
   const handleInsert = () => {
-    if (!effectiveSig) return;
-    if (onInsert) {
-      onInsert(effectiveSig);
-    } else {
-      const html = buildHTMLPage(effectiveSig);
-      const blob = new Blob([html], { type: 'text/html' });
-      const url = URL.createObjectURL(blob);
-      window.open(url, '_blank');
-    }
+    if (!effectiveSig || !onInsert) return;
+    onInsert(effectiveSig);
     onClose();
   };
 
@@ -176,18 +189,36 @@ const SignatureModal = ({ onClose, onInsert }) => {
             </div>
           )}
 
-          <div className="flex gap-3">
-            <button onClick={onClose} className="flex-1 border-2 border-gray-200 text-gray-700 font-semibold py-3 rounded-full hover:border-gray-400 transition-colors">
+          {toast && (
+            <div className={`mb-3 px-4 py-2.5 rounded-xl text-sm font-medium text-center ${toast.ok ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
+              {toast.msg}
+            </div>
+          )}
+
+          <div className="flex gap-2 flex-wrap">
+            <button onClick={onClose} className="flex-1 border-2 border-gray-200 text-gray-700 font-semibold py-3 rounded-full hover:border-gray-400 transition-colors text-sm">
               Cancel
             </button>
             <button
-              onClick={handleInsert}
+              onClick={copyImage}
               disabled={!effectiveSig}
-              className="flex-1 bg-gray-900 text-white font-semibold py-3 rounded-full hover:bg-gray-700 transition-colors disabled:opacity-40"
+              className="flex-1 border-2 border-orange-400 text-orange-600 font-semibold py-3 rounded-full hover:bg-orange-50 transition-colors disabled:opacity-40 text-sm"
             >
-              Use Signature
+              {copied ? '✓ Copied!' : 'Copy Image'}
+            </button>
+            <button
+              onClick={downloadSig}
+              disabled={!effectiveSig}
+              className="flex-1 bg-gray-900 text-white font-semibold py-3 rounded-full hover:bg-gray-700 transition-colors disabled:opacity-40 text-sm"
+            >
+              Download PNG
             </button>
           </div>
+          {onInsert && effectiveSig && (
+            <button onClick={handleInsert} className="w-full mt-2 bg-orange-600 text-white font-semibold py-3 rounded-full hover:bg-orange-700 transition-colors text-sm">
+              Insert into Document
+            </button>
+          )}
         </div>
       </div>
     </div>
