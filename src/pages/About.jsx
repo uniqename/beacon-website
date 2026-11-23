@@ -3,9 +3,11 @@ import Footer2 from '../main/Footer2';
 import URLS from '../config/urls.config';
 import { Link } from 'react-router-dom';
 import { useRegion } from '../context/RegionContext';
+import { US_ABOUT_WHO, ABOUT_FAQ_US } from '../config/usContent';
 
 const About = () => {
     const { config } = useRegion();
+    const isUs = config.key === 'us';
     return (
         <>
        
@@ -19,6 +21,11 @@ const About = () => {
                         </h2>
 
                         {/* Description */}
+                        {isUs ? (
+                            <p className="text-gray-700 text-center max-w-2xl mx-auto leading-relaxed text-base md:text-lg mb-16">
+                                {US_ABOUT_WHO}
+                            </p>
+                        ) : (
                         <p className="text-gray-700 text-center max-w-2xl mx-auto leading-relaxed text-base md:text-lg mb-16">
                             {config.orgName} is a {config.country}-based non-profit organization dedicated
                             to supporting survivors of abuse and exploitation. We provide holistic recovery
@@ -26,8 +33,10 @@ const About = () => {
                             who have experienced trauma. Through our integrated approach, we help survivors
                             rebuild their lives and reintegrate into society with confidence.
                         </p>
+                        )}
 
                         {/* Subheading */}
+                        {!isUs && (<>
                         <h3 className="text-2xl md:text-3xl text-orange-600 text-center font-semibold mb-6 mt-20 md:mt-40">
                             Our Story
                         </h3>
@@ -50,6 +59,7 @@ const About = () => {
                                 and empowerment every survivor deserves.
                             </p>
                         </div>
+                        </>)}
                     </div>
                 </section>
 
@@ -215,11 +225,21 @@ const About = () => {
                                 Questions
                             </h2>
                             <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto md:mx-0">
-                                Learn more about our mission and how we support survivors in Ghana
+                                {isUs ? 'Learn more about SheBelongs and how Beacon is growing in Ohio' : 'Learn more about our mission and how we support survivors in Ghana'}
                             </p>
                         </div>
 
                         {/* FAQ Grid */}
+                        {isUs ? (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 text-center md:text-left gap-8 mb-16">
+                            {ABOUT_FAQ_US.map((f) => (
+                                <div key={f.q}>
+                                    <h3 className="text-xl font-semibold text-gray-800 mb-3">{f.q}</h3>
+                                    <p className="text-gray-700 leading-relaxed">{f.a}</p>
+                                </div>
+                            ))}
+                        </div>
+                        ) : (
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 text-center md:text-left gap-8 mb-16">
                             {/* Question 1 */}
                             <div>
@@ -293,6 +313,7 @@ const About = () => {
                                 </p>
                             </div>
                         </div>
+                        )}
 
                         {/* Call to Action */}
                         <div className="mt-12 text-center md:text-left">

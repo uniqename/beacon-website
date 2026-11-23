@@ -4,3 +4,7 @@ dist/
 .env
 .env.local
 .env.*.local
+
+# macOS AppleDouble metadata from external drives
+._*
+**/._*

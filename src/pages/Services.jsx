@@ -3,9 +3,13 @@ import Footer2 from '../main/Footer2'
 import URLS from '../config/urls.config';
 import { Link } from 'react-router-dom';
 import DonateModal from '../components/DonateModal';
+import { useRegion } from '../context/RegionContext';
+import UsServices from './us/UsServices';
 
 const Services = () => {
   const [showDonate, setShowDonate] = useState(false);
+  const { config } = useRegion();
+  if (config.key === 'us') return <UsServices />;
   return (
     <>
 

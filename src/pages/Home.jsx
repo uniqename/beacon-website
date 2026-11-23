@@ -7,10 +7,12 @@ import URLS from '../config/urls.config';
 import { Link } from 'react-router-dom';
 import DonateModal from '../components/DonateModal';
 import { useRegion } from '../context/RegionContext';
+import UsHome from './us/UsHome';
 
 const Home = () => {
     const [showDonate, setShowDonate] = useState(false);
     const { config } = useRegion();
+    if (config.key === 'us') return <UsHome />;
     const items = [
         { icon: <FaUser className="w-5 h-5 text-gray-700" />, text: 'Individual therapy' },
         { icon: <FaUsers className="w-5 h-5 text-gray-700" />, text: 'Group support sessions' },

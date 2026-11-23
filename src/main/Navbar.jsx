@@ -43,6 +43,8 @@ const RegionToggle = () => {
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showDonate, setShowDonate] = useState(false);
+  const { config } = useRegion();
+  const isUs = config.key === 'us';
 
   return (
     <div className='border-b-2 border-gray-200 '>
@@ -80,6 +82,16 @@ const Navbar = () => {
               >
                 About
               </Link>
+              {isUs && (
+                <>
+                  <Link to={URLS.SHEBELONGS} className="text-gray-600 hover:text-orange-600 transition-colors duration-200">
+                    SheBelongs
+                  </Link>
+                  <Link to={URLS.GET_HELP} className="text-gray-600 hover:text-orange-600 transition-colors duration-200">
+                    Get help
+                  </Link>
+                </>
+              )}
               <Link
                 to={URLS.CONTACT}
                 className="text-gray-600 hover:text-orange-600 transition-colors duration-200"
@@ -169,6 +181,16 @@ const Navbar = () => {
             >
               About
             </Link>
+            {isUs && (
+              <>
+                <Link to={URLS.SHEBELONGS} className="block text-gray-700 hover:text-orange-600 transition-colors duration-200">
+                  SheBelongs
+                </Link>
+                <Link to={URLS.GET_HELP} className="block text-gray-700 hover:text-orange-600 transition-colors duration-200">
+                  Get help
+                </Link>
+              </>
+            )}
             <Link
               to={URLS.CONTACT}
               className="block text-gray-700 hover:text-orange-600 transition-colors duration-200"
