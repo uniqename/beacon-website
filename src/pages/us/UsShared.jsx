@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import URLS from '../../config/urls.config';
-import { MENTOR_APPLICATION_URL, MENTOR_PAPER_FORM_URL, US_CONTACT } from '../../config/usContent';
+import { MENTOR_APPLICATION_URL, MENTOR_PAPER_FORM_URL } from '../../config/usContent';
 
 const primaryBtn =
   'bg-orange-600 text-white font-semibold py-3 px-7 rounded-full hover:bg-orange-700 transition-colors duration-300 inline-block text-center';
@@ -18,11 +18,9 @@ export const ApplyButton = ({ label = 'Apply to be a mentor', className = primar
       </a>
     );
   }
+  // Online form lives on the Become a Mentor page.
   return (
-    <a
-      href={`mailto:${US_CONTACT.email}?subject=${encodeURIComponent('SheBelongs mentor application')}`}
-      className={className}
-    >
+    <a href="/become-a-mentor#apply" className={className}>
       {label}
     </a>
   );

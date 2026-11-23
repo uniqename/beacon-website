@@ -2,6 +2,11 @@
 // Only used when the visitor is on the US region (config.key === 'us').
 // Ghana content lives in the existing pages and is not touched by this file.
 
+// Public Supabase settings for the online application form.
+// The publishable key is safe in the browser: it can only insert complete website applications.
+export const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || '';
+export const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || '';
+
 export const US_CONTACT = {
   phone: '+1 (614) 377-6633',
   phoneTel: 'tel:+16143776633',

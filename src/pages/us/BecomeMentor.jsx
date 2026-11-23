@@ -3,6 +3,7 @@ import Sectionwraper from '../../main/Sectionwraper';
 import Footer from '../../main/Footer';
 import { MENTOR_FAQ, SHEBELONGS_STEPS, PROGRAM } from '../../config/usContent';
 import { ApplyButton, PaperFormLink, btnStyles } from './UsShared';
+import MentorApplicationForm from './MentorApplicationForm';
 
 const BecomeMentor = () => (
   <>
@@ -65,6 +66,11 @@ const BecomeMentor = () => (
             </div>
           ))}
         </div>
+      </section>
+
+      <section className="py-12 max-w-3xl mx-auto">
+        <MentorApplicationForm />
+        <PaperFormLink />
       </section>
 
       <section className="py-16 text-center">
