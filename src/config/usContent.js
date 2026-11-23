@@ -4,8 +4,8 @@
 
 // Public Supabase settings for the online application form.
 // The publishable key is safe in the browser: it can only insert complete website applications.
-export const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || '';
-export const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || '';
+export const SUPABASE_URL = 'https://mloatbnakkjbmsrvzybk.supabase.co';
+export const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_KCXyFULO3aFVK8PHBcIb_Q_7rV3BW5h';
 
 export const US_CONTACT = {
   phone: '+1 (614) 377-6633',
